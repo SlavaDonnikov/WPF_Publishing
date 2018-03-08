@@ -1,0 +1,78 @@
+﻿<Window x:Class="Publishing.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Publishing"
+        mc:Ignorable="d"
+        Title="Publishing Application" Height="400" Width="600" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Grid Background="#F5F5F5">
+        <Grid HorizontalAlignment="Left" Width="60">
+
+            <!-- Menu -->
+            <Canvas Margin="0,00,0,0">
+
+                <StackPanel x:Name="STP1" Panel.ZIndex="2" Style="{StaticResource spSlideLeft}" Background="#283038" Margin="-240,0,0,0" Width="300">
+                   
+                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 0" Width="290" Height="100">
+                        <Image DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0, 5, 0, 5" Source="Resources/pexels-photo-701026.jpeg" Stretch="Uniform" />                        
+                    </DockPanel>
+                    
+                    <Line Stroke="#FF69B4" Height="2" Margin="5,0,65,10" StrokeThickness="5" X2="233" />
+                    
+                    <Border Style="{StaticResource borderLine}" /> <!-- Dont work! (See trigger) -->
+                                        
+                    <Border Style="{StaticResource borderEdge}">
+                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
+                            <Label Style="{DynamicResource MenuLabel}" Content="Home page" VerticalAlignment="Center" Width="230" FontSize="22"/>
+                            <Image Source="Resources/home.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                        </DockPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource borderEdge}">
+                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
+                            <Label Style="{DynamicResource MenuLabel}" Content="Add publication" VerticalAlignment="Center" Width="230" FontSize="22"/>
+                            <Image Source="Resources/coming_document.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                        </DockPanel>
+                    </Border>
+                    
+                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
+                        <Label Style="{DynamicResource MenuLabel}" Content="Settings"  VerticalAlignment="Center" Width="230" FontSize="22"/>
+                        <Image Source="Resources/settings.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                    </DockPanel>
+
+                </StackPanel>
+
+            </Canvas>
+
+        </Grid>
+
+
+        <Grid Panel.ZIndex="0" Margin="400, 0, 100, 0" Background="#FF3580BF">
+
+            <!-- Application exit button -->
+            <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right">
+                <Button Panel.ZIndex="2" Height="40" Width="40" Padding="0" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}">
+                    <Ellipse Height="40" Width="40">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="Resources/power50.png" Stretch="UniformToFill"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Button>
+            </StackPanel>
+
+            <!--<Border Margin="60,0,0,0">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <DockPanel Width="400" Height="100" Background="LightGray" Margin="0,0,10,0"/>
+                            <DockPanel Width="200" Height="100" Background="#C0C0C0" Margin="0,0,10,0"/>
+                            <DockPanel Width="200" Height="100" Background="#C0C0C0" Margin="0,0,10,0"/>
+                        </StackPanel>
+                        <Border Background="#696969" Height="300" Margin="0,15,10,0"/>
+                    </StackPanel>
+                </Border>-->
+
+        </Grid>
+
+    </Grid>
+</Window>

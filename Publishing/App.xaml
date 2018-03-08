@@ -1,0 +1,123 @@
+﻿<Application x:Class="Publishing.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Publishing"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        
+        <!--<ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>-->
+       
+        
+        <!-- Для выезжания и заезжания меню при наведении мышки -->
+        <Style x:Key="spSlideLeft" TargetType="StackPanel">
+            
+            <Style.Triggers>
+                
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ThicknessAnimation Storyboard.TargetProperty="Margin" From="-240,0,0,0" To="0, 0, 0, 0" DecelerationRatio=".9" Duration="0:0:0.8"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-240, 0, 0, 0" DecelerationRatio=".9" Duration="0:0:0.5"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                
+            </Style.Triggers>         
+            
+        </Style>
+
+        <!-- Для подсвечивания надписей меню при наведении курсора -->
+        <Style x:Key="MenuLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Padding" Value="15,0,0,0"/>
+            <Setter Property="Foreground" Value="#FF69B4"/>
+            <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+            <Setter Property="TextOptions.TextRenderingMode" Value="Auto"/>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#FF1493"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Foreground" Value="#FF69B4"/>                    
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Рамка вокруг элементов меню при наведении курсора -->
+        <Style x:Key="borderEdge" TargetType="Border">
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="BorderThickness" Value="3.5"/>
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+
+            <Style.Triggers>
+                
+                <Trigger Property="IsMouseOver" Value="true">                   
+                    <Setter Property="BorderBrush" Value="#FF1493"/>                    
+                </Trigger>
+                
+                <Trigger Property="IsMouseOver" Value="false">                    
+                    <Setter Property="BorderBrush" Value="{x:Null}"/>
+                </Trigger>
+                
+            </Style.Triggers>            
+        </Style>
+
+        <!-- Trigger Dont Work !!! -->
+        <!-- Изменение разделительной линии -->
+        <Style x:Key="borderLine" TargetType="Border">
+            <Setter Property="BorderBrush" Value="#FF69B4"/>
+            <Setter Property="Margin" Value="5, 0, 65, 0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+
+            <Style.Triggers>
+
+                <!--<Trigger Property="StackPanel.IsFocused" Value="true">
+                    <Setter Property="BorderBrush" Value="#FF1493"/>
+                    <Setter Property="Margin" Value="5, 0, 5, 0"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </Trigger>
+
+                <Trigger Property="StackPanel.IsFocused" Value="false">
+                    <Setter Property="BorderBrush" Value="#FF69B4"/>
+                    <Setter Property="Margin" Value="5, 0, 65, 0"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Trigger>-->
+
+                <DataTrigger Binding="{ Binding ElementName=STP1 IsFocused}" Value="true">
+                    <Setter Property="BorderBrush" Value="#FF1493"/>
+                    <Setter Property="Margin" Value="5, 0, 5, 0"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </DataTrigger>
+
+            </Style.Triggers>
+            
+        </Style>
+
+
+
+    </Application.Resources>
+</Application>
+<!-- Grey #FFACB5B9 (start), #FFC826, Oliva #808000, Fuchsia #FF00FF, PaleVioletRed #DB7093, HotPink #FF69B4, DeepPink #FF1493, MediumVioletRed #C71585, DarkGoldenRod #B8860B, 
+    Goldenrod #DAA520, Gold #FFD700 -->
