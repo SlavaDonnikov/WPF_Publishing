@@ -83,38 +83,49 @@
                 
             </Style.Triggers>            
         </Style>
-
-        <!-- Trigger Dont Work !!! -->
-        <!-- Изменение разделительной линии -->
-        <Style x:Key="borderLine" TargetType="Border">
-            <Setter Property="BorderBrush" Value="#FF69B4"/>
-            <Setter Property="Margin" Value="5, 0, 65, 0"/>
-            <Setter Property="BorderThickness" Value="1"/>
+      
+        <!-- Stile for Line --> <!-- All Work!!! -->
+        <Style x:Key="changeLine" TargetType="{x:Type Line}">
+            <Setter Property="Margin" Value="5,0,65,10"/>
+            <Setter Property="StrokeThickness" Value="5"/>
+            <Setter Property="X2" Value="233"/>
+            <Setter Property="Height" Value="2"/>
+            <Setter Property="Stroke" Value="#FF69B4"/>
 
             <Style.Triggers>
+                <DataTrigger Binding="{Binding IsMouseOver, ElementName=STP1}" Value="True">
+                    <Setter Property="Stroke" Value="#FF1493"/>
+                    <Setter Property="StrokeThickness" Value="7"/>
+                    <Setter Property="Height" Value="4"/>
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>                           
+                            <Storyboard Storyboard.TargetProperty="X2">
+                                <DoubleAnimation To="293" Duration="0:0:0.1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Margin">
+                                <ThicknessAnimation To="5,0,5,10" Duration="0:0:0.1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
 
-                <!--<Trigger Property="StackPanel.IsFocused" Value="true">
-                    <Setter Property="BorderBrush" Value="#FF1493"/>
-                    <Setter Property="Margin" Value="5, 0, 5, 0"/>
-                    <Setter Property="BorderThickness" Value="2"/>
-                </Trigger>
-
-                <Trigger Property="StackPanel.IsFocused" Value="false">
-                    <Setter Property="BorderBrush" Value="#FF69B4"/>
-                    <Setter Property="Margin" Value="5, 0, 65, 0"/>
-                    <Setter Property="BorderThickness" Value="1"/>
-                </Trigger>-->
-
-                <DataTrigger Binding="{ Binding ElementName=STP1 IsFocused}" Value="true">
-                    <Setter Property="BorderBrush" Value="#FF1493"/>
-                    <Setter Property="Margin" Value="5, 0, 5, 0"/>
-                    <Setter Property="BorderThickness" Value="2"/>
-                </DataTrigger>
-
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="X2">
+                                <DoubleAnimation To="233" Duration="0:0:0.1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Margin">
+                                <ThicknessAnimation To="5,0,65,10" Duration="0:0:0.1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>                    
+                    
+                </DataTrigger> 
             </Style.Triggers>
-            
         </Style>
-
 
 
     </Application.Resources>

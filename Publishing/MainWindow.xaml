@@ -17,10 +17,9 @@
                     <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 0" Width="290" Height="100">
                         <Image DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0, 5, 0, 5" Source="Resources/pexels-photo-701026.jpeg" Stretch="Uniform" />                        
                     </DockPanel>
-                    
-                    <Line Stroke="#FF69B4" Height="2" Margin="5,0,65,10" StrokeThickness="5" X2="233" />
-                    
-                    <Border Style="{StaticResource borderLine}" /> <!-- Dont work! (See trigger) -->
+
+                    <!-- Stroke="#FF69B4" Height="2" Margin="5,0,65,10" StrokeThickness="5" X2="233" -->
+                    <Line Style="{StaticResource changeLine}" />
                                         
                     <Border Style="{StaticResource borderEdge}">
                         <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
