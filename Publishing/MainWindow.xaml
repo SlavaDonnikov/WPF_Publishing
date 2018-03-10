@@ -3,41 +3,55 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
         xmlns:local="clr-namespace:Publishing"
         mc:Ignorable="d"
-        Title="Publishing Application" Height="400" Width="600" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="Publishing Application" Height="550" Width="900" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
     <Grid Background="#F5F5F5">
         <Grid HorizontalAlignment="Left" Width="60">
 
             <!-- Menu -->
-            <Canvas Margin="0,00,0,0">
+            <Canvas Margin="0,0,0,0">
 
                 <StackPanel x:Name="STP1" Panel.ZIndex="2" Style="{StaticResource spSlideLeft}" Background="#283038" Margin="-240,0,0,0" Width="300">
-                   
-                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 0" Width="290" Height="100">
-                        <Image DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0, 5, 0, 5" Source="Resources/pexels-photo-701026.jpeg" Stretch="Uniform" />                        
+                    
+                    
+                    <DockPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 0" Width="290" Height="100">
+                        <Image DockPanel.Dock="Top" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 5, 30, 5" Source="Resources/pexels-photo-701026.jpeg" Stretch="Uniform" />
+                        <materialDesign:PackIcon Kind="meteor"  Foreground="White" Width="50" Height="50" Margin="240,-70,0,0"/>
                     </DockPanel>
 
                     <!-- Stroke="#FF69B4" Height="2" Margin="5,0,65,10" StrokeThickness="5" X2="233" -->
                     <Line Style="{StaticResource changeLine}" />
-                                        
-                    <Border Style="{StaticResource borderEdge}">
+
+                    <Border Style="{StaticResource borderEdge}" >
                         <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
                             <Label Style="{DynamicResource MenuLabel}" Content="Home page" VerticalAlignment="Center" Width="230" FontSize="22"/>
-                            <Image Source="Resources/home.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                            <!--<Image Source="Resources/home.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
+                            <materialDesign:PackIcon Kind="HomeAssistant" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
                         </DockPanel>
                     </Border>
 
                     <Border Style="{StaticResource borderEdge}">
                         <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
                             <Label Style="{DynamicResource MenuLabel}" Content="Add publication" VerticalAlignment="Center" Width="230" FontSize="22"/>
-                            <Image Source="Resources/coming_document.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                            <!--<Image Source="Resources/coming_document.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
+                            <materialDesign:PackIcon Kind="FilePlus" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
                         </DockPanel>
                     </Border>
-                    
+
+                    <Border Style="{StaticResource borderEdge}">
+                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
+                            <Label Style="{DynamicResource MenuLabel}" Content="Delete publication" VerticalAlignment="Center" Width="230" FontSize="22"/>
+                            <!--<Image Source="Resources/coming_document.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
+                            <materialDesign:PackIcon Kind="Skull" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                        </DockPanel>
+                    </Border>
+
                     <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
                         <Label Style="{DynamicResource MenuLabel}" Content="Settings"  VerticalAlignment="Center" Width="230" FontSize="22"/>
-                        <Image Source="Resources/settings.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                        <!--<Image Source="Resources/settings.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
+                        <materialDesign:PackIcon Kind="Settings" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
                     </DockPanel>
 
                 </StackPanel>
@@ -52,11 +66,12 @@
             <!-- Application exit button -->
             <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right">
                 <Button Panel.ZIndex="2" Height="40" Width="40" Padding="0" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}">
-                    <Ellipse Height="40" Width="40">
+                    <!--<Ellipse Height="40" Width="40">
                         <Ellipse.Fill>
                             <ImageBrush ImageSource="Resources/power50.png" Stretch="UniformToFill"/>
                         </Ellipse.Fill>
-                    </Ellipse>
+                    </Ellipse>-->
+                    <materialDesign:PackIcon Kind="Power" Height="40" Width="40"/>
                 </Button>
             </StackPanel>
 
