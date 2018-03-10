@@ -8,9 +8,10 @@
         mc:Ignorable="d"
         Title="Publishing Application" Height="550" Width="900" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
     <Grid Background="#F5F5F5">
+        
+        <!-- Swipping menu -->
         <Grid HorizontalAlignment="Left" Width="60">
-
-            <!-- Menu -->
+            
             <Canvas Margin="0,0,0,0">
 
                 <StackPanel x:Name="STP1" Panel.ZIndex="2" Style="{StaticResource spSlideLeft}" Background="#283038" Margin="-240,0,0,0" Width="300">
@@ -55,25 +56,24 @@
                     </DockPanel>
 
                 </StackPanel>
-
             </Canvas>
-
         </Grid>
+        
+        <!-- Application exit button & full-screen button -->
+        <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right">
+            <Button Panel.ZIndex="2" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="40" Width="40" BorderBrush="{x:Null}" Background="{x:Null}">
+                <materialDesign:PackIcon Kind="Atom" Height="40" Width="40"/>
+            </Button>
+            <Button Panel.ZIndex="2" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="40" Width="40" BorderBrush="{x:Null}" Background="{x:Null}" Click="ButtonClose_Click">               
+                <materialDesign:PackIcon Kind="Power" Height="40" Width="40"/>
+            </Button>
+        </StackPanel>
 
-
-        <Grid Panel.ZIndex="0" Margin="400, 0, 100, 0" Background="#FF3580BF">
-
-            <!-- Application exit button -->
-            <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right">
-                <Button Panel.ZIndex="2" Height="40" Width="40" Padding="0" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}">
-                    <!--<Ellipse Height="40" Width="40">
-                        <Ellipse.Fill>
-                            <ImageBrush ImageSource="Resources/power50.png" Stretch="UniformToFill"/>
-                        </Ellipse.Fill>
-                    </Ellipse>-->
-                    <materialDesign:PackIcon Kind="Power" Height="40" Width="40"/>
-                </Button>
-            </StackPanel>
+        <Grid Panel.ZIndex="0" Margin="400, 0, 200, 0" Background="#FFCCDCEA">
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="20" ShadowDepth="2" Color="#FF69B4"/>
+            </Grid.Effect>
+           
 
             <!--<Border Margin="60,0,0,0">
                     <StackPanel>

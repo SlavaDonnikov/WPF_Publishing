@@ -24,5 +24,10 @@ namespace Publishing
         {
             InitializeComponent();
         }
+
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
