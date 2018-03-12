@@ -138,19 +138,25 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\settings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\home.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\coming_document.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\power50.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\pexels-photo-701026.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ns1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ns3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ns2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ns4.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ns5.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ns6.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

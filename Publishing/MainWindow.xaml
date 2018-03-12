@@ -5,18 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
         xmlns:local="clr-namespace:Publishing"
-        mc:Ignorable="d"
-        Title="Publishing Application" Height="550" Width="900" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+        mc:Ignorable="d"          
+        Title="Publishing Application" Height="700" Width="1200" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
     <Grid Background="#F5F5F5">
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="77*"/>
+            <ColumnDefinition Width="23*"/>
+        </Grid.ColumnDefinitions>
+
         <!-- Swipping menu -->
-        <Grid HorizontalAlignment="Left" Width="60">
-            
+        <Grid Panel.ZIndex="2" HorizontalAlignment="Left" Width="60">
+
             <Canvas Margin="0,0,0,0">
 
-                <StackPanel x:Name="STP1" Panel.ZIndex="2" Style="{StaticResource spSlideLeft}" Background="#283038" Margin="-240,0,0,0" Width="300">
-                    
-                    
+                <StackPanel x:Name="STP1" Style="{StaticResource spSlideLeft}" Background="#283038" Margin="-240,0,0,0" Width="300">
+
+
                     <DockPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 0" Width="290" Height="100">
                         <Image DockPanel.Dock="Top" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 5, 30, 5" Source="Resources/pexels-photo-701026.jpeg" Stretch="Uniform" />
                         <materialDesign:PackIcon Kind="meteor"  Foreground="White" Width="50" Height="50" Margin="240,-70,0,0"/>
@@ -37,7 +41,7 @@
                         <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
                             <Label Style="{DynamicResource MenuLabel}" Content="Add publication" VerticalAlignment="Center" Width="230" FontSize="22"/>
                             <!--<Image Source="Resources/coming_document.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
-                            <materialDesign:PackIcon Kind="FilePlus" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                            <materialDesign:PackIcon Kind="DatabasePlus" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
                         </DockPanel>
                     </Border>
 
@@ -45,47 +49,125 @@
                         <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
                             <Label Style="{DynamicResource MenuLabel}" Content="Delete publication" VerticalAlignment="Center" Width="230" FontSize="22"/>
                             <!--<Image Source="Resources/coming_document.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
-                            <materialDesign:PackIcon Kind="Skull" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                            <materialDesign:PackIcon Kind="DatabaseMinus" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
                         </DockPanel>
                     </Border>
 
-                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
-                        <Label Style="{DynamicResource MenuLabel}" Content="Settings"  VerticalAlignment="Center" Width="230" FontSize="22"/>
-                        <!--<Image Source="Resources/settings.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
-                        <materialDesign:PackIcon Kind="Settings" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
-                    </DockPanel>
+                    <Border Style="{StaticResource borderEdge}">
+                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
+                            <Label Style="{DynamicResource MenuLabel}" Content="Search In DB" VerticalAlignment="Center" Width="230" FontSize="22"/>
+                            <!--<Image Source="Resources/coming_document.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
+                            <materialDesign:PackIcon Kind="DatabaseSearch" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                        </DockPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource borderEdge}">
+                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
+                            <Label Style="{DynamicResource MenuLabel}" Content="Settings"  VerticalAlignment="Center" Width="230" FontSize="22"/>
+                            <!--<Image Source="Resources/settings.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
+                            <materialDesign:PackIcon Kind="Settings" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                        </DockPanel>
+                    </Border>
 
                 </StackPanel>
             </Canvas>
         </Grid>
-        
+
         <!-- Application exit button & full-screen button -->
-        <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right">
-            <Button Panel.ZIndex="2" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="40" Width="40" BorderBrush="{x:Null}" Background="{x:Null}">
-                <materialDesign:PackIcon Kind="Atom" Height="40" Width="40"/>
+        <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1" Width="60">
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                <materialDesign:PackIcon Kind="Atom" Height="30" Width="30" Foreground="Black"/>
             </Button>
-            <Button Panel.ZIndex="2" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="40" Width="40" BorderBrush="{x:Null}" Background="{x:Null}" Click="ButtonClose_Click">               
-                <materialDesign:PackIcon Kind="Power" Height="40" Width="40"/>
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}" Click="ButtonClose_Click">
+                <materialDesign:PackIcon Kind="Power" Height="30" Width="30" Foreground="Black"/>
             </Button>
         </StackPanel>
 
-        <Grid Panel.ZIndex="0" Margin="400, 0, 200, 0" Background="#FFCCDCEA">
-            <Grid.Effect>
-                <DropShadowEffect BlurRadius="20" ShadowDepth="2" Color="#FF69B4"/>
-            </Grid.Effect>
-           
+        <!-- Style="{StaticResource changeGrid}" - change margin-->
+        <Grid Panel.ZIndex="0" Background="#F5F5F5" Margin="62,0,0,0" Grid.ColumnSpan="2">
+            
+            <!-- Divade main Grid at 2: Images & Informations -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="8*"/>
+            </Grid.ColumnDefinitions>
 
-            <!--<Border Margin="60,0,0,0">
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <DockPanel Width="400" Height="100" Background="LightGray" Margin="0,0,10,0"/>
-                            <DockPanel Width="200" Height="100" Background="#C0C0C0" Margin="0,0,10,0"/>
-                            <DockPanel Width="200" Height="100" Background="#C0C0C0" Margin="0,0,10,0"/>
-                        </StackPanel>
-                        <Border Background="#696969" Height="300" Margin="0,15,10,0"/>
-                    </StackPanel>
-                </Border>-->
+            <!-- Information Grid -->
+            <Grid Grid.Column="1" Background="Azure"/>
 
+            <!-- Вся зона (картинки + кемный прямоугольник) -->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="283*"/>
+                    <RowDefinition Height="62*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Зона Картинок -->
+                <Border BorderThickness="7" BorderBrush="#283038">
+                <Grid Grid.Row="0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="4.5*"/>
+                        <RowDefinition Height="4.5*"/>
+                        <RowDefinition Height="0.3*"/>
+                        </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Pictures -->
+                    <Grid Margin="10" Grid.Column="1" Grid.Row="1">
+                        <Grid.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="3" Color="#283038"/>
+                        </Grid.Effect>
+                        <Image Source="Resources/ns1.jpg" Stretch="Fill"/>
+                    </Grid>
+                    <Grid Margin="10" Grid.Column="3" Grid.Row="1">
+                        <Grid.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="3" Color="#283038"/>
+                        </Grid.Effect>
+                        <Image Source="Resources/ns2.jpg" Stretch="Fill"/>
+                    </Grid>
+                    <Grid Margin="10" Grid.Column="5" Grid.Row="1">
+                        <Grid.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="3" Color="#283038"/>
+                        </Grid.Effect>
+                        <Image Source="Resources/ns3.jpg" Stretch="Fill"/>
+                    </Grid>
+                    <Grid Margin="10" Grid.Column="5" Grid.Row="2">
+                        <Grid.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="3" Color="#283038"/>
+                        </Grid.Effect>
+                        <Image Source="Resources/ns4.jpg" Stretch="Fill"/>
+                    </Grid>
+                    <Grid Margin="10" Grid.Column="1" Grid.Row="2">
+                        <Grid.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="3" Color="#283038"/>
+                        </Grid.Effect>
+                        <Image Source="Resources/ns5.jpg" Stretch="Fill"/>
+                    </Grid>
+                    <Grid Margin="10" Grid.Column="3" Grid.Row="2">
+                        <Grid.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="3" Color="#283038"/>
+                        </Grid.Effect>
+                        <Image Source="Resources/ns6.jpg" Stretch="Fill"/>
+                    </Grid>
+                </Grid>
+                </Border>
+
+                <!-- Зона темного прямоугольника -->
+                <Grid Grid.Row="1" Background="#283038" Margin="5">
+
+                </Grid>
+
+            </Grid>    
         </Grid>
 
     </Grid>

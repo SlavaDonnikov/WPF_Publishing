@@ -53,7 +53,7 @@
 
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Foreground" Value="#FF1493"/>
+                        <Setter Property="Foreground" Value="#E4007C"/>
                         <Setter Property="Cursor" Value="Hand"/>
                         <Setter Property="FontWeight" Value="Bold"/>
 
@@ -69,11 +69,12 @@
                 <Setter Property="CornerRadius" Value="20"/>
                 <Setter Property="BorderThickness" Value="3.5"/>
                 <Setter Property="BorderBrush" Value="{x:Null}"/>
+                <Setter Property="Margin" Value="2"/>
 
                 <Style.Triggers>
 
                     <Trigger Property="IsMouseOver" Value="true">
-                        <Setter Property="BorderBrush" Value="#FF1493"/>
+                        <Setter Property="BorderBrush" Value="#E4007C"/>                        
                     </Trigger>
 
                     <Trigger Property="IsMouseOver" Value="false">
@@ -94,7 +95,7 @@
 
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding IsMouseOver, ElementName=STP1}" Value="True">
-                        <Setter Property="Stroke" Value="#FF1493"/>
+                        <Setter Property="Stroke" Value="#E4007C"/>
                         <Setter Property="StrokeThickness" Value="7"/>
                         <Setter Property="Height" Value="4"/>
                         <DataTrigger.EnterActions>
@@ -126,10 +127,40 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
+
+            <!-- I dont know is it rly need? -->
+            <!--<Style x:Key="changeGrid" TargetType="Grid">
+                <Setter Property="Margin" Value="65,10,10,10"/>
+                <Style.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" To="300, 100, 100, 100" Duration="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>                        
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" To="65,10,10,10" Duration="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Style.Triggers>                
+            </Style>-->
+                
+                
+                
             
         </ResourceDictionary>
 
     </Application.Resources>
 </Application>
 <!-- Grey #FFACB5B9 (start), #FFC826, Oliva #808000, Fuchsia #FF00FF, PaleVioletRed #DB7093, HotPink #FF69B4, DeepPink #FF1493, MediumVioletRed #C71585, DarkGoldenRod #B8860B, 
-    Goldenrod #DAA520, Gold #FFD700 -->
+    Goldenrod #DAA520, Gold #FFD700, Pure Gold #D3AD7E, Mexican Pink #E4007C -->
+
+<!--#FF1493  changed in Mexican Pink #E4007C -->
