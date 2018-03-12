@@ -128,33 +128,13 @@
                 </Style.Triggers>
             </Style>
 
-            <!-- I dont know is it rly need? -->
-            <!--<Style x:Key="changeGrid" TargetType="Grid">
-                <Setter Property="Margin" Value="65,10,10,10"/>
-                <Style.Triggers>
-                    <EventTrigger RoutedEvent="MouseEnter">
-                        <EventTrigger.Actions>
-                            <BeginStoryboard>
-                                <Storyboard >
-                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" To="300, 100, 100, 100" Duration="0:0:1"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger.Actions>                        
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="MouseLeave">
-                        <EventTrigger.Actions>
-                            <BeginStoryboard>
-                                <Storyboard >
-                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" To="65,10,10,10" Duration="0:0:1"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger.Actions>
-                    </EventTrigger>
-                </Style.Triggers>                
-            </Style>-->
-                
-                
-                
+            <!-- DropShadowEffect animation -->
+            <Style x:Key="V_Image" TargetType="Grid">                
+                <Style.Triggers>                    
+
+                </Style.Triggers>            
+            </Style>
+           
             
         </ResourceDictionary>
 
