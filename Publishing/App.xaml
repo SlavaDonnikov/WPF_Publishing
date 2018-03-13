@@ -128,11 +128,60 @@
                 </Style.Triggers>
             </Style>
 
-            <!-- DropShadowEffect animation -->
+            <!-- Grid DropShadowEffect BlurRadius ShadowDepth -->
             <Style x:Key="V_Image" TargetType="Grid">                
-                <Style.Triggers>                    
+                <Style.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation  
+                                     Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" 
+                                                     From="1" To="15" Duration="0:0:0.1"/>
+                                    <DoubleAnimation  
+                                     Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" 
+                                                     From="10" To="5" Duration="0:0:0.1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
 
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation  
+                                     Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" 
+                                                     From="15" To="1" Duration="0:0:0.1"/>
+                                    <DoubleAnimation  
+                                     Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" 
+                                                     From="5" To="10" Duration="0:0:0.1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
                 </Style.Triggers>            
+            </Style>
+
+            <!-- Image <StackPanel> make visible -->
+            <!-- Dont Work -->
+            <Style x:Key="Pic_Panel_Visibility" TargetType="StackPanel">
+                <Setter Property="Visibility" Value="Hidden"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding MouseLeftButtonDown.Handled, ElementName=gr1}" Value="true">
+                        <Setter Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding MouseLeftButtonDown.Handled, ElementName=gr1}" Value="true" />
+                            <Condition Binding="{Binding Visibility, ElementName=pic_stp_1}" Value="Visible"/>
+                        </MultiDataTrigger.Conditions>                        
+                        <MultiDataTrigger.Setters>
+                            <Setter Property="Visibility" Value="Hidden"/>                            
+                        </MultiDataTrigger.Setters>
+                    </MultiDataTrigger>
+                </Style.Triggers>
             </Style>
            
             

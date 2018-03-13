@@ -29,5 +29,24 @@ namespace Publishing
         {
             Application.Current.Shutdown();
         }
+
+        //private void Grid_MouseMouseLeftButtonDownDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    byte click_num = 0;
+
+        //    if(e.ClickCount == 1)
+        //    {
+        //        click_num++;
+        //    }
+        //    if (click_num > 2) click_num = 2;
+
+        //    switch(click_num)
+        //    {
+        //        case 1: pic_stp_1.Visibility = Visibility.Visible;
+        //            break;
+        //        case 2: pic_stp_1.Visibility = Visibility.Hidden;
+        //            break;
+        //    }
+        //}
     }
 }
