@@ -34,17 +34,19 @@ namespace Publishing
         //{
         //    byte click_num = 0;
 
-        //    if(e.ClickCount == 1)
+        //    if (e.ClickCount == 1)
         //    {
         //        click_num++;
         //    }
         //    if (click_num > 2) click_num = 2;
 
-        //    switch(click_num)
+        //    switch (click_num)
         //    {
-        //        case 1: pic_stp_1.Visibility = Visibility.Visible;
+        //        case 1:
+        //            pic_stp_1.Visibility = Visibility.Visible;
         //            break;
-        //        case 2: pic_stp_1.Visibility = Visibility.Hidden;
+        //        case 2:
+        //            pic_stp_1.Visibility = Visibility.Hidden;
         //            break;
         //    }
         //}

@@ -140,7 +140,7 @@
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
                             </Grid.Effect>                           
                             <Image Source="Resources/ns1.jpg" Stretch="Fill"/>
-                            <StackPanel x:Name="pic_stp_1" Background="#FF6E7A85" Opacity="0.7" Style="{StaticResource Pic_Panel_Visibility}"> 
+                            <StackPanel Panel.ZIndex="2" x:Name="pic_stp_1" Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}"> 
                                 <StackPanel Orientation="Horizontal" Margin="0, 110, 0, 0" Height="30" HorizontalAlignment="Stretch">
                                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="32,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="CloudDownload" Height="30" Width="30"/>

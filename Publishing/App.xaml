@@ -166,21 +166,34 @@
             <!-- Image <StackPanel> make visible -->
             <!-- Dont Work -->
             <Style x:Key="Pic_Panel_Visibility" TargetType="StackPanel">
-                <Setter Property="Visibility" Value="Hidden"/>
+                <Setter Property="Visibility" Value="Visible"/>
+                <Setter Property="Opacity" Value="0"/>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding MouseLeftButtonDown.Handled, ElementName=gr1}" Value="true">
-                        <Setter Property="Visibility" Value="Visible"/>
-                    </DataTrigger>
 
-                    <MultiDataTrigger>
-                        <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding MouseLeftButtonDown.Handled, ElementName=gr1}" Value="true" />
-                            <Condition Binding="{Binding Visibility, ElementName=pic_stp_1}" Value="Visible"/>
-                        </MultiDataTrigger.Conditions>                        
-                        <MultiDataTrigger.Setters>
-                            <Setter Property="Visibility" Value="Hidden"/>                            
-                        </MultiDataTrigger.Setters>
-                    </MultiDataTrigger>
+                    <EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard Name="BeginStory">
+                                <Storyboard>
+                                    <DoubleAnimation Duration="0:0:0.1" Storyboard.TargetProperty="(UIElement.Opacity)" From="0" To="0.7"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                    
+                    
+                    <!-- Work!!! -->
+                    <!--<EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard Name="BeginStory">
+                                <Storyboard>
+                                    <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                        <DiscreteObjectKeyFrame  KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}" />
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>-->
+                                        
                 </Style.Triggers>
             </Style>
            
