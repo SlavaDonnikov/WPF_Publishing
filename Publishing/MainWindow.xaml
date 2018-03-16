@@ -27,7 +27,7 @@
 
                     <Border Style="{StaticResource borderEdge}" >
                         <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
-                            <Label Style="{DynamicResource MenuLabel}" Content="Home page" VerticalAlignment="Center" Width="230" FontSize="22"/>
+                            <Label Style="{DynamicResource MenuLabel}" Content="Home page" VerticalAlignment="Center" Width="230" FontSize="22" MouseLeftButtonDown="Label_MouseLeftButtonDown"/>
                             <!--<Image Source="Resources/home.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
                             <materialDesign:PackIcon Kind="HomeAssistant" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
                         </DockPanel>
@@ -35,7 +35,7 @@
 
                     <Border Style="{StaticResource borderEdge}">
                         <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
-                            <Label Style="{DynamicResource MenuLabel}" Content="Add publication" VerticalAlignment="Center" Width="230" FontSize="22"/>
+                            <Label Style="{DynamicResource MenuLabel}" Content="Add publication" VerticalAlignment="Center" Width="230" FontSize="22" MouseLeftButtonDown="Label_MouseLeftButtonDown_1"/>
                             <!--<Image Source="Resources/coming_document.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
                             <materialDesign:PackIcon Kind="DatabasePlus" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
                         </DockPanel>
@@ -43,7 +43,7 @@
 
                     <Border Style="{StaticResource borderEdge}">
                         <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
-                            <Label Style="{DynamicResource MenuLabel}" Content="Delete publication" VerticalAlignment="Center" Width="230" FontSize="22"/>
+                            <Label Style="{DynamicResource MenuLabel}" Content="Delete publication" VerticalAlignment="Center" Width="230" FontSize="22" MouseLeftButtonDown="Label_MouseLeftButtonDown_2"/>
                             <!--<Image Source="Resources/coming_document.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
                             <materialDesign:PackIcon Kind="DatabaseMinus" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
                         </DockPanel>
@@ -70,7 +70,7 @@
         </Grid>
 
         <!-- Upper pink panel, exit & full-screen button -->
-        <Grid Height="35" Margin="62,0,0,0" VerticalAlignment="Top" Background="#E4007C">
+        <Grid Height="35" Margin="61,0,0,0" VerticalAlignment="Top" Background="#283038">
             <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Width="62">
                 <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                     <materialDesign:PackIcon Kind="CodeBrackets" Height="30" Width="30"/>
@@ -82,7 +82,7 @@
         </Grid>
 
         <!-- Status bar (app down) -->
-        <Grid Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="#E4007C">
+        <Grid Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="#283038">
             <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="20">
                 <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="20" Width="20" BorderBrush="{x:Null}" Background="{x:Null}">
                     <materialDesign:PackIcon Kind="School" Height="18" Width="18"/>
@@ -90,8 +90,8 @@
             </StackPanel>
         </Grid>
 
-        <!-- Pictures & info -->
-        <Grid Margin="62, 36, 0, 21">
+        <!-- Pictures & info _ HomePageGrid-->
+        <Grid x:Name="Grid_HomePage" Margin="61, 36, 0, 21" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="77*"/>
                 <ColumnDefinition Width="23*"/>
@@ -115,7 +115,8 @@
                 </StackPanel>
 
                 <!-- Зона Картинок -->
-                <Border BorderThickness="5" BorderBrush="#283038">
+                <!-- Border BorderThickness="5" BorderBrush="#283038"-->
+                <Border>
                     <Grid Grid.Row="0" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.6*"/>
@@ -140,7 +141,7 @@
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
                             </Grid.Effect>                           
                             <Image Source="Resources/ns1.jpg" Stretch="Fill"/>
-                            <StackPanel Panel.ZIndex="2" x:Name="pic_stp_1" Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}"> 
+                            <StackPanel Panel.ZIndex="2"   Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}"> 
                                 <StackPanel Orientation="Horizontal" Margin="0, 110, 0, 0" Height="30" HorizontalAlignment="Stretch">
                                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="32,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="CloudDownload" Height="30" Width="30"/>
@@ -154,44 +155,126 @@
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
+                        
                         <Grid Margin="7" Grid.Column="3" Grid.Row="1" Style="{StaticResource V_Image}">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
                             </Grid.Effect>
                             <Image Source="Resources/ns2.jpg" Stretch="Fill"/>
+                            <StackPanel Panel.ZIndex="2" Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
+                                <StackPanel Orientation="Horizontal" Margin="0, 110, 0, 0" Height="30" HorizontalAlignment="Stretch">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="32,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                        <materialDesign:PackIcon Kind="CloudDownload" Height="30" Width="30"/>
+                                    </Button>
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                        <materialDesign:PackIcon Kind="EyeOutline" Height="30" Width="30"/>
+                                    </Button>
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,32,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                        <materialDesign:PackIcon Kind="Share" Height="30" Width="30"/>
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
                         </Grid>
+                        
                         <Grid Margin="7" Grid.Column="5" Grid.Row="1" Style="{StaticResource V_Image}">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
                             </Grid.Effect>
                             <Image Source="Resources/ns3.jpg" Stretch="Fill"/>
+                            <StackPanel Panel.ZIndex="2" Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
+                                <StackPanel Orientation="Horizontal" Margin="0, 110, 0, 0" Height="30" HorizontalAlignment="Stretch">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="32,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                        <materialDesign:PackIcon Kind="CloudDownload" Height="30" Width="30"/>
+                                    </Button>
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                        <materialDesign:PackIcon Kind="EyeOutline" Height="30" Width="30"/>
+                                    </Button>
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,32,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                        <materialDesign:PackIcon Kind="Share" Height="30" Width="30"/>
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
                         </Grid>
+                        
                         <Grid Margin="7" Grid.Column="5" Grid.Row="3" Style="{StaticResource V_Image}">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
                             </Grid.Effect>
                             <Image Source="Resources/ns4.jpg" Stretch="Fill"/>
+                            <StackPanel Panel.ZIndex="2" Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
+                                <StackPanel Orientation="Horizontal" Margin="0, 110, 0, 0" Height="30" HorizontalAlignment="Stretch">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="32,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                        <materialDesign:PackIcon Kind="CloudDownload" Height="30" Width="30"/>
+                                    </Button>
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                        <materialDesign:PackIcon Kind="EyeOutline" Height="30" Width="30"/>
+                                    </Button>
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,32,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                        <materialDesign:PackIcon Kind="Share" Height="30" Width="30"/>
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
                         </Grid>
+                        
                         <Grid Margin="7" Grid.Column="1" Grid.Row="3" Style="{StaticResource V_Image}">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
                             </Grid.Effect>
                             <Image Source="Resources/ns5.jpg" Stretch="Fill"/>
+                            <StackPanel Panel.ZIndex="2" Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
+                                <StackPanel Orientation="Horizontal" Margin="0, 110, 0, 0" Height="30" HorizontalAlignment="Stretch">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="32,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                        <materialDesign:PackIcon Kind="CloudDownload" Height="30" Width="30"/>
+                                    </Button>
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                        <materialDesign:PackIcon Kind="EyeOutline" Height="30" Width="30"/>
+                                    </Button>
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,32,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                        <materialDesign:PackIcon Kind="Share" Height="30" Width="30"/>
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
                         </Grid>
+                        
                         <Grid Margin="7" Grid.Column="3" Grid.Row="3" Style="{StaticResource V_Image}">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
                             </Grid.Effect>
                             <Image Source="Resources/ns6.jpg" Stretch="Fill"/>
+                            <StackPanel Panel.ZIndex="2" Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
+                                <StackPanel Orientation="Horizontal" Margin="0, 110, 0, 0" Height="30" HorizontalAlignment="Stretch">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="32,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                        <materialDesign:PackIcon Kind="CloudDownload" Height="30" Width="30"/>
+                                    </Button>
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                        <materialDesign:PackIcon Kind="EyeOutline" Height="30" Width="30"/>
+                                    </Button>
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,32,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                        <materialDesign:PackIcon Kind="Share" Height="30" Width="30"/>
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
                         </Grid>
+                        
                     </Grid>
                 </Border>
 
                 <!-- Зона темного прямоугольника -->
-                <Grid Grid.Row="1" Background="#283038"/>
+                <Grid Grid.Row="1" >
+                    <Border Margin="0,0,0,-3" BorderThickness="2" BorderBrush="#283038">
+                        
+                    </Border>
+                </Grid>
             </Grid>
 
             <Grid Grid.Column="1" Background="Gray"/>
         </Grid>
+
+        <!-- AddPublicationGrid -->
+        <Grid x:Name="Grid_AddPublication"  Margin="61, 36, 0, 21" Background="#4682B4" Visibility="Hidden"/>
+
+        <!-- DeletePublicationGrid -->
+        <Grid x:Name="Grid_DeletePublication"  Margin="61, 36, 0, 21" Background="#1E90FF" Visibility="Hidden"/>
+
     </Grid>
 </Window>

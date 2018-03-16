@@ -23,11 +23,37 @@ namespace Publishing
         public MainWindow()
         {
             InitializeComponent();
+            Grid_HomePage.Visibility = Visibility.Visible;
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            InviseGrids();
+            Grid_HomePage.Visibility = Visibility.Visible;
+        }
+
+        private void InviseGrids()
+        {
+            Grid_HomePage.Visibility = Visibility.Hidden;
+            Grid_AddPublication.Visibility = Visibility.Hidden;
+            Grid_DeletePublication.Visibility = Visibility.Hidden;
+        }
+
+        private void Label_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+            InviseGrids();
+            Grid_AddPublication.Visibility = Visibility.Visible;
+        }
+
+        private void Label_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
+        {
+            InviseGrids();
+            Grid_DeletePublication.Visibility = Visibility.Visible;
         }
 
         //private void Grid_MouseMouseLeftButtonDownDown(object sender, MouseButtonEventArgs e)

@@ -163,23 +163,22 @@
                 </Style.Triggers>            
             </Style>
 
-            <!-- Image <StackPanel> make visible -->
-            <!-- Dont Work -->
+            <!-- Image <StackPanel> make visible -->           
             <Style x:Key="Pic_Panel_Visibility" TargetType="StackPanel">
                 <Setter Property="Visibility" Value="Visible"/>
                 <Setter Property="Opacity" Value="0"/>
                 <Style.Triggers>
 
-                    <EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown">
-                        <EventTrigger.Actions>
-                            <BeginStoryboard Name="BeginStory">
+                    <EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown">                        
+                        <EventTrigger.Actions>                            
+                            <BeginStoryboard>
                                 <Storyboard>
                                     <DoubleAnimation Duration="0:0:0.1" Storyboard.TargetProperty="(UIElement.Opacity)" From="0" To="0.7"/>
+                                    <DoubleAnimation BeginTime="00:00:2" Duration="0:0:0.1" Storyboard.TargetProperty="(UIElement.Opacity)" From="0.7" To="0"/>
                                 </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger.Actions>
+                            </BeginStoryboard>                            
+                        </EventTrigger.Actions>                        
                     </EventTrigger>
-                    
                     
                     <!-- Work!!! -->
                     <!--<EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown">
