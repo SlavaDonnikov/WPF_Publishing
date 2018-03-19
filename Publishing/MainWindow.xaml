@@ -8,6 +8,10 @@
         mc:Ignorable="d"          
         Title="Publishing Application" Height="700" Width="1200" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
     <Grid Background="#F5F5F5">
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="241*"/>
+            <ColumnDefinition Width="59*"/>
+        </Grid.ColumnDefinitions>-->
 
         <!-- Swipping menu -->
         <Grid Panel.ZIndex="2" HorizontalAlignment="Left" Width="60">
@@ -70,7 +74,7 @@
         </Grid>
 
         <!-- Upper pink panel, exit & full-screen button -->
-        <Grid Height="35" Margin="61,0,0,0" VerticalAlignment="Top" Background="#283038">
+        <Grid Height="35" Margin="61,0,0,0" VerticalAlignment="Top" Background="#283038" Grid.ColumnSpan="2">
             <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Width="62">
                 <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                     <materialDesign:PackIcon Kind="CodeBrackets" Height="30" Width="30"/>
@@ -82,7 +86,7 @@
         </Grid>
 
         <!-- Status bar (app down) -->
-        <Grid Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="#283038">
+        <Grid Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="#283038" Grid.ColumnSpan="2">
             <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="20">
                 <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="20" Width="20" BorderBrush="{x:Null}" Background="{x:Null}">
                     <materialDesign:PackIcon Kind="School" Height="18" Width="18"/>
@@ -91,10 +95,10 @@
         </Grid>
 
         <!-- Pictures & info _ HomePageGrid-->
-        <Grid x:Name="Grid_HomePage" Margin="61, 36, 0, 21" Visibility="Visible">
+        <Grid x:Name="Grid_HomePage" Margin="61, 36, 0, 21" Visibility="Visible" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="77*"/>
-                <ColumnDefinition Width="23*"/>
+                <ColumnDefinition Width="817*"/>
+                <ColumnDefinition Width="322*"/>
             </Grid.ColumnDefinitions>
 
             <!-- Вся зона (картинки + темный прямоугольник) -->
@@ -105,7 +109,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Text Block -->
-                <StackPanel Height="25" Margin="200, 15, 200, 0" VerticalAlignment="Top">
+                <StackPanel Height="25" Margin="200,8,200,0" VerticalAlignment="Top">
                     <TextBlock HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="NoWrap" Height="25" >
                         <TextBlock.Background>
                             <ImageBrush/>
@@ -126,22 +130,23 @@
                             <RowDefinition Height="0.1*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1.5*"/>
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="0.3*"/>
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="0.3*"/>
                             <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1.5*"/>
                         </Grid.ColumnDefinitions>
 
                         <!-- Pictures -->
-                        <Grid x:Name="gr1" Margin="7" Grid.Column="1" Grid.Row="1" Style="{StaticResource V_Image}"><!--MouseLeftButtonDown="Grid_MouseMouseLeftButtonDownDown"-->
+                        <Grid x:Name="gr1" Margin="7" Grid.Column="1" Grid.Row="1" Style="{StaticResource V_Image}">
+                            <!--MouseLeftButtonDown="Grid_MouseMouseLeftButtonDownDown"-->
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
-                            </Grid.Effect>                           
+                            </Grid.Effect>
                             <Image Source="Resources/ns1.jpg" Stretch="Fill"/>
-                            <StackPanel Panel.ZIndex="2"   Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}"> 
+                            <StackPanel Panel.ZIndex="2"   Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
                                 <StackPanel Orientation="Horizontal" Margin="0, 110, 0, 0" Height="30" HorizontalAlignment="Stretch">
                                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="32,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="CloudDownload" Height="30" Width="30"/>
@@ -155,7 +160,7 @@
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
-                        
+
                         <Grid Margin="7" Grid.Column="3" Grid.Row="1" Style="{StaticResource V_Image}">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
@@ -175,7 +180,7 @@
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
-                        
+
                         <Grid Margin="7" Grid.Column="5" Grid.Row="1" Style="{StaticResource V_Image}">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
@@ -195,7 +200,7 @@
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
-                        
+
                         <Grid Margin="7" Grid.Column="5" Grid.Row="3" Style="{StaticResource V_Image}">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
@@ -215,7 +220,7 @@
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
-                        
+
                         <Grid Margin="7" Grid.Column="1" Grid.Row="3" Style="{StaticResource V_Image}">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
@@ -235,7 +240,7 @@
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
-                        
+
                         <Grid Margin="7" Grid.Column="3" Grid.Row="3" Style="{StaticResource V_Image}">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
@@ -255,26 +260,144 @@
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
-                        
+
                     </Grid>
                 </Border>
 
                 <!-- Зона темного прямоугольника -->
                 <Grid Grid.Row="1" >
                     <Border Margin="0,0,0,-3" BorderThickness="2" BorderBrush="#283038">
-                        
+
                     </Border>
                 </Grid>
             </Grid>
 
-            <Grid Grid.Column="1" Background="Gray"/>
+            <Grid Grid.Column="1">
+                <StackPanel>
+                    <!-- Добавить градиент!!! -->
+                    <StackPanel Margin="0,8" Height="23" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock   HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Run Text="Journal Information" FontFamily="Stencil" FontSize="21" />
+                        </TextBlock>
+                    </StackPanel>
+
+                    <!-- Название журнала -->
+                    <StackPanel Height="50" Orientation="Horizontal">
+                        <Label Content="Name" Width="50" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+                        <TextBlock Margin="45, 0, 0, 0"  Width="220" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Gray">
+                            <Run Text="" FontFamily="Stencil" FontSize="18" />
+                        </TextBlock>
+                    </StackPanel>
+
+                    <!-- Категория -->
+                    <StackPanel Height="50" Orientation="Horizontal">
+                        <Label Content="Category" Width="100" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+                        <TextBlock Margin="15, 0, 0, 0"  Width="200" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
+                            <Run Text="" FontFamily="Stencil" FontSize="18" />
+                        </TextBlock>
+                    </StackPanel>                  
+
+                    <!-- Издатель -->
+                    <StackPanel Height="50" Orientation="Horizontal">
+                        <Label Content="Publisher" Width="100" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+                        <TextBlock Margin="40, 0, 0, 0"  Width="175" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
+                            <Run Text="" FontFamily="Stencil" FontSize="18" />
+                        </TextBlock>
+                    </StackPanel>
+
+                    <!-- Тираж -->
+                    <StackPanel Height="60" Orientation="Horizontal">
+                        <StackPanel VerticalAlignment="Center">
+                            <Label  Content="Edition" Width="120" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center"  Padding="0"/>
+                            <Label Content="copies" Width="120" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+                        </StackPanel>
+                        <TextBlock Margin="20, 0, 0, 0"  Width="175" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
+                            <Run Text="" FontFamily="Stencil" FontSize="18" />
+                        </TextBlock>
+                    </StackPanel>
+                   
+                    <!-- Количество страниц -->
+                    <StackPanel Height="60" Orientation="Horizontal">
+                        <StackPanel VerticalAlignment="Center">
+                            <Label Content="Number of" Width="120" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center"  Padding="0"/>
+                            <Label Content="pages" Width="120" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+                        </StackPanel>                        
+                        <TextBlock Margin="20, 0, 0, 0"  Width="175" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
+                            <Run Text="" FontFamily="Stencil" FontSize="18" />
+                        </TextBlock>
+                    </StackPanel>
+
+                    <!-- Формат -->
+                    <StackPanel Height="50" Orientation="Horizontal">
+                        <Label Content="Format" Width="100" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+                        <TextBlock Margin="40, 0, 0, 0"  Width="175" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
+                            <Run Text="" FontFamily="Stencil" FontSize="18" />
+                        </TextBlock>
+                    </StackPanel>
+                    
+                    <!-- Язык публикации -->
+                    <StackPanel Height="60" Orientation="Horizontal">
+                        <StackPanel VerticalAlignment="Center">
+                            <Label Content="Publication" Width="120" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center"  Padding="0"/>
+                            <Label Content="language" Width="120" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+                        </StackPanel>
+                        <TextBlock Margin="20, 0, 0, 0"  Width="175" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
+                            <Run Text="" FontFamily="Stencil" FontSize="18" />
+                        </TextBlock>
+                    </StackPanel>
+
+                    <!-- ISSN -->
+                    <StackPanel Height="50" Orientation="Horizontal">
+                        <Label Content="ISSN" Width="50" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+                        <TextBlock Margin="45, 0, 0, 0"  Width="220" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
+                            <Run Text="" FontFamily="Stencil" FontSize="18"/>
+                        </TextBlock>
+                    </StackPanel>
+
+                    <!-- Дата публикации -->
+                    <StackPanel Height="60" Orientation="Horizontal">
+                        <StackPanel VerticalAlignment="Center">
+                            <Label Content="Publication" Width="120" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center"  Padding="0"/>
+                            <Label Content="date" Width="120" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+                        </StackPanel>
+                        <TextBlock Margin="20, 0, 0, 0"  Width="175" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
+                            <Run Text="" FontFamily="Stencil" FontSize="18" />
+                        </TextBlock>
+                    </StackPanel>
+
+                    <!-- Информация об издательстве: адрес, емайл-->
+                    <StackPanel Margin="0,2" Orientation="Vertical" >
+                        <TextBlock   HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Run Text="About publishing house" FontFamily="Stencil" FontSize="21" Foreground="#E4007C"/>
+                        </TextBlock>
+                        
+                        <StackPanel>
+                            <TextBlock Margin="0,5" Width="300" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray" TextWrapping="Wrap">
+                            <Run Text="" FontFamily="Stencil" FontSize="12" />
+                            </TextBlock>
+                            
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Email" Margin="5,0" Width="50" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+                                <TextBlock Margin="10, 5, 0, 5"  Width="240" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
+                                    <Run Text="publishing@agalushkin.ru" FontFamily="Stencil" FontSize="14"/>
+                                </TextBlock>
+                            </StackPanel>
+                    </StackPanel>
+                    </StackPanel>
+
+
+
+
+
+                </StackPanel>
+            </Grid>
         </Grid>
 
         <!-- AddPublicationGrid -->
-        <Grid x:Name="Grid_AddPublication"  Margin="61, 36, 0, 21" Background="#4682B4" Visibility="Hidden"/>
+        <Grid x:Name="Grid_AddPublication"  Margin="61, 36, 0, 21" Background="#4682B4" Visibility="Hidden" Grid.ColumnSpan="2"/>
 
         <!-- DeletePublicationGrid -->
-        <Grid x:Name="Grid_DeletePublication"  Margin="61, 36, 0, 21" Background="#1E90FF" Visibility="Hidden"/>
+        <Grid x:Name="Grid_DeletePublication"  Margin="61, 36, 0, 21" Background="#1E90FF" Visibility="Hidden" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>
