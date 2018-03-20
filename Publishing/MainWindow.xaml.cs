@@ -42,6 +42,7 @@ namespace Publishing
             Grid_HomePage.Visibility = Visibility.Hidden;
             Grid_AddPublication.Visibility = Visibility.Hidden;
             Grid_DeletePublication.Visibility = Visibility.Hidden;
+            Grid_SearchInDB.Visibility = Visibility.Hidden;
         }
 
         private void Label_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
@@ -54,6 +55,12 @@ namespace Publishing
         {
             InvisibleGrids();
             Grid_DeletePublication.Visibility = Visibility.Visible;
+        }
+
+        private void Label_MouseLeftButtonDown_3(object sender, MouseButtonEventArgs e)
+        {
+            InvisibleGrids();
+            Grid_SearchInDB.Visibility = Visibility.Visible;
         }
 
         //private void Grid_MouseMouseLeftButtonDownDown(object sender, MouseButtonEventArgs e)

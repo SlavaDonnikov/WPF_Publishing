@@ -195,8 +195,31 @@
                                         
                 </Style.Triggers>
             </Style>
-           
+         
+            <!-- Style for info text block -->
+            <Style x:Key="InfoTxtBlock_Font" TargetType="TextBlock">
+                <Setter Property="Width" Value="175"/>
+                <Setter Property="Margin" Value="15,0"/>
+                <Setter Property="TextAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="Stencil"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="Background" Value="#F5F5F5"/>
+            </Style>
             
+            <!-- Style for info label -->
+            <Style x:Key="InfoLabel" TargetType="Label">
+                <Setter Property="Width" Value="125"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="Stencil"/>
+                <Setter Property="FontSize" Value="19"/>
+                <Setter Property="Foreground" Value="#E4007C"/>
+            </Style>
+
+
         </ResourceDictionary>
 
     </Application.Resources>

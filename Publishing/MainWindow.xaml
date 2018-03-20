@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"          
         xmlns:local="clr-namespace:Publishing"
         mc:Ignorable="d"          
         Title="Publishing Application" Height="700" Width="1200" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
@@ -55,7 +55,7 @@
 
                     <Border Style="{StaticResource borderEdge}">
                         <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
-                            <Label Style="{DynamicResource MenuLabel}" Content="Search In DB" VerticalAlignment="Center" Width="230" FontSize="22"/>
+                            <Label Style="{DynamicResource MenuLabel}" Content="Search In DB" VerticalAlignment="Center" Width="230" FontSize="22" MouseLeftButtonDown="Label_MouseLeftButtonDown_3"/>
                             <!--<Image Source="Resources/coming_document.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
                             <materialDesign:PackIcon Kind="DatabaseSearch" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
                         </DockPanel>
@@ -73,7 +73,7 @@
             </Canvas>
         </Grid>
 
-        <!-- Upper pink panel, exit & full-screen button -->
+        <!-- Upper panel, exit & full-screen button -->
         <Grid Height="35" Margin="61,0,0,0" VerticalAlignment="Top" Background="#283038" Grid.ColumnSpan="2">
             <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Width="62">
                 <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
@@ -110,10 +110,7 @@
 
                 <!-- Text Block -->
                 <StackPanel Height="25" Margin="200,8,200,0" VerticalAlignment="Top">
-                    <TextBlock HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="NoWrap" Height="25" >
-                        <TextBlock.Background>
-                            <ImageBrush/>
-                        </TextBlock.Background>
+                    <TextBlock HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="NoWrap" Height="25" >                        
                         <Run Text="Last opened publications" FontFamily="Stencil" FontSize="21" Foreground="#E4007C"/>
                     </TextBlock>
                 </StackPanel>
@@ -266,138 +263,132 @@
 
                 <!-- Зона темного прямоугольника -->
                 <Grid Grid.Row="1" >
-                    <Border Margin="0,0,0,-3" BorderThickness="2" BorderBrush="#283038">
+                    <Border Margin="0,0,20,-3" BorderThickness="2" BorderBrush="#283038">
 
                     </Border>
                 </Grid>
             </Grid>
 
+            <!-- Info about Publication Grid-->
             <Grid Grid.Column="1">
                 <StackPanel>
                     <!-- Добавить градиент!!! -->
                     <StackPanel Margin="0,8" Height="23" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock   HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock   HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#E4007C">
                             <Run Text="Journal Information" FontFamily="Stencil" FontSize="21" />
                         </TextBlock>
                     </StackPanel>
 
                     <!-- Название журнала -->
                     <StackPanel Height="50" Orientation="Horizontal">
-                        <Label Content="Name" Width="50" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
-                        <TextBlock Margin="45, 0, 0, 0"  Width="220" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Gray">
-                            <Run Text="" FontFamily="Stencil" FontSize="18" />
-                        </TextBlock>
+                        <Label Content="Name" Style="{StaticResource InfoLabel}"/>
+                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="naked science"/></TextBlock>
                     </StackPanel>
 
                     <!-- Категория -->
                     <StackPanel Height="50" Orientation="Horizontal">
-                        <Label Content="Category" Width="100" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
-                        <TextBlock Margin="15, 0, 0, 0"  Width="200" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
-                            <Run Text="" FontFamily="Stencil" FontSize="18" />
-                        </TextBlock>
-                    </StackPanel>                  
+                        <Label Content="Category" Style="{StaticResource InfoLabel}"/>
+                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="science"/></TextBlock>
+                    </StackPanel>
 
                     <!-- Издатель -->
                     <StackPanel Height="50" Orientation="Horizontal">
-                        <Label Content="Publisher" Width="100" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
-                        <TextBlock Margin="40, 0, 0, 0"  Width="175" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
-                            <Run Text="" FontFamily="Stencil" FontSize="18" />
-                        </TextBlock>
+                        <Label Content="Publisher" Style="{StaticResource InfoLabel}"/>
+                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="LTD Mirror"/></TextBlock>
                     </StackPanel>
 
                     <!-- Тираж -->
                     <StackPanel Height="60" Orientation="Horizontal">
                         <StackPanel VerticalAlignment="Center">
-                            <Label  Content="Edition" Width="120" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center"  Padding="0"/>
-                            <Label Content="copies" Width="120" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+                            <Label  Content="Edition" Style="{StaticResource InfoLabel}"/>
+                            <Label Content="copies" Style="{StaticResource InfoLabel}"/>
                         </StackPanel>
-                        <TextBlock Margin="20, 0, 0, 0"  Width="175" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
-                            <Run Text="" FontFamily="Stencil" FontSize="18" />
-                        </TextBlock>
+                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="4000"/></TextBlock>
                     </StackPanel>
-                   
+
                     <!-- Количество страниц -->
                     <StackPanel Height="60" Orientation="Horizontal">
                         <StackPanel VerticalAlignment="Center">
-                            <Label Content="Number of" Width="120" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center"  Padding="0"/>
-                            <Label Content="pages" Width="120" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
-                        </StackPanel>                        
-                        <TextBlock Margin="20, 0, 0, 0"  Width="175" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
-                            <Run Text="" FontFamily="Stencil" FontSize="18" />
-                        </TextBlock>
+                            <Label Content="Number of" Style="{StaticResource InfoLabel}"/>
+                            <Label Content="pages" Style="{StaticResource InfoLabel}"/>
+                        </StackPanel>
+                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="150"/></TextBlock>
                     </StackPanel>
 
                     <!-- Формат -->
                     <StackPanel Height="50" Orientation="Horizontal">
-                        <Label Content="Format" Width="100" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
-                        <TextBlock Margin="40, 0, 0, 0"  Width="175" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
-                            <Run Text="" FontFamily="Stencil" FontSize="18" />
-                        </TextBlock>
+                        <Label Content="Format" Style="{StaticResource InfoLabel}"/>
+                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="B5 150 x 40"/></TextBlock>
                     </StackPanel>
-                    
+
                     <!-- Язык публикации -->
                     <StackPanel Height="60" Orientation="Horizontal">
                         <StackPanel VerticalAlignment="Center">
-                            <Label Content="Publication" Width="120" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center"  Padding="0"/>
-                            <Label Content="language" Width="120" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+                            <Label Content="Publication" Style="{StaticResource InfoLabel}"/>
+                            <Label Content="language" Style="{StaticResource InfoLabel}"/>
                         </StackPanel>
-                        <TextBlock Margin="20, 0, 0, 0"  Width="175" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
-                            <Run Text="" FontFamily="Stencil" FontSize="18" />
-                        </TextBlock>
+                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="Russian" /></TextBlock>
                     </StackPanel>
 
                     <!-- ISSN -->
                     <StackPanel Height="50" Orientation="Horizontal">
-                        <Label Content="ISSN" Width="50" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
-                        <TextBlock Margin="45, 0, 0, 0"  Width="220" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
-                            <Run Text="" FontFamily="Stencil" FontSize="18"/>
-                        </TextBlock>
+                        <Label Content="ISSN" Style="{StaticResource InfoLabel}"/>
+                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="0135-186798-5417"/></TextBlock>
                     </StackPanel>
 
                     <!-- Дата публикации -->
                     <StackPanel Height="60" Orientation="Horizontal">
                         <StackPanel VerticalAlignment="Center">
-                            <Label Content="Publication" Width="120" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center"  Padding="0"/>
-                            <Label Content="date" Width="120" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+                            <Label Content="Publication" Style="{StaticResource InfoLabel}"/>
+                            <Label Content="date" Style="{StaticResource InfoLabel}"/>
                         </StackPanel>
-                        <TextBlock Margin="20, 0, 0, 0"  Width="175" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
-                            <Run Text="" FontFamily="Stencil" FontSize="18" />
-                        </TextBlock>
+                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="02.03.18"/></TextBlock>
                     </StackPanel>
 
-                    <!-- Информация об издательстве: адрес, емайл-->
+                    <!-- Информация об издательстве: адрес, емайл-->                    
                     <StackPanel Margin="0,2" Orientation="Vertical" >
-                        <TextBlock   HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Run Text="About publishing house" FontFamily="Stencil" FontSize="21" Foreground="#E4007C"/>
+                        <Line Margin="0, 10" Stroke="#FF69B4" Height="1" StrokeThickness="3" X1="0" Y1="0" X2="320"/>                       
+                        <Label Content="About publishing house" Margin="0" Padding="1" Width="270" FontSize="21" Style="{StaticResource InfoLabel}"/>
+
+                        <TextBlock Margin="0, 5, 0, 5" Width="300" Height="32" TextWrapping="Wrap" Style="{StaticResource InfoTxtBlock_Font}">
+                            <Run Text="Unated States of America, DC Washington, 123 6th St.Melbourne, FL 32904" FontSize="13" />
                         </TextBlock>
-                        
-                        <StackPanel>
-                            <TextBlock Margin="0,5" Width="300" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray" TextWrapping="Wrap">
-                            <Run Text="" FontFamily="Stencil" FontSize="12" />
-                            </TextBlock>
-                            
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="Email" Margin="5,0" Width="50" FontFamily="Stencil" FontSize="18" Foreground="#E4007C" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
-                                <TextBlock Margin="10, 5, 0, 5"  Width="240" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray">
-                                    <Run Text="publishing@agalushkin.ru" FontFamily="Stencil" FontSize="14"/>
-                                </TextBlock>
-                            </StackPanel>
-                    </StackPanel>
-                    </StackPanel>
-
-
-
-
+                        <TextBlock Width="300" Style="{StaticResource InfoTxtBlock_Font}">
+                            <Run Text="publishing@agalushkin.ru" FontSize="15" />
+                        </TextBlock>
+                    </StackPanel>                    
 
                 </StackPanel>
             </Grid>
+            
         </Grid>
+
 
         <!-- AddPublicationGrid -->
         <Grid x:Name="Grid_AddPublication"  Margin="61, 36, 0, 21" Background="#4682B4" Visibility="Hidden" Grid.ColumnSpan="2"/>
 
         <!-- DeletePublicationGrid -->
         <Grid x:Name="Grid_DeletePublication"  Margin="61, 36, 0, 21" Background="#1E90FF" Visibility="Hidden" Grid.ColumnSpan="2"/>
+
+        <!-- SearchInDB -->
+        <!-- Dont work Hint underline! -->
+        <Grid x:Name="Grid_SearchInDB"  Margin="61, 36, 0, 21" Background="#F5F5F5" Visibility="Visible" Grid.ColumnSpan="2">
+           
+            <Border Height="50" Width="400" BorderThickness="1" BorderBrush="#6C6C6C" Margin="100, 100 , 635, 490">
+                <StackPanel Orientation="Horizontal" >
+                    <materialDesign:PackIcon Kind="SearchWeb" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="30" Margin="5"/>
+                    <TextBox materialDesign:HintAssist.Hint="Search the files" 
+                         Padding="5,0" Margin="0,5" Width="350"
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Center" 
+                         TextAlignment="Center"                         
+                         BorderBrush="{DynamicResource MaterialDesignTextBoxBorder}"
+                         HorizontalContentAlignment="Stretch"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                </StackPanel>
+            </Border>
+
+        </Grid>
 
     </Grid>
 </Window>
