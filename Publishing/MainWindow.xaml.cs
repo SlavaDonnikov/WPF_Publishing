@@ -23,6 +23,7 @@ namespace Publishing
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new ComboBoxViewModel();         // Test!!!     // Класс со списком, задающимся в конструкторе. // Далее - биндим в ComboBox ItemSource
             Grid_HomePage.Visibility = Visibility.Visible;
         }
 

@@ -218,6 +218,42 @@
                 <Setter Property="FontSize" Value="19"/>
                 <Setter Property="Foreground" Value="#E4007C"/>
             </Style>
+            
+            <!-- Style for textBox at Add Publication page -->
+            <Style x:Key="AddTextBox" TargetType="TextBox">
+                <Setter Property="Margin" Value="10,0, 10, 0"/>
+                <Setter Property="Width" Value="305"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="#6C6C6C"/>
+                <!--<Setter Property="Background" Value="#F5F5F5"/>-->
+            </Style>
+            
+            
+            <!-- Example how to reference LinearGradienBrush in style-->
+            <!--<Style x:Key="ThemeLabel" TargetType="Label">
+                <Setter Property="Width" Value="300"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="Stencil"/>
+                <Setter Property="FontSize" Value="21"/>
+                <Setter Property="Foreground" Value="#E4007C"/>
+                <Setter Property="Foreground">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">                            
+                            <GradientStop  Color="#F5F5F5" Offset="0.02"/>
+                            <GradientStop Color="#E4007C" Offset="0.75"/>
+                            <GradientStop  Color="#F5F5F5" Offset="0.97"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                
+            </Style>-->
 
 
         </ResourceDictionary>

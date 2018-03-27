@@ -287,7 +287,7 @@
 
                     <!-- Категория -->
                     <StackPanel Height="50" Orientation="Horizontal">
-                        <Label Content="Category" Style="{StaticResource InfoLabel}"/>
+                        <Label Content="Genre" Style="{StaticResource InfoLabel}"/>
                         <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="science"/></TextBlock>
                     </StackPanel>
 
@@ -300,7 +300,7 @@
                     <!-- Тираж -->
                     <StackPanel Height="60" Orientation="Horizontal">
                         <StackPanel VerticalAlignment="Center">
-                            <Label  Content="Edition" Style="{StaticResource InfoLabel}"/>
+                            <Label  Content="Number of" Style="{StaticResource InfoLabel}"/>
                             <Label Content="copies" Style="{StaticResource InfoLabel}"/>
                         </StackPanel>
                         <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="4000"/></TextBlock>
@@ -333,7 +333,7 @@
                     <!-- ISSN -->
                     <StackPanel Height="50" Orientation="Horizontal">
                         <Label Content="ISSN" Style="{StaticResource InfoLabel}"/>
-                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="0135-186798-5417"/></TextBlock>
+                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="0135--5417"/></TextBlock>
                     </StackPanel>
 
                     <!-- Дата публикации -->
@@ -345,9 +345,9 @@
                         <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="02.03.18"/></TextBlock>
                     </StackPanel>
 
-                    <!-- Информация об издательстве: адрес, емайл-->                    
+                    <!-- Информация об издательстве: адрес, емайл-->
                     <StackPanel Margin="0,2" Orientation="Vertical" >
-                        <Line Margin="0, 10" Stroke="#FF69B4" Height="1" StrokeThickness="3" X1="0" Y1="0" X2="320"/>                       
+                        <Line Margin="0, 10" Stroke="#FF69B4" Height="1" StrokeThickness="3" X1="0" Y1="0" X2="320"/>
                         <Label Content="About publishing house" Margin="0" Padding="1" Width="270" FontSize="21" Style="{StaticResource InfoLabel}"/>
 
                         <TextBlock Margin="0, 5, 0, 5" Width="300" Height="32" TextWrapping="Wrap" Style="{StaticResource InfoTxtBlock_Font}">
@@ -356,25 +356,98 @@
                         <TextBlock Width="300" Style="{StaticResource InfoTxtBlock_Font}">
                             <Run Text="publishing@agalushkin.ru" FontSize="15" />
                         </TextBlock>
-                    </StackPanel>                    
+                    </StackPanel>
 
                 </StackPanel>
             </Grid>
-            
+
         </Grid>
 
-
-        <!-- AddPublicationGrid -->
-        <Grid x:Name="Grid_AddPublication"  Margin="61, 36, 0, 21" Background="#4682B4" Visibility="Hidden" Grid.ColumnSpan="2"/>
 
         <!-- DeletePublicationGrid -->
         <Grid x:Name="Grid_DeletePublication"  Margin="61, 36, 0, 21" Background="#1E90FF" Visibility="Hidden" Grid.ColumnSpan="2"/>
 
+        <!-- AddPublicationGrid -->
+        <Grid x:Name="Grid_AddPublication"  Margin="61, 36, 0, 21" Background="#F5F5F5" Visibility="Visible" Grid.ColumnSpan="2">
+            <StackPanel Margin="10, 5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="60" Width="700">
+                <Label Content="Create new publication" Margin="0" Width="700" FontSize="50" HorizontalContentAlignment="Center" 
+                       VerticalContentAlignment="Center" Style="{StaticResource InfoLabel}"/>
+            </StackPanel>
+
+            <Grid Margin="35, 67, 460, 0" Width="650">
+                <StackPanel Width="450" HorizontalAlignment="Left">
+                    <StackPanel Height="50" Orientation="Horizontal">
+                        <Label Content="Name" Style="{StaticResource InfoLabel}"/>
+                        <TextBox Style="{StaticResource AddTextBox}"/>
+                    </StackPanel>
+                    <StackPanel Height="50" Orientation="Horizontal">
+                        <Label Content="ISSN" Style="{StaticResource InfoLabel}"/>
+                        <TextBox Style="{StaticResource AddTextBox}"/>
+                    </StackPanel>
+                    <StackPanel Height="50" Orientation="Horizontal">
+                        <Label Content="Genre" Style="{StaticResource InfoLabel}"/>
+                        <TextBox Style="{StaticResource AddTextBox}"/>
+                    </StackPanel>
+                    <StackPanel Height="50" Orientation="Horizontal">
+                        <Label Content="Publisher" Style="{StaticResource InfoLabel}"/>
+                        <TextBox Style="{StaticResource AddTextBox}"/>
+                    </StackPanel>
+                    <StackPanel Height="60" Orientation="Horizontal">
+                        <StackPanel VerticalAlignment="Center">
+                            <Label Content="Publication" Style="{StaticResource InfoLabel}"/>
+                            <Label Content="language" Style="{StaticResource InfoLabel}"/>
+                        </StackPanel>
+                        <TextBox Style="{StaticResource AddTextBox}"/>
+                    </StackPanel>
+                    <StackPanel Height="60" Orientation="Horizontal">
+                        <StackPanel VerticalAlignment="Center">
+                            <Label Content="Number of" Style="{StaticResource InfoLabel}"/>
+                            <Label Content="copies" Style="{StaticResource InfoLabel}"/>
+                        </StackPanel>
+                        <TextBox Style="{StaticResource AddTextBox}"/>
+                    </StackPanel>
+                    <StackPanel Height="60" Orientation="Horizontal">
+                        <StackPanel VerticalAlignment="Center">
+                            <Label Content="Number of" Style="{StaticResource InfoLabel}"/>
+                            <Label Content="pages" Style="{StaticResource InfoLabel}"/>
+                        </StackPanel>
+                        <TextBox Style="{StaticResource AddTextBox}"/>
+                    </StackPanel>
+                    <StackPanel Height="50" Orientation="Horizontal">
+                        <Label Content="Format" Style="{StaticResource InfoLabel}"/>
+                        <TextBox Style="{StaticResource AddTextBox}"/>
+                    </StackPanel>
+                    <StackPanel Height="60" Orientation="Horizontal">
+                        <StackPanel VerticalAlignment="Center">
+                            <Label Content="Publication" Style="{StaticResource InfoLabel}"/>
+                            <Label Content="date" Style="{StaticResource InfoLabel}"/>
+                        </StackPanel>
+                        <TextBox Style="{StaticResource AddTextBox}"/>
+                    </StackPanel>
+                    <StackPanel Height="60" Orientation="Horizontal">
+                        <StackPanel VerticalAlignment="Center">
+                            <Label Content="Download" Style="{StaticResource InfoLabel}"/>
+                            <Label Content="link" Style="{StaticResource InfoLabel}"/>
+                        </StackPanel>
+                        <TextBox Style="{StaticResource AddTextBox}"/>
+                    </StackPanel>
+                    <StackPanel Height="30" Orientation="Horizontal">
+                        <Label Content="Cover" Style="{StaticResource InfoLabel}"/>
+
+                    </StackPanel>
+
+
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Right" Width="200" />
+            </Grid>
+        </Grid>
+
         <!-- SearchInDB -->
         <!-- Dont work Hint underline! -->
-        <Grid x:Name="Grid_SearchInDB"  Margin="61, 36, 0, 21" Background="#F5F5F5" Visibility="Visible" Grid.ColumnSpan="2">
-           
-            <Border Height="50" Width="400" BorderThickness="1" BorderBrush="#6C6C6C" Margin="100, 100 , 635, 490">
+        <Grid x:Name="Grid_SearchInDB"  Margin="61, 36, 0, 21" Background="#F5F5F5" Visibility="Hidden" Grid.ColumnSpan="2">
+
+            <!-- Search (with hint) -->
+            <Border Height="50" Width="400" BorderThickness="1" BorderBrush="#6C6C6C" Margin="100, 0 , 635, 560">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="SearchWeb" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="30" Margin="5"/>
                     <TextBox materialDesign:HintAssist.Hint="Search the files" 
@@ -387,6 +460,25 @@
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                 </StackPanel>
             </Border>
+
+            <!-- Just for test! -->
+            <StackPanel Margin="250, 20, 0, 580" Width="310">
+                <Label Content="Binding code-behind class" Width="300" FontSize="21" Style="{StaticResource InfoLabel}"/>
+                <ComboBox ItemsSource="{Binding SearchTypesCollection}"/>
+            </StackPanel>
+
+            <!-- Advance search Grid-->
+            <Grid Margin="100, 100, 300, 100">
+                <StackPanel Panel.ZIndex="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                        <materialDesign:PackIcon Kind="Menu" Height="30" Width="30" Foreground="#6C6C6C" />
+                    </Button>
+                    <TextBlock Margin="20,0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center">                        
+                        <Run Text="Last opened publications" FontFamily="Stencil" FontSize="19" Foreground="#E4007C"/>
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+
 
         </Grid>
 
