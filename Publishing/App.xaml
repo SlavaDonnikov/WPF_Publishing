@@ -230,6 +230,8 @@
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="BorderBrush" Value="#6C6C6C"/>
+                <Setter Property="FontFamily" Value="Stencil"/>
+                <Setter Property="FontSize" Value="13"/>                
                 <!--<Setter Property="Background" Value="#F5F5F5"/>-->
             </Style>
             

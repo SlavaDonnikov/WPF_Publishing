@@ -374,7 +374,7 @@
                        VerticalContentAlignment="Center" Style="{StaticResource InfoLabel}"/>
             </StackPanel>
 
-            <Grid Margin="35, 67, 460, 0" Width="650">
+            <Grid Margin="35,67,646,0" Background="Aqua">
                 <StackPanel Width="450" HorizontalAlignment="Left">
                     <StackPanel Height="50" Orientation="Horizontal">
                         <Label Content="Name" Style="{StaticResource InfoLabel}"/>
@@ -440,6 +440,34 @@
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Right" Width="200" />
             </Grid>
+
+            <Grid Margin="725,10,5,395" >
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                        <Label Content="Publisher Information"  Width="405" FontSize="28" Padding="1" HorizontalContentAlignment="Center" Style="{StaticResource InfoLabel}" />
+                    </StackPanel>
+                    <StackPanel Margin="0,10" Height="50" Orientation="Horizontal">
+                        <StackPanel VerticalAlignment="Center">
+                            <Label Content="Publisher" Style="{StaticResource InfoLabel}"/>
+                            <Label Content="name" Style="{StaticResource InfoLabel}"/>
+                        </StackPanel>
+                        <TextBox Text="LTD Roga and kopita corporation" Style="{StaticResource AddTextBox}" Margin="5" Width="274"/>
+                    </StackPanel>
+                    <StackPanel Height="90" Orientation="Horizontal">
+                        <Label Content="Address" Style="{StaticResource InfoLabel}"/>
+                        <TextBox Text="Unated States of America, DC Washington, 123 6th St.Melbourne, FL 32904" Style="{StaticResource AddTextBox}" Margin="5" Width="274" Height="70" TextWrapping="Wrap"/>
+                    </StackPanel>
+                    <StackPanel Height="40" Orientation="Horizontal">
+                        <Label Content="Email" Style="{StaticResource InfoLabel}"/>
+                        <TextBox Text="slavadonnikov@gmail.com" Style="{StaticResource AddTextBox}" Margin="5" Width="274"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </Grid>
+
+            <!--<Grid Margin="725,67,5,260" Width="405" >
+
+            </Grid>-->
         </Grid>
 
         <!-- SearchInDB -->
