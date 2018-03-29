@@ -212,6 +212,7 @@
             <Style x:Key="InfoLabel" TargetType="Label">
                 <Setter Property="Width" Value="125"/>
                 <Setter Property="Padding" Value="0"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="FontFamily" Value="Stencil"/>
@@ -220,9 +221,10 @@
             </Style>
             
             <!-- Style for textBox at Add Publication page -->
+            <!-- Not In USE!!! -->
             <Style x:Key="AddTextBox" TargetType="TextBox">
                 <Setter Property="Margin" Value="10,0, 10, 0"/>
-                <Setter Property="Width" Value="305"/>
+                <Setter Property="Width" Value="260"/>
                 <Setter Property="Height" Value="30"/>
                 <Setter Property="HorizontalAlignment" Value="Right"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
@@ -231,8 +233,7 @@
                 <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="BorderBrush" Value="#6C6C6C"/>
                 <Setter Property="FontFamily" Value="Stencil"/>
-                <Setter Property="FontSize" Value="13"/>                
-                <!--<Setter Property="Background" Value="#F5F5F5"/>-->
+                <Setter Property="FontSize" Value="13"/>               
             </Style>
             
             

@@ -38,3 +38,7 @@ E:\ТРПО\Publishing\Publishing\bin\Debug\MahApps.Metro.xml
 E:\ТРПО\Publishing\Publishing\bin\Debug\MaterialDesignThemes.Wpf.pdb
 E:\ТРПО\Publishing\Publishing\bin\Debug\MaterialDesignThemes.Wpf.xml
 E:\ТРПО\Publishing\Publishing\obj\Debug\Publishing.csprojResolveAssemblyReference.cache
+E:\ТРПО\Publishing\Publishing\bin\Debug\EntityFramework.dll
+E:\ТРПО\Publishing\Publishing\bin\Debug\EntityFramework.SqlServer.dll
+E:\ТРПО\Publishing\Publishing\bin\Debug\EntityFramework.xml
+E:\ТРПО\Publishing\Publishing\bin\Debug\EntityFramework.SqlServer.xml

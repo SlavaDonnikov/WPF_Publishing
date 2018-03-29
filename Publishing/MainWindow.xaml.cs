@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -63,6 +64,37 @@ namespace Publishing
             InvisibleGrids();
             Grid_SearchInDB.Visibility = Visibility.Visible;
         }
+
+        private void OpenCoverImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Title = "Select a picture",
+                Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg; *.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+                NewPublication_OpenImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+        }
+
+        private void PublisherTypesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var PublisherTypesComboBox = sender as ComboBox;
+            if (PublisherTypesComboBox.SelectedItem.ToString() == "Create New Publisher")
+            {
+                Add_Publisher_Name_TextBox.Clear();
+                Add_Publisher_Address_TextBox.Clear();
+                Add_Publisher_Email_TextBox.Clear();
+            }
+            else
+            {
+                Add_Publisher_Name_TextBox.Text = "McGraw - Hill Education";
+                Add_Publisher_Address_TextBox.Text = "Unated States of America, DC Washington, 123 6th St.Melbourne, FL 32904";
+                Add_Publisher_Email_TextBox.Text = "slavadonnikov@gmail.com";
+            }
+        }
+
+
 
         //private void Grid_MouseMouseLeftButtonDownDown(object sender, MouseButtonEventArgs e)
         //{

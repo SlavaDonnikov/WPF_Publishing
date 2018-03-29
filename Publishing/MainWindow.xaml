@@ -369,79 +369,222 @@
 
         <!-- AddPublicationGrid -->
         <Grid x:Name="Grid_AddPublication"  Margin="61, 36, 0, 21" Background="#F5F5F5" Visibility="Visible" Grid.ColumnSpan="2">
-            <StackPanel Margin="10, 5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="60" Width="700">
-                <Label Content="Create new publication" Margin="0" Width="700" FontSize="50" HorizontalContentAlignment="Center" 
+            <!-- Create new publication -->
+            <!--<StackPanel Margin="0,1,5,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="60" Width="640">
+                <Label Content="Create new publication" Width="645" FontSize="50" HorizontalContentAlignment="Center" 
                        VerticalContentAlignment="Center" Style="{StaticResource InfoLabel}"/>
-            </StackPanel>
+                <Line  X2="640" Stroke="Black" StrokeThickness="2" />
+            </StackPanel>-->
 
-            <Grid Margin="35,67,646,0" Background="Aqua">
-                <StackPanel Width="450" HorizontalAlignment="Left">
-                    <StackPanel Height="50" Orientation="Horizontal">
-                        <Label Content="Name" Style="{StaticResource InfoLabel}"/>
-                        <TextBox Style="{StaticResource AddTextBox}"/>
-                    </StackPanel>
-                    <StackPanel Height="50" Orientation="Horizontal">
-                        <Label Content="ISSN" Style="{StaticResource InfoLabel}"/>
-                        <TextBox Style="{StaticResource AddTextBox}"/>
-                    </StackPanel>
-                    <StackPanel Height="50" Orientation="Horizontal">
-                        <Label Content="Genre" Style="{StaticResource InfoLabel}"/>
-                        <TextBox Style="{StaticResource AddTextBox}"/>
-                    </StackPanel>
-                    <StackPanel Height="50" Orientation="Horizontal">
-                        <Label Content="Publisher" Style="{StaticResource InfoLabel}"/>
-                        <TextBox Style="{StaticResource AddTextBox}"/>
-                    </StackPanel>
-                    <StackPanel Height="60" Orientation="Horizontal">
-                        <StackPanel VerticalAlignment="Center">
-                            <Label Content="Publication" Style="{StaticResource InfoLabel}"/>
-                            <Label Content="language" Style="{StaticResource InfoLabel}"/>
-                        </StackPanel>
-                        <TextBox Style="{StaticResource AddTextBox}"/>
-                    </StackPanel>
-                    <StackPanel Height="60" Orientation="Horizontal">
-                        <StackPanel VerticalAlignment="Center">
-                            <Label Content="Number of" Style="{StaticResource InfoLabel}"/>
-                            <Label Content="copies" Style="{StaticResource InfoLabel}"/>
-                        </StackPanel>
-                        <TextBox Style="{StaticResource AddTextBox}"/>
-                    </StackPanel>
-                    <StackPanel Height="60" Orientation="Horizontal">
-                        <StackPanel VerticalAlignment="Center">
-                            <Label Content="Number of" Style="{StaticResource InfoLabel}"/>
-                            <Label Content="pages" Style="{StaticResource InfoLabel}"/>
-                        </StackPanel>
-                        <TextBox Style="{StaticResource AddTextBox}"/>
-                    </StackPanel>
-                    <StackPanel Height="50" Orientation="Horizontal">
-                        <Label Content="Format" Style="{StaticResource InfoLabel}"/>
-                        <TextBox Style="{StaticResource AddTextBox}"/>
-                    </StackPanel>
-                    <StackPanel Height="60" Orientation="Horizontal">
-                        <StackPanel VerticalAlignment="Center">
-                            <Label Content="Publication" Style="{StaticResource InfoLabel}"/>
-                            <Label Content="date" Style="{StaticResource InfoLabel}"/>
-                        </StackPanel>
-                        <TextBox Style="{StaticResource AddTextBox}"/>
-                    </StackPanel>
-                    <StackPanel Height="60" Orientation="Horizontal">
-                        <StackPanel VerticalAlignment="Center">
-                            <Label Content="Download" Style="{StaticResource InfoLabel}"/>
-                            <Label Content="link" Style="{StaticResource InfoLabel}"/>
-                        </StackPanel>
-                        <TextBox Style="{StaticResource AddTextBox}"/>
-                    </StackPanel>
-                    <StackPanel Height="30" Orientation="Horizontal">
-                        <Label Content="Cover" Style="{StaticResource InfoLabel}"/>
-
+            <Grid Margin="25,10,0,0" >
+                <!-- All labels and textBoxes -->
+                <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                    <!-- Publication information -->
+                    <StackPanel Width="826" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Label Content="Publication Information" Width="405" FontSize="28" Padding="1" HorizontalContentAlignment="Left" Foreground="Black" Style="{StaticResource InfoLabel}" />
                     </StackPanel>
 
+                    <!-- About publication labels and textBoxes -->
+                    <StackPanel  Orientation="Horizontal">
+                        <StackPanel Width="405" HorizontalAlignment="Left">
+                            <StackPanel Height="50" Orientation="Horizontal">
+                                <Label Content="Name" Style="{StaticResource InfoLabel}"/>
+                                <TextBox Width="260" Height="40" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13"
+                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
+                            </StackPanel>
+                            <StackPanel Height="50" Orientation="Horizontal">
+                                <Label Content="ISSN" Style="{StaticResource InfoLabel}"/>
+                                <TextBox Width="260" Height="40" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13"
+                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
+                            </StackPanel>
+                            <StackPanel Height="50" Orientation="Horizontal">
+                                <Label Content="Genre" Style="{StaticResource InfoLabel}"/>
+                                <ComboBox Width="260" Margin="10,0,10,0" BorderThickness="0 0 0 1" BorderBrush="#6C6C6C"
+                                          FontSize="13" FontFamily="Stencil" Foreground="Black" 
+                                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                          HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                          ItemsSource="{Binding GenreTypesCollection}" />
+                            </StackPanel>
+                            <StackPanel Height="50" Orientation="Horizontal">
+                                <Label Content="Format" Style="{StaticResource InfoLabel}"/>
+                                <TextBox Width="260" Height="40" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13"
+                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
+                            </StackPanel>
+                            <StackPanel Height="50" Orientation="Horizontal">
+                                <StackPanel VerticalAlignment="Center">
+                                    <Label Content="Publication" Style="{StaticResource InfoLabel}"/>
+                                    <Label Content="language" Style="{StaticResource InfoLabel}"/>
+                                </StackPanel>
+                                <TextBox Width="260" Height="40" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13"
+                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Margin="20,0" HorizontalAlignment="Right" Width="405">
+                            <StackPanel Height="50" Orientation="Horizontal">
+                                <StackPanel VerticalAlignment="Center">
+                                    <Label Content="Number of" Style="{StaticResource InfoLabel}"/>
+                                    <Label Content="copies" Style="{StaticResource InfoLabel}"/>
+                                </StackPanel>
+                                <TextBox Width="260" Height="40" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13"
+                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
+                            </StackPanel>
+                            <StackPanel Height="50" Orientation="Horizontal">
+                                <StackPanel VerticalAlignment="Center">
+                                    <Label Content="Number of" Style="{StaticResource InfoLabel}"/>
+                                    <Label Content="pages" Style="{StaticResource InfoLabel}"/>
+                                </StackPanel>
+                                <TextBox Width="260" Height="40" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13"
+                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
+                            </StackPanel>
+                            <StackPanel Height="50" Orientation="Horizontal">
+                                <StackPanel VerticalAlignment="Center">
+                                    <Label Content="Publication" Style="{StaticResource InfoLabel}"/>
+                                    <Label Content="date" Style="{StaticResource InfoLabel}"/>
+                                </StackPanel>
+                                <TextBox Width="260" Height="40" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13"
+                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
+                            </StackPanel>
+                            <StackPanel Height="50" Orientation="Horizontal">
+                                <StackPanel VerticalAlignment="Center">
+                                    <Label Content="Download" Style="{StaticResource InfoLabel}"/>
+                                    <Label Content="link" Style="{StaticResource InfoLabel}"/>
+                                </StackPanel>
+                                <TextBox Width="260" Height="40" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13"
+                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
+                            </StackPanel>
+                            <StackPanel Height="50" Orientation="Horizontal">
+                                <Label Content="Cover" Margin="0,10,0,0" Width="70" Style="{StaticResource InfoLabel}"/>
+                                <Button x:Name="OpenCoverImageButton" Margin="17,10,0,0" Height="30" Width="30" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Click="OpenCoverImageButton_Click" >
+                                    <materialDesign:PackIcon Kind="Download" Foreground="#6C6C6C" Height="30" Width="30" />
+                                </Button>
+                                <TextBox Width="260" Height="40" materialDesign:HintAssist.Hint="Insert cover name"  Margin="20,0,10,0" FontFamily="Stencil"
+                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
+                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="#6C6C6C"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <!-- Image downloading when add new publication in DB -->
+                        <StackPanel  Margin="0, -28" Width="244" Height="317" Background="#DB7093">
+                            <Border Margin="2" Height="313" BorderThickness="1" BorderBrush="#6C6C6C">
+                                <Image x:Name="NewPublication_OpenImage" Stretch="Fill"/>
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0" Width="1084" Orientation="Horizontal" HorizontalAlignment="Left" Height="160">
+                        <!-- Publisher information, labels & textBoxes -->
+                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="1084" Height="130" Margin="0,15,0,0">
+                            <StackPanel Width="670" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Label Content="Publisher Information"  Width="405" FontSize="28" Padding="1" HorizontalContentAlignment="Left" Foreground="Black" Style="{StaticResource InfoLabel}" />
+                                <ComboBox x:Name="PublisherTypesComboBox" Width="250" Margin="10,0,10,0" BorderThickness="0 0 0 1" BorderBrush="#6C6C6C"
+                                          FontSize="12" FontFamily="Stencil" Foreground="Black" 
+                                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                          ItemsSource="{Binding PublisherTypesCollection}" SelectionChanged="PublisherTypesComboBox_SelectionChanged" />
+                            </StackPanel>
+                            <StackPanel Margin="0,0" Width="1084" Orientation="Horizontal" HorizontalAlignment="Left">
+                                <StackPanel Height="90" Orientation="Horizontal">
+                                    <StackPanel VerticalAlignment="Center">
+                                        <Label Content="Publisher" Style="{StaticResource InfoLabel}"/>
+                                        <Label Content="name" Style="{StaticResource InfoLabel}"/>
+                                    </StackPanel>
+                                    <TextBox x:Name="Add_Publisher_Name_TextBox" Width="220" Height="70" Margin="0,0,0,0" FontFamily="Stencil" FontSize="13" TextWrapping="Wrap"
+                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
+                                </StackPanel>
+                                <StackPanel Margin="20,0" Height="90" Orientation="Horizontal">
+                                    <Label Content="Address" Style="{StaticResource InfoLabel}" Margin="0,34" Width="100"/>
+                                    <TextBox x:Name="Add_Publisher_Address_TextBox" Width="260" Height="70" Margin="5,0,0,0" FontFamily="Stencil" FontSize="13" TextWrapping="Wrap"
+                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
+                                </StackPanel>
+                                <StackPanel Margin="0,5" Height="90" Orientation="Horizontal">
+                                    <Label Content="Email" Style="{StaticResource InfoLabel}" Margin="0,14" Width="70"/>
+                                    <TextBox x:Name="Add_Publisher_Email_TextBox" Width="260" Height="70" Margin="5,0,10,0" FontFamily="Stencil" FontSize="13" TextWrapping="Wrap"
+                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--<StackPanel Margin="0,5" Width="405" Orientation="Vertical" HorizontalAlignment="Left">
+                            <StackPanel Height="50" Orientation="Horizontal">
+                                <StackPanel VerticalAlignment="Center">
+                                    <Label Content="Publisher" Style="{StaticResource InfoLabel}"/>
+                                    <Label Content="name" Style="{StaticResource InfoLabel}"/>
+                                </StackPanel>
+                                <TextBox Width="260" Height="40" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13"
+                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
+                            </StackPanel>
+                            <StackPanel Height="90" Orientation="Horizontal">
+                                <Label Content="Address" Style="{StaticResource InfoLabel}"/>
+                                <TextBox Width="260" Height="70" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13" TextWrapping="Wrap"
+                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"
+                                         Text="Unated States of America, DC Washington, 123 6th St.Melbourne, FL 32904"/>
+                            </StackPanel>
+                            <StackPanel Margin="0,5" Height="50" Orientation="Horizontal">
+                                <Label Content="Email" Style="{StaticResource InfoLabel}"/>
+                                <TextBox Width="260" Height="40" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13"
+                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C" Text="slavadonnikov@gmail.com"/>
+                            </StackPanel>
+                        </StackPanel>-->
+                    </StackPanel>
+                    
+                    <!-- Add_Publ. page DataGrid -->
+                    <StackPanel Margin="0,10,0,0" Height="120">
+                        <DataGrid x:Name="Add_Page_DataGrid" Background="{x:Null}"  Style="{StaticResource MaterialDesignDataGrid}" 
+                                  CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="True" CanUserReorderColumns="False">
+                            <DataGrid.Resources>
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="FontFamily" Value="Stencil"/>
+                                    <Setter Property="BorderThickness" Value="1 1 0 1"/>
+                                    <Setter Property="Height" Value="50"/>
+                                    <Setter Property="Foreground" Value="#E4007C"/>
+                                    <Setter Property="BorderBrush" Value="#6C6C6C"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    <Setter Property="VerticalContentAlignment" Value="Center"/>                                    
+                                </Style>                                
+                            </DataGrid.Resources>
+                            <DataGrid.Columns>
+                                <materialDesign:MaterialDataGridTextColumn Header="Name" Width="*"  />
+                                <!--HeaderStyle="{StaticResource MaterialDesignDataGridColumnHeader}"-->
+                                <materialDesign:MaterialDataGridTextColumn Header="ISSN" Width="*" />
+                                <materialDesign:MaterialDataGridTextColumn Header="Publisher" Width="1.5*"/>
+                                <materialDesign:MaterialDataGridTextColumn Header="Genre" Width="*"/>
+                                <materialDesign:MaterialDataGridTextColumn Header="Format" Width="*"/>
+                                <materialDesign:MaterialDataGridTextColumn Header="Language" Width="*"/>
+                                <materialDesign:MaterialDataGridTextColumn Header="Copies" Width="*"/>
+                                <materialDesign:MaterialDataGridTextColumn Header="Pages" Width="*"/>
+                                <DataGridHyperlinkColumn Header="Download Link" Width="1.5*"/>
+                                <materialDesign:MaterialDataGridTextColumn Header="Publ. Date" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+
+                    <!--   MaterialDesignRaisedButton, MaterialDesignRaisedLightButton, MaterialDesignRaisedDarkButton, 
+                    MaterialDesignRaisedAccentButton, MaterialDesignFlatButton, MaterialDesignFlatAccentButton, MaterialDesignToolButton,
+                    MaterialDesignToolForegroundButton, MaterialDesignFloatingActionMiniButton, MaterialDesignFloatingActionButton,
+                    MaterialDesignFloatingActionMiniLightButton, MaterialDesignFloatingActionMiniDarkButton, MaterialDesignFloatingActionMiniAccentButton
+                    MaterialDesignFloatingActionLightButton, MaterialDesignFloatingActionDarkButton, MaterialDesignFloatingActionAccentButton-->
+                    <StackPanel Margin="0,5,0,0" Height="42" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button Content="Save" Foreground="#E4007C" FontFamily="Stencil" BorderThickness="1" BorderBrush="#6C6C6C" Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}">
+                            <!--<materialDesign:PackIcon Kind="Atom" />-->                            
+                        </Button>
+                    </StackPanel>
 
                 </StackPanel>
-                <StackPanel HorizontalAlignment="Right" Width="200" />
             </Grid>
 
-            <Grid Margin="725,10,5,395" >
+            <!--<Grid Margin="725,400,5,5" >
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                         <Label Content="Publisher Information"  Width="405" FontSize="28" Padding="1" HorizontalContentAlignment="Center" Style="{StaticResource InfoLabel}" />
@@ -463,11 +606,9 @@
                     </StackPanel>
 
                 </StackPanel>
-            </Grid>
-
-            <!--<Grid Margin="725,67,5,260" Width="405" >
-
             </Grid>-->
+
+            
         </Grid>
 
         <!-- SearchInDB -->
