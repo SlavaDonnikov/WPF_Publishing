@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"          
         xmlns:local="clr-namespace:Publishing"
         mc:Ignorable="d"          
-        Title="Publishing Application" Height="700" Width="1200" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+        Title="Publishing Application" Height="700" Width="1200" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None">
     <Grid Background="#F5F5F5">
         <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="241*"/>
@@ -32,15 +32,20 @@
                     <Border Style="{StaticResource borderEdge}" >
                         <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
                             <Label Style="{DynamicResource MenuLabel}" Content="Home page" VerticalAlignment="Center" Width="230" FontSize="22" MouseLeftButtonDown="Label_MouseLeftButtonDown"/>
-                            <!--<Image Source="Resources/home.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
                             <materialDesign:PackIcon Kind="HomeAssistant" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                        </DockPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource borderEdge}" >
+                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
+                            <Label Style="{DynamicResource MenuLabel}" Content="View PDF file" VerticalAlignment="Center" Width="230" FontSize="22" MouseLeftButtonDown="Label_MouseLeftButtonDown_4"/>
+                            <materialDesign:PackIcon Kind="FilePdfBox" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
                         </DockPanel>
                     </Border>
 
                     <Border Style="{StaticResource borderEdge}">
                         <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
                             <Label Style="{DynamicResource MenuLabel}" Content="Add publication" VerticalAlignment="Center" Width="230" FontSize="22" MouseLeftButtonDown="Label_MouseLeftButtonDown_1"/>
-                            <!--<Image Source="Resources/coming_document.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
                             <materialDesign:PackIcon Kind="DatabasePlus" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
                         </DockPanel>
                     </Border>
@@ -48,7 +53,6 @@
                     <Border Style="{StaticResource borderEdge}">
                         <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
                             <Label Style="{DynamicResource MenuLabel}" Content="Delete publication" VerticalAlignment="Center" Width="230" FontSize="22" MouseLeftButtonDown="Label_MouseLeftButtonDown_2"/>
-                            <!--<Image Source="Resources/coming_document.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
                             <materialDesign:PackIcon Kind="DatabaseMinus" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
                         </DockPanel>
                     </Border>
@@ -56,7 +60,6 @@
                     <Border Style="{StaticResource borderEdge}">
                         <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
                             <Label Style="{DynamicResource MenuLabel}" Content="Search In DB" VerticalAlignment="Center" Width="230" FontSize="22" MouseLeftButtonDown="Label_MouseLeftButtonDown_3"/>
-                            <!--<Image Source="Resources/coming_document.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
                             <materialDesign:PackIcon Kind="DatabaseSearch" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
                         </DockPanel>
                     </Border>
@@ -64,7 +67,6 @@
                     <Border Style="{StaticResource borderEdge}">
                         <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
                             <Label Style="{DynamicResource MenuLabel}" Content="Settings"  VerticalAlignment="Center" Width="230" FontSize="22"/>
-                            <!--<Image Source="Resources/settings.png" Width="50" Height="50" Margin="10, 0, 0, 0"/>-->
                             <materialDesign:PackIcon Kind="Settings" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
                         </DockPanel>
                     </Border>
@@ -73,7 +75,7 @@
             </Canvas>
         </Grid>
 
-        <!-- Upper panel, exit & full-screen button -->
+        <!-- Upper panel -->
         <Grid Height="35" Margin="61,0,0,0" VerticalAlignment="Top" Background="#283038" Grid.ColumnSpan="2">
             <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Width="62">
                 <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
@@ -85,27 +87,29 @@
             </StackPanel>
         </Grid>
 
-        <!-- Status bar (app down) -->
-        <Grid Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="#283038" Grid.ColumnSpan="2">
-            <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="20">
-                <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="20" Width="20" BorderBrush="{x:Null}" Background="{x:Null}">
-                    <materialDesign:PackIcon Kind="School" Height="18" Width="18"/>
+        <!-- Status bar -->
+        <Grid Height="27" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="#283038" Grid.ColumnSpan="2">
+            <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Height="27"  VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <Label x:Name="ApplicationFullDate" Content="Saturday, March 31, 2018" Margin="0,0,10,0" FontFamily="Stencil" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Label x:Name="ApplicationRealTime" Content="00:00:00 AM" Margin="0,0,8,0" FontFamily="Stencil" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="27" Width="27" BorderBrush="{x:Null}" Background="{x:Null}">
+                    <materialDesign:PackIcon Kind="Information" Height="27" Width="27" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 </Button>
             </StackPanel>
         </Grid>
 
-        <!-- Pictures & info _ HomePageGrid-->
-        <Grid x:Name="Grid_HomePage" Margin="61, 36, 0, 21" Visibility="Visible" Grid.ColumnSpan="2">
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+        <!-- HomePageGrid-->
+        <Grid x:Name="Grid_HomePage" Margin="61, 36, 0, 28" Visibility="Visible" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="817*"/>
                 <ColumnDefinition Width="322*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Вся зона (картинки + темный прямоугольник) -->
             <Grid Grid.Column="0" Panel.ZIndex="0" Background="#F5F5F5">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="576*"/>
-                    <RowDefinition Height="67*"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
 
                 <!-- Text Block -->
@@ -115,28 +119,26 @@
                     </TextBlock>
                 </StackPanel>
 
-                <!-- Зона Картинок -->
-                <!-- Border BorderThickness="5" BorderBrush="#283038"-->
+                <!-- Central Pictures -->
                 <Border>
                     <Grid Grid.Row="0" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.6*"/>
-                            <RowDefinition Height="4.5*"/>
+                            <RowDefinition Height="4.0*"/>
                             <RowDefinition Height="0.15*"/>
-                            <RowDefinition Height="4.5*"/>
-                            <RowDefinition Height="0.1*"/>
+                            <RowDefinition Height="4.0*"/>
+                            <RowDefinition Height="0.15*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1.5*"/>
-                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="1.2*"/>
+                            <ColumnDefinition Width="4*"/>
                             <ColumnDefinition Width="0.3*"/>
-                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="4*"/>
                             <ColumnDefinition Width="0.3*"/>
-                            <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="1.2*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- Pictures -->
                         <Grid x:Name="gr1" Margin="7" Grid.Column="1" Grid.Row="1" Style="{StaticResource V_Image}">
                             <!--MouseLeftButtonDown="Grid_MouseMouseLeftButtonDownDown"-->
                             <Grid.Effect>
@@ -144,14 +146,14 @@
                             </Grid.Effect>
                             <Image Source="Resources/ns1.jpg" Stretch="Fill"/>
                             <StackPanel Panel.ZIndex="2"   Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
-                                <StackPanel Orientation="Horizontal" Margin="0, 110, 0, 0" Height="30" HorizontalAlignment="Stretch">
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="32,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                <StackPanel Orientation="Horizontal" Margin="0, 127, 0, 0" Height="30" VerticalAlignment="Center" >
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="47,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="CloudDownload" Height="30" Width="30"/>
                                     </Button>
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="7,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="EyeOutline" Height="30" Width="30"/>
                                     </Button>
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,32,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="7,0,0,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="Share" Height="30" Width="30"/>
                                     </Button>
                                 </StackPanel>
@@ -164,14 +166,14 @@
                             </Grid.Effect>
                             <Image Source="Resources/ns2.jpg" Stretch="Fill"/>
                             <StackPanel Panel.ZIndex="2" Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
-                                <StackPanel Orientation="Horizontal" Margin="0, 110, 0, 0" Height="30" HorizontalAlignment="Stretch">
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="32,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                <StackPanel Orientation="Horizontal" Margin="0, 127, 0, 0" Height="30" HorizontalAlignment="Stretch">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="47,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="CloudDownload" Height="30" Width="30"/>
                                     </Button>
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="7,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="EyeOutline" Height="30" Width="30"/>
                                     </Button>
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,32,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="7,0,0,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="Share" Height="30" Width="30"/>
                                     </Button>
                                 </StackPanel>
@@ -184,14 +186,14 @@
                             </Grid.Effect>
                             <Image Source="Resources/ns3.jpg" Stretch="Fill"/>
                             <StackPanel Panel.ZIndex="2" Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
-                                <StackPanel Orientation="Horizontal" Margin="0, 110, 0, 0" Height="30" HorizontalAlignment="Stretch">
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="32,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                <StackPanel Orientation="Horizontal" Margin="0, 127, 0, 0" Height="30" HorizontalAlignment="Stretch">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="47,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="CloudDownload" Height="30" Width="30"/>
                                     </Button>
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="7,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="EyeOutline" Height="30" Width="30"/>
                                     </Button>
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,32,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="7,0,0,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="Share" Height="30" Width="30"/>
                                     </Button>
                                 </StackPanel>
@@ -204,14 +206,14 @@
                             </Grid.Effect>
                             <Image Source="Resources/ns4.jpg" Stretch="Fill"/>
                             <StackPanel Panel.ZIndex="2" Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
-                                <StackPanel Orientation="Horizontal" Margin="0, 110, 0, 0" Height="30" HorizontalAlignment="Stretch">
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="32,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                <StackPanel Orientation="Horizontal" Margin="0, 127, 0, 0" Height="30" HorizontalAlignment="Stretch">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="47,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="CloudDownload" Height="30" Width="30"/>
                                     </Button>
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="7,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="EyeOutline" Height="30" Width="30"/>
                                     </Button>
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,32,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="7,0,0,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="Share" Height="30" Width="30"/>
                                     </Button>
                                 </StackPanel>
@@ -224,14 +226,14 @@
                             </Grid.Effect>
                             <Image Source="Resources/ns5.jpg" Stretch="Fill"/>
                             <StackPanel Panel.ZIndex="2" Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
-                                <StackPanel Orientation="Horizontal" Margin="0, 110, 0, 0" Height="30" HorizontalAlignment="Stretch">
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="32,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                <StackPanel Orientation="Horizontal" Margin="0, 127, 0, 0" Height="30" HorizontalAlignment="Stretch">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="47,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="CloudDownload" Height="30" Width="30"/>
                                     </Button>
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="7,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="EyeOutline" Height="30" Width="30"/>
                                     </Button>
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,32,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="7,0,0,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="Share" Height="30" Width="30"/>
                                     </Button>
                                 </StackPanel>
@@ -244,14 +246,14 @@
                             </Grid.Effect>
                             <Image Source="Resources/ns6.jpg" Stretch="Fill"/>
                             <StackPanel Panel.ZIndex="2" Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
-                                <StackPanel Orientation="Horizontal" Margin="0, 110, 0, 0" Height="30" HorizontalAlignment="Stretch">
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="32,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                <StackPanel Orientation="Horizontal" Margin="0, 127, 0, 0" Height="30" HorizontalAlignment="Stretch">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="47,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="CloudDownload" Height="30" Width="30"/>
                                     </Button>
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,5,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="7,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="EyeOutline" Height="30" Width="30"/>
                                     </Button>
-                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="5,0,32,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="7,0,0,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <materialDesign:PackIcon Kind="Share" Height="30" Width="30"/>
                                     </Button>
                                 </StackPanel>
@@ -260,44 +262,36 @@
 
                     </Grid>
                 </Border>
-
-                <!-- Зона темного прямоугольника -->
-                <Grid Grid.Row="1" >
-                    <Border Margin="0,0,20,-3" BorderThickness="2" BorderBrush="#283038">
-
-                    </Border>
-                </Grid>
             </Grid>
 
-            <!-- Info about Publication Grid-->
+            <!-- Info about select Publication & Publisher-->
             <Grid Grid.Column="1">
                 <StackPanel>
-                    <!-- Добавить градиент!!! -->
                     <StackPanel Margin="0,8" Height="23" Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock   HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#E4007C">
                             <Run Text="Journal Information" FontFamily="Stencil" FontSize="21" />
                         </TextBlock>
                     </StackPanel>
 
-                    <!-- Название журнала -->
+                    <!-- Publication name -->
                     <StackPanel Height="50" Orientation="Horizontal">
                         <Label Content="Name" Style="{StaticResource InfoLabel}"/>
                         <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="naked science"/></TextBlock>
                     </StackPanel>
 
-                    <!-- Категория -->
+                    <!-- Genre -->
                     <StackPanel Height="50" Orientation="Horizontal">
                         <Label Content="Genre" Style="{StaticResource InfoLabel}"/>
                         <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="science"/></TextBlock>
                     </StackPanel>
 
-                    <!-- Издатель -->
+                    <!-- Publisher -->
                     <StackPanel Height="50" Orientation="Horizontal">
                         <Label Content="Publisher" Style="{StaticResource InfoLabel}"/>
                         <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="LTD Mirror"/></TextBlock>
                     </StackPanel>
 
-                    <!-- Тираж -->
+                    <!-- Тираж Number of copies -->
                     <StackPanel Height="60" Orientation="Horizontal">
                         <StackPanel VerticalAlignment="Center">
                             <Label  Content="Number of" Style="{StaticResource InfoLabel}"/>
@@ -306,7 +300,7 @@
                         <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="4000"/></TextBlock>
                     </StackPanel>
 
-                    <!-- Количество страниц -->
+                    <!-- Number of pages -->
                     <StackPanel Height="60" Orientation="Horizontal">
                         <StackPanel VerticalAlignment="Center">
                             <Label Content="Number of" Style="{StaticResource InfoLabel}"/>
@@ -315,13 +309,13 @@
                         <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="150"/></TextBlock>
                     </StackPanel>
 
-                    <!-- Формат -->
+                    <!-- Format -->
                     <StackPanel Height="50" Orientation="Horizontal">
                         <Label Content="Format" Style="{StaticResource InfoLabel}"/>
                         <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="B5 150 x 40"/></TextBlock>
                     </StackPanel>
 
-                    <!-- Язык публикации -->
+                    <!-- Publication language -->
                     <StackPanel Height="60" Orientation="Horizontal">
                         <StackPanel VerticalAlignment="Center">
                             <Label Content="Publication" Style="{StaticResource InfoLabel}"/>
@@ -336,7 +330,7 @@
                         <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="0135--5417"/></TextBlock>
                     </StackPanel>
 
-                    <!-- Дата публикации -->
+                    <!-- Publication date -->
                     <StackPanel Height="60" Orientation="Horizontal">
                         <StackPanel VerticalAlignment="Center">
                             <Label Content="Publication" Style="{StaticResource InfoLabel}"/>
@@ -345,11 +339,10 @@
                         <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="02.03.18"/></TextBlock>
                     </StackPanel>
 
-                    <!-- Информация об издательстве: адрес, емайл-->
+                    <!-- Information about Publishing House -->
                     <StackPanel Margin="0,2" Orientation="Vertical" >
-                        <Line Margin="0, 10" Stroke="#FF69B4" Height="1" StrokeThickness="3" X1="0" Y1="0" X2="320"/>
+                        <Line Margin="0, 6" Stroke="Black" Height="1" StrokeThickness="3" X1="0" Y1="0" X2="320"/>
                         <Label Content="About publishing house" Margin="0" Padding="1" Width="270" FontSize="21" Style="{StaticResource InfoLabel}"/>
-
                         <TextBlock Margin="0, 5, 0, 5" Width="300" Height="32" TextWrapping="Wrap" Style="{StaticResource InfoTxtBlock_Font}">
                             <Run Text="Unated States of America, DC Washington, 123 6th St.Melbourne, FL 32904" FontSize="13" />
                         </TextBlock>
@@ -357,18 +350,16 @@
                             <Run Text="publishing@agalushkin.ru" FontSize="15" />
                         </TextBlock>
                     </StackPanel>
-
                 </StackPanel>
             </Grid>
-
         </Grid>
 
 
         <!-- DeletePublicationGrid -->
-        <Grid x:Name="Grid_DeletePublication"  Margin="61, 36, 0, 21" Background="#1E90FF" Visibility="Hidden" Grid.ColumnSpan="2"/>
+        <Grid x:Name="Grid_DeletePublication"  Margin="61, 36, 0, 28" Background="#1E90FF" Visibility="Hidden"/>
 
         <!-- AddPublicationGrid -->
-        <Grid x:Name="Grid_AddPublication"  Margin="61, 36, 0, 21" Background="#F5F5F5" Visibility="Visible" Grid.ColumnSpan="2">
+        <Grid x:Name="Grid_AddPublication"  Margin="61, 36, 0, 28" Background="#F5F5F5" Visibility="Hidden">
             <!-- Create new publication -->
             <!--<StackPanel Margin="0,1,5,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="60" Width="640">
                 <Label Content="Create new publication" Width="645" FontSize="50" HorizontalContentAlignment="Center" 
@@ -478,6 +469,7 @@
                         </StackPanel>
                     </StackPanel>
 
+                    <!-- About publisher labels and textBoxes -->
                     <StackPanel Margin="0,0" Width="1084" Orientation="Horizontal" HorizontalAlignment="Left" Height="160">
                         <!-- Publisher information, labels & textBoxes -->
                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="1084" Height="130" Margin="0,15,0,0">
@@ -538,7 +530,7 @@
                             </StackPanel>
                         </StackPanel>-->
                     </StackPanel>
-                    
+
                     <!-- Add_Publ. page DataGrid -->
                     <StackPanel Margin="0,10,0,0" Height="120">
                         <DataGrid x:Name="Add_Page_DataGrid" Background="{x:Null}"  Style="{StaticResource MaterialDesignDataGrid}" 
@@ -551,8 +543,8 @@
                                     <Setter Property="Foreground" Value="#E4007C"/>
                                     <Setter Property="BorderBrush" Value="#6C6C6C"/>
                                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="VerticalContentAlignment" Value="Center"/>                                    
-                                </Style>                                
+                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                </Style>
                             </DataGrid.Resources>
                             <DataGrid.Columns>
                                 <materialDesign:MaterialDataGridTextColumn Header="Name" Width="*"  />
@@ -577,7 +569,7 @@
                     MaterialDesignFloatingActionLightButton, MaterialDesignFloatingActionDarkButton, MaterialDesignFloatingActionAccentButton-->
                     <StackPanel Margin="0,5,0,0" Height="42" HorizontalAlignment="Right" VerticalAlignment="Center">
                         <Button Content="Save" Foreground="#E4007C" FontFamily="Stencil" BorderThickness="1" BorderBrush="#6C6C6C" Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}">
-                            <!--<materialDesign:PackIcon Kind="Atom" />-->                            
+                            <!--<materialDesign:PackIcon Kind="Atom" />-->
                         </Button>
                     </StackPanel>
 
@@ -607,13 +599,11 @@
 
                 </StackPanel>
             </Grid>-->
-
-            
         </Grid>
 
         <!-- SearchInDB -->
         <!-- Dont work Hint underline! -->
-        <Grid x:Name="Grid_SearchInDB"  Margin="61, 36, 0, 21" Background="#F5F5F5" Visibility="Hidden" Grid.ColumnSpan="2">
+        <Grid x:Name="Grid_SearchInDB"  Margin="61, 36, 0, 28" Background="#F5F5F5" Visibility="Hidden">
 
             <!-- Search (with hint) -->
             <Border Height="50" Width="400" BorderThickness="1" BorderBrush="#6C6C6C" Margin="100, 0 , 635, 560">
@@ -649,6 +639,27 @@
             </Grid>
 
 
+        </Grid>
+
+        <!-- PDF View -->
+        <Grid x:Name="Grid_PDFView"  Margin="61, 36, 5, 28" Background="#F5F5F5" Visibility="Visible">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="35" />
+                </Grid.RowDefinitions>
+                <WebBrowser x:Name="WebBrowser" Grid.Row="0"/>
+                <!--<StackPanel Grid.Row="0" Background="Bisque"/>
+                Its solved now. I set "requireAdministrator" in application manifest file.I removed that and converted to "asInvoker".And it works.-->
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Background="White">
+                    <Button x:Name="WebBrowserContentOpenButton" Content="Open" Margin="0,0,10,0" Foreground="#E4007C" FontFamily="Stencil" 
+                            BorderThickness="1" BorderBrush="#6C6C6C" Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}" Click="WebBrowserContentOpenButton_Click" />
+                    <Button x:Name="WebBrowserContentClearButton" Content="Clear" Margin="0,0,0,0" Foreground="#E4007C" FontFamily="Stencil" 
+                            BorderThickness="1" BorderBrush="#6C6C6C" Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}" Click="WebBrowserContentClearButton_Click" />
+
+                </StackPanel>                
+            </Grid>
         </Grid>
 
     </Grid>

@@ -15,8 +15,8 @@ namespace Publishing.EntityData
     //    [Column(Order = 0)]
     //    public int PublicationId { get; set; }
 
-    //    [Column(TypeName = "NVARCHAR", Order = 1)]        
-    //    [MaxLength(20)]       
+    //    [Column(TypeName = "NVARCHAR", Order = 1)]
+    //    [MaxLength(20)]
     //    [Required]
     //    public string Name { get; set; }
 
@@ -59,7 +59,6 @@ namespace Publishing.EntityData
     //    [Column(Order = 9)]
     //    public int PublisherRefId { get; set; }
     //    public virtual Publisher Publisher { get; set; }
-
 
     //    [Column(TypeName = "VARBINARY(MAX)", Order = 10)]   // Cover_Image
     //    public byte[] Cover { get; set; }

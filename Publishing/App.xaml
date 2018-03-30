@@ -23,17 +23,17 @@
                         <EventTrigger.Actions>
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" From="-240,0,0,0" To="0, 0, 0, 0" DecelerationRatio=".9" Duration="0:0:0.8"/>
-                                </Storyboard>
+                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" From="-240,0,0,0" To="0, 0, 0, 0" DecelerationRatio=".9" Duration="0:0:0.8"/>                                    
+                                </Storyboard>                                
                             </BeginStoryboard>
-                        </EventTrigger.Actions>
+                        </EventTrigger.Actions>      
                     </EventTrigger>
 
                     <EventTrigger RoutedEvent="MouseLeave">
                         <EventTrigger.Actions>
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-240, 0, 0, 0" DecelerationRatio=".9" Duration="0:0:0.5"/>
+                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-240, 0, 0, 0" DecelerationRatio=".9" Duration="0:0:0.5"/>                                    
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger.Actions>
