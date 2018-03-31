@@ -3,8 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"          
-        xmlns:local="clr-namespace:Publishing"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"       
+        xmlns:local="clr-namespace:Publishing" 
+        xmlns:WPFPdfViewer="clr-namespace:WPFPdfViewer;assembly=WPFPdfViewer"
         mc:Ignorable="d"          
         Title="Publishing Application" Height="700" Width="1200" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None">
     <Grid Background="#F5F5F5">
@@ -648,7 +649,11 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="35" />
                 </Grid.RowDefinitions>
-                <WebBrowser x:Name="WebBrowser" Grid.Row="0"/>
+                <WPFPdfViewer:PdfViewer x:Name="pdfViewer" Grid.Row="0"/>
+                <!--<WindowsFormsHost x:Name="PDFHost"/>-->                
+
+                <!--<WebBrowser x:Name="WebBrowser" Grid.Row="0"/>-->
+                
                 <!--<StackPanel Grid.Row="0" Background="Bisque"/>
                 Its solved now. I set "requireAdministrator" in application manifest file.I removed that and converted to "asInvoker".And it works.-->
 

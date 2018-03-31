@@ -15,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using WPFPdfViewer;
 
 namespace Publishing
 {
@@ -27,8 +27,8 @@ namespace Publishing
         #region MainWindow()
         public MainWindow()
         {
-            InitializeComponent(); 
-            
+            InitializeComponent();            
+
             InvisibleGrids();
             DataContext = new ComboBoxViewModel();         
             Grid_HomePage.Visibility = Visibility.Visible;
@@ -47,8 +47,10 @@ namespace Publishing
 
         public void GetRealTime()
         {
-            System.Timers.Timer Timer = new System.Timers.Timer();
-            Timer.Interval = 1000;
+            System.Timers.Timer Timer = new System.Timers.Timer
+            {
+                Interval = 1000
+            };
             Timer.Elapsed += Timer_Elapsed;
             Timer.Start();
         }
@@ -175,7 +177,8 @@ namespace Publishing
             {
                 try
                 {
-                    WebBrowser.Navigate(openFileDialog.FileName);
+                    //WebBrowser.Navigate(openFileDialog.FileName);
+                    pdfViewer.LoadFile(openFileDialog.FileName);
                 }
                 catch (Exception ex)
                 {
@@ -193,7 +196,7 @@ namespace Publishing
         {
             try
             {
-                WebBrowser.Navigate((Uri)null);
+                //WebBrowser.Navigate((Uri)null);
             }
             catch (Exception ex)
             {
@@ -202,12 +205,7 @@ namespace Publishing
         }
         #endregion
 
-
-
-
-
         
-
 
         //-----------------------------------------------------------------------------------------------------
         #region Test functional.
@@ -230,9 +228,7 @@ namespace Publishing
         //            pic_stp_1.Visibility = Visibility.Hidden;
         //            break;
         //    }
-        //}
+        //}       
         #endregion
-
-        
     }
 }
