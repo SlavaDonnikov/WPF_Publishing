@@ -7,68 +7,64 @@
         xmlns:local="clr-namespace:Publishing" 
         xmlns:WPFPdfViewer="clr-namespace:WPFPdfViewer;assembly=WPFPdfViewer"
         mc:Ignorable="d"          
-        Title="Publishing Application" Height="700" Width="1200" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None">
+        Title="Publishing Application" Height="700" Width="1200" WindowStartupLocation="CenterScreen" Topmost="True" ShowInTaskbar="true" ResizeMode="NoResize" WindowStyle="None">
     <Grid Background="#F5F5F5">
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="241*"/>
-            <ColumnDefinition Width="59*"/>
-        </Grid.ColumnDefinitions>-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
         <!-- Swipping menu -->
-        <Grid Panel.ZIndex="2" HorizontalAlignment="Left" Width="60">
+        <Grid Panel.ZIndex="2" Grid.Row="0" HorizontalAlignment="Left" Width="40">
+            <Canvas Margin="0,35.4">
+                <StackPanel x:Name="STP1" Style="{StaticResource spSlideLeft}" Background="#283038" Margin="-225,0,0,0" Width="265">
 
-            <Canvas Margin="0,0,0,0">
-
-                <StackPanel x:Name="STP1" Style="{StaticResource spSlideLeft}" Background="#283038" Margin="-240,0,0,0" Width="300">
-
-
-                    <DockPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 0" Width="290" Height="100">
-                        <Image DockPanel.Dock="Top" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 5, 30, 5" Source="Resources/pexels-photo-701026.jpeg" Stretch="Uniform" />
-                        <materialDesign:PackIcon Kind="meteor"  Foreground="White" Width="50" Height="50" Margin="240,-70,0,0"/>
+                    <DockPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,0,0,0" Width="263" Height="60">
+                        <!--<Image DockPanel.Dock="Top" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 5, 30, 5" Source="Resources/pexels-photo-701026.jpeg" Stretch="Uniform" />-->
+                        <materialDesign:PackIcon Kind="Menu"  Foreground="White" Width="30" Height="30" Margin="228.5,15,0,0"/>
                     </DockPanel>
 
                     <!-- Stroke="#FF69B4" Height="2" Margin="5,0,65,10" StrokeThickness="5" X2="233" -->
                     <Line Style="{StaticResource changeLine}" />
 
                     <Border Style="{StaticResource borderEdge}" >
-                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
-                            <Label Style="{DynamicResource MenuLabel}" Content="Home page" VerticalAlignment="Center" Width="230" FontSize="22" MouseLeftButtonDown="Label_MouseLeftButtonDown"/>
-                            <materialDesign:PackIcon Kind="HomeAssistant" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 5" Width="260">
+                            <Label Style="{DynamicResource MenuLabel}" Content="Home page" MouseLeftButtonDown="Label_MouseLeftButtonDown"/>
+                            <materialDesign:PackIcon Kind="HomeAssistant" Foreground="White" Width="30" Height="30" Margin="8.5, 0, 0, 0"/>
                         </DockPanel>
                     </Border>
 
                     <Border Style="{StaticResource borderEdge}" >
-                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
-                            <Label Style="{DynamicResource MenuLabel}" Content="View PDF file" VerticalAlignment="Center" Width="230" FontSize="22" MouseLeftButtonDown="Label_MouseLeftButtonDown_4"/>
-                            <materialDesign:PackIcon Kind="FilePdfBox" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 5" Width="260">
+                            <Label Style="{DynamicResource MenuLabel}" Content="View PDF file" MouseLeftButtonDown="Label_MouseLeftButtonDown_4"/>
+                            <materialDesign:PackIcon Kind="FilePdfBox" Foreground="White" Width="30" Height="30" Margin="8.5, 0, 0, 0"/>
                         </DockPanel>
                     </Border>
 
                     <Border Style="{StaticResource borderEdge}">
-                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
-                            <Label Style="{DynamicResource MenuLabel}" Content="Add publication" VerticalAlignment="Center" Width="230" FontSize="22" MouseLeftButtonDown="Label_MouseLeftButtonDown_1"/>
-                            <materialDesign:PackIcon Kind="DatabasePlus" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 5" Width="260">
+                            <Label Style="{DynamicResource MenuLabel}" Content="Add publication" MouseLeftButtonDown="Label_MouseLeftButtonDown_1"/>
+                            <materialDesign:PackIcon Kind="DatabasePlus" Foreground="White" Width="30" Height="30" Margin="8.5, 0, 0, 0"/>
                         </DockPanel>
                     </Border>
 
                     <Border Style="{StaticResource borderEdge}">
-                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
-                            <Label Style="{DynamicResource MenuLabel}" Content="Delete publication" VerticalAlignment="Center" Width="230" FontSize="22" MouseLeftButtonDown="Label_MouseLeftButtonDown_2"/>
-                            <materialDesign:PackIcon Kind="DatabaseMinus" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 5" Width="260">
+                            <Label Style="{DynamicResource MenuLabel}" Content="Delete publication"  MouseLeftButtonDown="Label_MouseLeftButtonDown_2"/>
+                            <materialDesign:PackIcon Kind="DatabaseMinus" Foreground="White" Width="30" Height="30" Margin="8.5, 0, 0, 0"/>
                         </DockPanel>
                     </Border>
 
                     <Border Style="{StaticResource borderEdge}">
-                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
-                            <Label Style="{DynamicResource MenuLabel}" Content="Search In DB" VerticalAlignment="Center" Width="230" FontSize="22" MouseLeftButtonDown="Label_MouseLeftButtonDown_3"/>
-                            <materialDesign:PackIcon Kind="DatabaseSearch" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 5" Width="260">
+                            <Label Style="{DynamicResource MenuLabel}" Content="Search In DB" MouseLeftButtonDown="Label_MouseLeftButtonDown_3"/>
+                            <materialDesign:PackIcon Kind="DatabaseSearch" Foreground="White" Width="30" Height="30" Margin="8.5, 0, 0, 0"/>
                         </DockPanel>
                     </Border>
 
                     <Border Style="{StaticResource borderEdge}">
-                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" Width="290">
-                            <Label Style="{DynamicResource MenuLabel}" Content="Settings"  VerticalAlignment="Center" Width="230" FontSize="22"/>
-                            <materialDesign:PackIcon Kind="Settings" Foreground="White" Width="50" Height="50" Margin="10, 0, 0, 0"/>
+                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 5" Width="260">
+                            <Label Style="{DynamicResource MenuLabel}" Content="Settings" />
+                            <materialDesign:PackIcon Kind="Settings" Foreground="White" Width="30" Height="30" Margin="8.5, 0, 0, 0"/>
                         </DockPanel>
                     </Border>
 
@@ -77,7 +73,7 @@
         </Grid>
 
         <!-- Upper panel -->
-        <Grid Height="35" Margin="61,0,0,0" VerticalAlignment="Top" Background="#283038" Grid.ColumnSpan="2">
+        <Grid Grid.Row="0" Margin="0,0,0,0" Height="35" VerticalAlignment="Top" Background="#283038">
             <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Width="62">
                 <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                     <materialDesign:PackIcon Kind="CodeBrackets" Height="30" Width="30"/>
@@ -89,7 +85,7 @@
         </Grid>
 
         <!-- Status bar -->
-        <Grid Height="27" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="#283038" Grid.ColumnSpan="2">
+        <Grid Grid.Row="0" Height="27" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="#283038">
             <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Height="27"  VerticalAlignment="Bottom" HorizontalAlignment="Right">
                 <Label x:Name="ApplicationFullDate" Content="Saturday, March 31, 2018" Margin="0,0,10,0" FontFamily="Stencil" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Label x:Name="ApplicationRealTime" Content="00:00:00 AM" Margin="0,0,8,0" FontFamily="Stencil" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -97,26 +93,34 @@
                     <materialDesign:PackIcon Kind="Information" Height="27" Width="27" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 </Button>
             </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Stretch" >
+                <Ellipse Margin="10,0" Height="15" Width="15" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="#FF04EE2F" StrokeStartLineCap="Round">
+
+                </Ellipse>
+                <Label x:Name="CurrentApplicationActionStatus" Content="Current Application Status" Margin="5,0,0,0" FontFamily="Stencil" FontSize="12"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+            </StackPanel>
         </Grid>
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
         <!-- HomePageGrid-->
-        <Grid x:Name="Grid_HomePage" Margin="61, 36, 0, 28" Visibility="Visible" Grid.ColumnSpan="2">
+        <Grid x:Name="Grid_HomePage" Grid.Row="0" Margin="42, 36, 0, 28" Visibility="Visible" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="817*"/>
                 <ColumnDefinition Width="322*"/>
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0" Panel.ZIndex="0" Background="#F5F5F5">
+            <!-- Publication Covers-->
+            <Grid Grid.Column="0" Background="#F5F5F5">
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <!-- Text Block -->
                 <StackPanel Height="25" Margin="200,8,200,0" VerticalAlignment="Top">
                     <TextBlock HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="NoWrap" Height="25" >                        
-                        <Run Text="Last opened publications" FontFamily="Stencil" FontSize="21" Foreground="#E4007C"/>
+                        <Run Text="Last opened publications" FontFamily="Stencil" FontSize="22" Foreground="#E4007C"/>
                     </TextBlock>
                 </StackPanel>
 
@@ -126,18 +130,18 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.6*"/>
                             <RowDefinition Height="4.0*"/>
-                            <RowDefinition Height="0.15*"/>
+                            <RowDefinition Height="0.2*"/>
                             <RowDefinition Height="4.0*"/>
-                            <RowDefinition Height="0.15*"/>
+                            <RowDefinition Height="0.2*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1.2*"/>
+                            <ColumnDefinition Width="1.3*"/>
                             <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="0.4*"/>
                             <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="0.4*"/>
                             <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="1.2*"/>
+                            <ColumnDefinition Width="1.3*"/>
                         </Grid.ColumnDefinitions>
 
                         <Grid x:Name="gr1" Margin="7" Grid.Column="1" Grid.Row="1" Style="{StaticResource V_Image}">
@@ -267,15 +271,16 @@
 
             <!-- Info about select Publication & Publisher-->
             <Grid Grid.Column="1">
-                <StackPanel>
+
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <StackPanel Margin="0,8" Height="23" Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock   HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#E4007C">
-                            <Run Text="Journal Information" FontFamily="Stencil" FontSize="21" />
+                            <Run Text="Journal Information" FontFamily="Stencil" FontSize="22"/>
                         </TextBlock>
                     </StackPanel>
 
                     <!-- Publication name -->
-                    <StackPanel Height="50" Orientation="Horizontal">
+                    <StackPanel Margin="0" Height="50" Orientation="Horizontal">
                         <Label Content="Name" Style="{StaticResource InfoLabel}"/>
                         <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="naked science"/></TextBlock>
                     </StackPanel>
@@ -347,36 +352,26 @@
                         <TextBlock Margin="0, 5, 0, 5" Width="300" Height="32" TextWrapping="Wrap" Style="{StaticResource InfoTxtBlock_Font}">
                             <Run Text="Unated States of America, DC Washington, 123 6th St.Melbourne, FL 32904" FontSize="13" />
                         </TextBlock>
-                        <TextBlock Width="300" Style="{StaticResource InfoTxtBlock_Font}">
-                            <Run Text="publishing@agalushkin.ru" FontSize="15" />
-                        </TextBlock>
                     </StackPanel>
                 </StackPanel>
+
             </Grid>
         </Grid>
 
-
         <!-- DeletePublicationGrid -->
-        <Grid x:Name="Grid_DeletePublication"  Margin="61, 36, 0, 28" Background="#1E90FF" Visibility="Hidden"/>
+        <Grid x:Name="Grid_DeletePublication" Grid.Row="0" Margin="42, 36, 0, 28" Background="#1E90FF" Visibility="Hidden"></Grid>
 
         <!-- AddPublicationGrid -->
-        <Grid x:Name="Grid_AddPublication"  Margin="61, 36, 0, 28" Background="#F5F5F5" Visibility="Hidden">
-            <!-- Create new publication -->
-            <!--<StackPanel Margin="0,1,5,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="60" Width="640">
-                <Label Content="Create new publication" Width="645" FontSize="50" HorizontalContentAlignment="Center" 
-                       VerticalContentAlignment="Center" Style="{StaticResource InfoLabel}"/>
-                <Line  X2="640" Stroke="Black" StrokeThickness="2" />
-            </StackPanel>-->
-
-            <Grid Margin="25,10,0,0" >
-                <!-- All labels and textBoxes -->
+        <Grid x:Name="Grid_AddPublication" Grid.Row="0" Margin="42, 36, 0, 28" Background="#F5F5F5" Visibility="Hidden">
+            
+            <Grid Margin="10,5,0,0" >                
                 <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                    
                     <!-- Publication information -->
                     <StackPanel Width="826" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <Label Content="Publication Information" Width="405" FontSize="28" Padding="1" HorizontalContentAlignment="Left" Foreground="Black" Style="{StaticResource InfoLabel}" />
                     </StackPanel>
-
-                    <!-- About publication labels and textBoxes -->
+                    
                     <StackPanel  Orientation="Horizontal">
                         <StackPanel Width="405" HorizontalAlignment="Left">
                             <StackPanel Height="50" Orientation="Horizontal">
@@ -415,7 +410,7 @@
                                          Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel Margin="20,0" HorizontalAlignment="Right" Width="405">
+                        <StackPanel Margin="25,0" HorizontalAlignment="Right" Width="405">
                             <StackPanel Height="50" Orientation="Horizontal">
                                 <StackPanel VerticalAlignment="Center">
                                     <Label Content="Number of" Style="{StaticResource InfoLabel}"/>
@@ -463,7 +458,7 @@
                             </StackPanel>
                         </StackPanel>
                         <!-- Image downloading when add new publication in DB -->
-                        <StackPanel  Margin="0, -28" Width="244" Height="317" Background="#DB7093">
+                        <StackPanel  Margin="15, -28" Width="244" Height="317" Background="#DB7093">
                             <Border Margin="2" Height="313" BorderThickness="1" BorderBrush="#6C6C6C">
                                 <Image x:Name="NewPublication_OpenImage" Stretch="Fill"/>
                             </Border>
@@ -471,12 +466,11 @@
                     </StackPanel>
 
                     <!-- About publisher labels and textBoxes -->
-                    <StackPanel Margin="0,0" Width="1084" Orientation="Horizontal" HorizontalAlignment="Left" Height="160">
-                        <!-- Publisher information, labels & textBoxes -->
+                    <StackPanel Margin="0,0" Width="1084" Orientation="Horizontal" HorizontalAlignment="Left" Height="160">                        
                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="1084" Height="130" Margin="0,15,0,0">
-                            <StackPanel Width="670" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <StackPanel Width="700" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
                                 <Label Content="Publisher Information"  Width="405" FontSize="28" Padding="1" HorizontalContentAlignment="Left" Foreground="Black" Style="{StaticResource InfoLabel}" />
-                                <ComboBox x:Name="PublisherTypesComboBox" Width="250" Margin="10,0,10,0" BorderThickness="0 0 0 1" BorderBrush="#6C6C6C"
+                                <ComboBox x:Name="PublisherTypesComboBox" Width="250" Margin="25,0,10,0" BorderThickness="0 0 0 1" BorderBrush="#6C6C6C"
                                           FontSize="12" FontFamily="Stencil" Foreground="Black" 
                                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                           ItemsSource="{Binding PublisherTypesCollection}" SelectionChanged="PublisherTypesComboBox_SelectionChanged" />
@@ -504,43 +498,18 @@
                                          Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
                                 </StackPanel>
                             </StackPanel>
-                        </StackPanel>
-
-                        <!--<StackPanel Margin="0,5" Width="405" Orientation="Vertical" HorizontalAlignment="Left">
-                            <StackPanel Height="50" Orientation="Horizontal">
-                                <StackPanel VerticalAlignment="Center">
-                                    <Label Content="Publisher" Style="{StaticResource InfoLabel}"/>
-                                    <Label Content="name" Style="{StaticResource InfoLabel}"/>
-                                </StackPanel>
-                                <TextBox Width="260" Height="40" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13"
-                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
-                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
-                            </StackPanel>
-                            <StackPanel Height="90" Orientation="Horizontal">
-                                <Label Content="Address" Style="{StaticResource InfoLabel}"/>
-                                <TextBox Width="260" Height="70" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13" TextWrapping="Wrap"
-                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
-                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"
-                                         Text="Unated States of America, DC Washington, 123 6th St.Melbourne, FL 32904"/>
-                            </StackPanel>
-                            <StackPanel Margin="0,5" Height="50" Orientation="Horizontal">
-                                <Label Content="Email" Style="{StaticResource InfoLabel}"/>
-                                <TextBox Width="260" Height="40" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13"
-                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
-                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C" Text="slavadonnikov@gmail.com"/>
-                            </StackPanel>
-                        </StackPanel>-->
+                        </StackPanel>                        
                     </StackPanel>
 
-                    <!-- Add_Publ. page DataGrid -->
-                    <StackPanel Margin="0,10,0,0" Height="120">
+                    <!-- DataGrid -->
+                    <StackPanel Margin="-45,5,0,0" Height="130">
                         <DataGrid x:Name="Add_Page_DataGrid" Background="{x:Null}"  Style="{StaticResource MaterialDesignDataGrid}" 
                                   CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="True" CanUserReorderColumns="False">
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="FontFamily" Value="Stencil"/>
                                     <Setter Property="BorderThickness" Value="1 1 0 1"/>
-                                    <Setter Property="Height" Value="50"/>
+                                    <Setter Property="Height" Value="40"/>
                                     <Setter Property="Foreground" Value="#E4007C"/>
                                     <Setter Property="BorderBrush" Value="#6C6C6C"/>
                                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -568,67 +537,47 @@
                     MaterialDesignToolForegroundButton, MaterialDesignFloatingActionMiniButton, MaterialDesignFloatingActionButton,
                     MaterialDesignFloatingActionMiniLightButton, MaterialDesignFloatingActionMiniDarkButton, MaterialDesignFloatingActionMiniAccentButton
                     MaterialDesignFloatingActionLightButton, MaterialDesignFloatingActionDarkButton, MaterialDesignFloatingActionAccentButton-->
-                    <StackPanel Margin="0,5,0,0" Height="42" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <Button Content="Save" Foreground="#E4007C" FontFamily="Stencil" BorderThickness="1" BorderBrush="#6C6C6C" Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}">
-                            <!--<materialDesign:PackIcon Kind="Atom" />-->
-                        </Button>
+                    <StackPanel Margin="0,5,0,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button Content="Save" Foreground="#E4007C" FontFamily="Stencil" BorderThickness="1" BorderBrush="#6C6C6C" 
+                                Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}"/>
                     </StackPanel>
 
                 </StackPanel>
-            </Grid>
-
-            <!--<Grid Margin="725,400,5,5" >
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                        <Label Content="Publisher Information"  Width="405" FontSize="28" Padding="1" HorizontalContentAlignment="Center" Style="{StaticResource InfoLabel}" />
-                    </StackPanel>
-                    <StackPanel Margin="0,10" Height="50" Orientation="Horizontal">
-                        <StackPanel VerticalAlignment="Center">
-                            <Label Content="Publisher" Style="{StaticResource InfoLabel}"/>
-                            <Label Content="name" Style="{StaticResource InfoLabel}"/>
-                        </StackPanel>
-                        <TextBox Text="LTD Roga and kopita corporation" Style="{StaticResource AddTextBox}" Margin="5" Width="274"/>
-                    </StackPanel>
-                    <StackPanel Height="90" Orientation="Horizontal">
-                        <Label Content="Address" Style="{StaticResource InfoLabel}"/>
-                        <TextBox Text="Unated States of America, DC Washington, 123 6th St.Melbourne, FL 32904" Style="{StaticResource AddTextBox}" Margin="5" Width="274" Height="70" TextWrapping="Wrap"/>
-                    </StackPanel>
-                    <StackPanel Height="40" Orientation="Horizontal">
-                        <Label Content="Email" Style="{StaticResource InfoLabel}"/>
-                        <TextBox Text="slavadonnikov@gmail.com" Style="{StaticResource AddTextBox}" Margin="5" Width="274"/>
-                    </StackPanel>
-
-                </StackPanel>
-            </Grid>-->
+            </Grid>  
+            
         </Grid>
 
         <!-- SearchInDB -->
         <!-- Dont work Hint underline! -->
-        <Grid x:Name="Grid_SearchInDB"  Margin="61, 36, 0, 28" Background="#F5F5F5" Visibility="Hidden">
+        <Grid x:Name="Grid_SearchInDB" Grid.Row="0" Margin="42, 36, 0, 28" Background="#F5F5F5" Visibility="Hidden">
 
             <!-- Search (with hint) -->
-            <Border Height="50" Width="400" BorderThickness="1" BorderBrush="#6C6C6C" Margin="100, 0 , 635, 560">
-                <StackPanel Orientation="Horizontal" >
-                    <materialDesign:PackIcon Kind="SearchWeb" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="30" Margin="5"/>
-                    <TextBox materialDesign:HintAssist.Hint="Search the files" 
-                         Padding="5,0" Margin="0,5" Width="350"
-                         HorizontalAlignment="Center" 
-                         VerticalAlignment="Center" 
-                         TextAlignment="Center"                         
-                         BorderBrush="{DynamicResource MaterialDesignTextBoxBorder}"
-                         HorizontalContentAlignment="Stretch"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <Border Height="50" Width="400" BorderThickness="1" BorderBrush="#6C6C6C" Margin="100, 5, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" >
+                        <materialDesign:PackIcon Kind="SearchWeb" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="30" Margin="5"/>
+                        <TextBox materialDesign:HintAssist.Hint="Search the files" 
+                             Padding="5,0" Margin="0,5" Width="350"
+                             HorizontalAlignment="Center" 
+                             VerticalAlignment="Center" 
+                             TextAlignment="Center"                         
+                             BorderBrush="{DynamicResource MaterialDesignTextBoxBorder}"
+                             HorizontalContentAlignment="Stretch"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Orientation="Vertical" Margin="20, 0, 0, 0" Width="310">
+                    <Label Content="Search in Data Base by" Width="300" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource InfoLabel}"/>
+                    <ComboBox Width="300" Margin="0,5,0,0" BorderThickness="0 0 0 1" BorderBrush="#6C6C6C"
+                                              FontSize="13" FontFamily="Stencil" Foreground="Black" 
+                                              HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                              HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding SearchTypesCollection}" />
                 </StackPanel>
-            </Border>
-
-            <!-- Just for test! -->
-            <StackPanel Margin="250, 20, 0, 580" Width="310">
-                <Label Content="Binding code-behind class" Width="300" FontSize="21" Style="{StaticResource InfoLabel}"/>
-                <ComboBox ItemsSource="{Binding SearchTypesCollection}"/>
             </StackPanel>
-
             <!-- Advance search Grid-->
-            <Grid Margin="100, 100, 300, 100">
+            <!--<Grid Margin="100, 100, 300, 100">
                 <StackPanel Panel.ZIndex="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
                         <materialDesign:PackIcon Kind="Menu" Height="30" Width="30" Foreground="#6C6C6C" />
@@ -637,33 +586,58 @@
                         <Run Text="Last opened publications" FontFamily="Stencil" FontSize="19" Foreground="#E4007C"/>
                     </TextBlock>
                 </StackPanel>
-            </Grid>
+            </Grid>-->
 
+            <StackPanel Margin="5,100,5,0" Height="130" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <DataGrid x:Name="SearchInDB_Page_DataGrid" Background="{x:Null}"  Style="{StaticResource MaterialDesignDataGrid}" 
+                                  CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="True" CanUserReorderColumns="False">
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="FontFamily" Value="Stencil"/>
+                            <Setter Property="BorderThickness" Value="1 1 0 1"/>
+                            <Setter Property="Height" Value="40"/>
+                            <Setter Property="Foreground" Value="#E4007C"/>
+                            <Setter Property="BorderBrush" Value="#6C6C6C"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <materialDesign:MaterialDataGridTextColumn Header="Name" Width="*"  />
+                        <!--HeaderStyle="{StaticResource MaterialDesignDataGridColumnHeader}"-->
+                        <materialDesign:MaterialDataGridTextColumn Header="ISSN" Width="*" />
+                        <materialDesign:MaterialDataGridTextColumn Header="Publisher" Width="1.5*"/>
+                        <materialDesign:MaterialDataGridTextColumn Header="Genre" Width="*"/>
+                        <materialDesign:MaterialDataGridTextColumn Header="Format" Width="*"/>
+                        <materialDesign:MaterialDataGridTextColumn Header="Language" Width="*"/>
+                        <materialDesign:MaterialDataGridTextColumn Header="Copies" Width="*"/>
+                        <materialDesign:MaterialDataGridTextColumn Header="Pages" Width="*"/>
+                        <DataGridHyperlinkColumn Header="Download Link" Width="1.5*"/>
+                        <materialDesign:MaterialDataGridTextColumn Header="Publ. Date" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
 
         </Grid>
 
         <!-- PDF View -->
-        <Grid x:Name="Grid_PDFView"  Margin="61, 36, 5, 28" Background="#F5F5F5" Visibility="Visible">
+        <Grid x:Name="Grid_PDFView" Grid.Row="0" Margin="61,36,5,28" Background="#F5F5F5" Visibility="Hidden">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="35" />
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="35"/>
                 </Grid.RowDefinitions>
-                <WPFPdfViewer:PdfViewer x:Name="pdfViewer" Grid.Row="0"/>
-                <!--<WindowsFormsHost x:Name="PDFHost"/>-->                
+                <WPFPdfViewer:PdfViewer x:Name="pdfViewer" Grid.Row="0" Margin="20"/>
 
-                <!--<WebBrowser x:Name="WebBrowser" Grid.Row="0"/>-->
-                
-                <!--<StackPanel Grid.Row="0" Background="Bisque"/>
-                Its solved now. I set "requireAdministrator" in application manifest file.I removed that and converted to "asInvoker".And it works.-->
-
+                <!-- <WebBrowser x:Name="WebBrowser" Grid.Row="0"/>-->
                 <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Background="White">
-                    <Button x:Name="WebBrowserContentOpenButton" Content="Open" Margin="0,0,10,0" Foreground="#E4007C" FontFamily="Stencil" 
-                            BorderThickness="1" BorderBrush="#6C6C6C" Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}" Click="WebBrowserContentOpenButton_Click" />
-                    <Button x:Name="WebBrowserContentClearButton" Content="Clear" Margin="0,0,0,0" Foreground="#E4007C" FontFamily="Stencil" 
-                            BorderThickness="1" BorderBrush="#6C6C6C" Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}" Click="WebBrowserContentClearButton_Click" />
-
-                </StackPanel>                
+                    <Button x:Name="WebBrowserContentOpenButton" Content="Open" Margin="0,0,10,0" Foreground="#E4007C" FontFamily="Stencil"
+                            BorderThickness="1" BorderBrush="#6C6C6C" Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}" 
+                            Click="WebBrowserContentOpenButton_Click" />
+                    <Button x:Name="WebBrowserContentClearButton" Content="Clear" Margin="0" Foreground="#E4007C" FontFamily="Stencil"
+                            BorderThickness="1" BorderBrush="#6C6C6C" Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}" 
+                            Click="WebBrowserContentClearButton_Click"/>
+                </StackPanel>
             </Grid>
         </Grid>
 

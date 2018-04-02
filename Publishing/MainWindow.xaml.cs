@@ -178,7 +178,7 @@ namespace Publishing
                 try
                 {
                     //WebBrowser.Navigate(openFileDialog.FileName);
-                    pdfViewer.LoadFile(openFileDialog.FileName);
+                    pdfViewer.LoadFile(openFileDialog.FileName);                    
                 }
                 catch (Exception ex)
                 {
@@ -196,7 +196,7 @@ namespace Publishing
         {
             try
             {
-                //WebBrowser.Navigate((Uri)null);
+                //WebBrowser.Navigate((Uri)null);                
             }
             catch (Exception ex)
             {

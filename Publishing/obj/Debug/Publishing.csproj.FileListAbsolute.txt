@@ -41,8 +41,8 @@ E:\ТРПО\Publishing\Publishing\bin\Debug\EntityFramework.dll
 E:\ТРПО\Publishing\Publishing\bin\Debug\EntityFramework.SqlServer.dll
 E:\ТРПО\Publishing\Publishing\bin\Debug\EntityFramework.xml
 E:\ТРПО\Publishing\Publishing\bin\Debug\EntityFramework.SqlServer.xml
-E:\ТРПО\Publishing\Publishing\obj\Debug\Publishing.csprojResolveAssemblyReference.cache
 E:\ТРПО\Publishing\Publishing\bin\Debug\AxInterop.AcroPDFLib.dll
 E:\ТРПО\Publishing\Publishing\bin\Debug\WPFPdfViewer.dll
 E:\ТРПО\Publishing\Publishing\bin\Debug\Interop.AcroPDFLib.dll
 E:\ТРПО\Publishing\Publishing\bin\Debug\WPFPdfViewer.pdb
+E:\ТРПО\Publishing\Publishing\obj\Debug\Publishing.csprojResolveAssemblyReference.cache

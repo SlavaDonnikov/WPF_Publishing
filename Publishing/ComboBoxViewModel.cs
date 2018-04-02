@@ -16,10 +16,12 @@ namespace Publishing        // Just for test!
         {
             SearchTypesCollection = new List<string>()
             {
-                "Search by Name",
-                "Search by INNS",
-                "Search by publishing house",
-                "Search by category"
+                "Name",                
+                "INNS",
+                "Genre",
+                "Publisher Name",
+                "Publication Language",
+                "Publication Date",
             };
 
             GenreTypesCollection = new List<string>()

@@ -23,7 +23,7 @@
                         <EventTrigger.Actions>
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" From="-240,0,0,0" To="0, 0, 0, 0" DecelerationRatio=".9" Duration="0:0:0.8"/>                                    
+                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" From="-225,0,0,0" To="0, 0, 0, 0" DecelerationRatio=".9" Duration="0:0:0.8"/>                                    
                                 </Storyboard>                                
                             </BeginStoryboard>
                         </EventTrigger.Actions>      
@@ -33,7 +33,7 @@
                         <EventTrigger.Actions>
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-240, 0, 0, 0" DecelerationRatio=".9" Duration="0:0:0.5"/>                                    
+                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-225, 0, 0, 0" DecelerationRatio=".9" Duration="0:0:0.5"/>                                    
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger.Actions>
@@ -45,9 +45,15 @@
 
             <!-- Для подсвечивания надписей меню при наведении курсора -->
             <Style x:Key="MenuLabel" TargetType="Label">
-                <Setter Property="FontSize" Value="22"/>
-                <Setter Property="Padding" Value="15,0,0,0"/>
+                <Setter Property="Width" Value="220"/>
+                <Setter Property="FontFamily" Value="Stencil"/>
+                <Setter Property="FontSize" Value="19"/>
+                <Setter Property="Padding" Value="5,0,0,0"/>
                 <Setter Property="Foreground" Value="#FF69B4"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
                 <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
                 <Setter Property="TextOptions.TextRenderingMode" Value="Auto"/>
 
@@ -66,10 +72,10 @@
 
             <!-- Рамка вокруг элементов меню при наведении курсора -->
             <Style x:Key="borderEdge" TargetType="Border">
-                <Setter Property="CornerRadius" Value="20"/>
+                <Setter Property="CornerRadius" Value="15"/>
                 <Setter Property="BorderThickness" Value="3.5"/>
                 <Setter Property="BorderBrush" Value="{x:Null}"/>
-                <Setter Property="Margin" Value="2"/>
+                <Setter Property="Margin" Value="1"/>
 
                 <Style.Triggers>
 
