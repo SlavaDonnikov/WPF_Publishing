@@ -148,5 +148,15 @@ namespace Publishing.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] space_ambient_music {
+            get {
+                object obj = ResourceManager.GetObject("space_ambient_music", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

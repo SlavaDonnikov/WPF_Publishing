@@ -52,6 +52,13 @@ namespace Publishing
         }
         #endregion
 
+        #region DragMove() Form
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+        #endregion
+
         #region Application Full Format Date & Time
         public void GetFullDate()
         {
@@ -287,6 +294,7 @@ namespace Publishing
                 MessageBox.Show(ex.Message, ex.Source);
             }
         }
+
 
 
         #endregion

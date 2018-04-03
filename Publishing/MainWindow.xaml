@@ -8,12 +8,12 @@
         xmlns:WPFPdfViewer="clr-namespace:WPFPdfViewer;assembly=WPFPdfViewer"
         mc:Ignorable="d"          
         Title="Publishing Application" Height="700" Width="1200" WindowStartupLocation="CenterScreen" Topmost="False" 
-        ShowInTaskbar="true" ResizeMode="NoResize" WindowStyle="None" Icon="Resources/miranda.ico" Loaded="Window_Loaded">
+        ShowInTaskbar="true" ResizeMode="NoResize" WindowStyle="None" Icon="Resources/miranda.ico" Loaded="Window_Loaded" AllowsTransparency="True">
     <Grid x:Name="RootGrid" Background="#F5F5F5">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
         <!-- Swipping menu -->
         <Grid Panel.ZIndex="2" Grid.Row="0" HorizontalAlignment="Left" Width="40">
             <Canvas Margin="0,35.4">
@@ -74,8 +74,8 @@
         </Grid>
 
         <!-- Upper panel -->
-        <Grid Grid.Row="0" Margin="0,0,0,0" Height="35" VerticalAlignment="Top" Background="#283038">            
-            <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Width="62">                
+        <Grid Grid.Row="0" Margin="0,0,0,0" Height="35" VerticalAlignment="Top" Background="#283038" MouseDown="Grid_MouseDown">
+            <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Width="62">
                 <Canvas Width="30" Height="30" >
                     <Button x:Name="VolumeOffButton" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="0,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}" Click="VolumeOffButton_Click">
                         <materialDesign:PackIcon Kind="VolumeOff" Height="30" Width="30"/>
@@ -369,15 +369,15 @@
 
         <!-- AddPublicationGrid -->
         <Grid x:Name="Grid_AddPublication" Grid.Row="0" Margin="42, 36, 0, 28" Background="#F5F5F5" Visibility="Collapsed">
-            
-            <Grid Margin="10,5,0,0" >                
+
+            <Grid Margin="10,5,0,0" >
                 <StackPanel Orientation="Vertical" Margin="0,0,10,0">
-                    
+
                     <!-- Publication information -->
                     <StackPanel Width="826" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <Label Content="Publication Information" Width="405" FontSize="28" Padding="1" HorizontalContentAlignment="Left" Foreground="Black" Style="{StaticResource InfoLabel}" />
                     </StackPanel>
-                    
+
                     <StackPanel  Orientation="Horizontal">
                         <StackPanel Width="405" HorizontalAlignment="Left">
                             <StackPanel Height="50" Orientation="Horizontal">
@@ -472,7 +472,7 @@
                     </StackPanel>
 
                     <!-- About publisher labels and textBoxes -->
-                    <StackPanel Margin="0,0" Width="1084" Orientation="Horizontal" HorizontalAlignment="Left" Height="160">                        
+                    <StackPanel Margin="0,0" Width="1084" Orientation="Horizontal" HorizontalAlignment="Left" Height="160">
                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="1084" Height="130" Margin="0,15,0,0">
                             <StackPanel Width="700" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
                                 <Label Content="Publisher Information"  Width="405" FontSize="28" Padding="1" HorizontalContentAlignment="Left" Foreground="Black" Style="{StaticResource InfoLabel}" />
@@ -504,7 +504,7 @@
                                          Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
                                 </StackPanel>
                             </StackPanel>
-                        </StackPanel>                        
+                        </StackPanel>
                     </StackPanel>
 
                     <!-- DataGrid -->
@@ -549,8 +549,8 @@
                     </StackPanel>
 
                 </StackPanel>
-            </Grid>  
-            
+            </Grid>
+
         </Grid>
 
         <!-- SearchInDB -->

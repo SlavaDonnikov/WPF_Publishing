@@ -189,5 +189,10 @@
   <ItemGroup>
     <Resource Include="Resources\miranda.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\space_ambient_music.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
