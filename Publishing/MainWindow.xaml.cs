@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Media;
 using WPFPdfViewer;
 
 namespace Publishing
@@ -24,17 +25,30 @@ namespace Publishing
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Global Variables
+        private MediaPlayer ApplicationMusicTheme; // add application music theme, which plays all time        
+        #endregion
+
         #region MainWindow()
         public MainWindow()
-        {
-            InitializeComponent();            
+        {            
+            InitializeComponent();
 
             InvisibleGrids();
-            DataContext = new ComboBoxViewModel();         
-            Grid_HomePage.Visibility = Visibility.Visible;
+                     
+            ApplicationBackgroundMusic();
 
+            Grid_HomePage.Visibility = Visibility.Visible;
+        }
+        #endregion
+
+        #region Window_Loaded
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {            
             GetFullDate();
             GetRealTime();
+            DataContext = new ComboBoxViewModel();
+            VolumeOffButton.Visibility = Visibility.Collapsed;                               
         }
         #endregion
 
@@ -63,6 +77,48 @@ namespace Publishing
         }
         #endregion
 
+        #region Button_Sounds & BackgroundMusic       
+        public void ButtonClickSound(string soundName)      // Buttons click sounds
+        {
+            try
+            {
+                var path = Application.GetResourceStream(new Uri("pack://application:,,,/Resources/" + soundName + ".wav"));
+                if (path != null)
+                {
+                    using (path.Stream)
+                    {
+                        SoundPlayer player = new SoundPlayer(path.Stream);
+                        player.Load();
+                        player.Play();
+                        player.Dispose();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error in sound generating method - " + ex.Message + ", " + ex.Source);
+            }
+        }
+                
+        public void ApplicationBackgroundMusic()        // Background music theme
+        {
+            try
+            {
+                ApplicationMusicTheme = new MediaPlayer();
+                ApplicationMusicTheme.MediaFailed += (o, args) => { MessageBox.Show("Failed an ApplicationMusicTheme() method."); };
+                ApplicationMusicTheme.MediaEnded += (o, args) => { ApplicationMusicTheme.Position = new TimeSpan(0, 0, 1); ApplicationMusicTheme.Play(); }; // Repeat
+                ApplicationMusicTheme.Open(new Uri("space_ambient_music.mp3", UriKind.Relative));
+                ApplicationMusicTheme.Volume = 0.4;
+                ApplicationMusicTheme.Position = TimeSpan.Zero;
+                ApplicationMusicTheme.Play();                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Background music error  - " + ex.Message + ", " + ex.Source);
+            }
+        }        
+        #endregion
+
         #region "Power" button (close application)_Click Event.
         /// <summary>
         /// Upper grid with "Close" & "Maximaze" buttons, "Close" button click logic
@@ -75,17 +131,33 @@ namespace Publishing
         }
         #endregion
 
+        #region VolumeOff_Button_Click & VolumeOn_Button_Click
+        private void VolumeOffButton_Click(object sender, RoutedEventArgs e)
+        {
+            ApplicationMusicTheme.Play();
+            VolumeOffButton.Visibility = Visibility.Collapsed;
+            VolumeOnButton.Visibility = Visibility.Visible;
+        }
+
+        private void VolumeOnButton_Click(object sender, RoutedEventArgs e)
+        {
+            ApplicationMusicTheme.Pause();
+            VolumeOnButton.Visibility = Visibility.Collapsed;
+            VolumeOffButton.Visibility = Visibility.Visible;
+        }
+        #endregion
+
         #region Hide all grids method.
         /// <summary>
         /// All grids Visibility = Visibility.Hidden;
         /// </summary>
         private void InvisibleGrids()
         {
-            Grid_HomePage.Visibility = Visibility.Hidden;
-            Grid_AddPublication.Visibility = Visibility.Hidden;
-            Grid_DeletePublication.Visibility = Visibility.Hidden;
-            Grid_SearchInDB.Visibility = Visibility.Hidden;
-            Grid_PDFView.Visibility = Visibility.Hidden;
+            Grid_HomePage.Visibility = Visibility.Collapsed;
+            Grid_AddPublication.Visibility = Visibility.Collapsed;
+            Grid_DeletePublication.Visibility = Visibility.Collapsed;
+            Grid_SearchInDB.Visibility = Visibility.Collapsed;
+            Grid_PDFView.Visibility = Visibility.Collapsed;
         }
         #endregion
 
@@ -94,30 +166,35 @@ namespace Publishing
         {
             InvisibleGrids();
             Grid_HomePage.Visibility = Visibility.Visible;
+            ButtonClickSound("btn_click_sound_1");
         }
 
         private void Label_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
             InvisibleGrids();
             Grid_AddPublication.Visibility = Visibility.Visible;
+            ButtonClickSound("btn_click_sound_1");
         }
 
         private void Label_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
         {
             InvisibleGrids();
             Grid_DeletePublication.Visibility = Visibility.Visible;
+            ButtonClickSound("btn_click_sound_1");
         }
 
         private void Label_MouseLeftButtonDown_3(object sender, MouseButtonEventArgs e)
         {
             InvisibleGrids();
             Grid_SearchInDB.Visibility = Visibility.Visible;
+            ButtonClickSound("btn_click_sound_1");
         }
 
         private void Label_MouseLeftButtonDown_4(object sender, MouseButtonEventArgs e)
         {
             InvisibleGrids();
             Grid_PDFView.Visibility = Visibility.Visible;
+            ButtonClickSound("btn_click_sound_1");
         }
         #endregion
 
@@ -129,9 +206,15 @@ namespace Publishing
                 Title = "Select a picture",
                 Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg; *.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png"
             };
-
-            if (openFileDialog.ShowDialog() == true)
-                NewPublication_OpenImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+            try
+            {
+                if (openFileDialog.ShowDialog() == true)
+                    NewPublication_OpenImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Opening cover image error  - " + ex.Message + ", " + ex.Source);
+            }            
         }
         #endregion
 
@@ -178,7 +261,8 @@ namespace Publishing
                 try
                 {
                     //WebBrowser.Navigate(openFileDialog.FileName);
-                    pdfViewer.LoadFile(openFileDialog.FileName);                    
+
+                    //pdfViewer.LoadFile(openFileDialog.FileName);                    
                 }
                 catch (Exception ex)
                 {
@@ -203,9 +287,11 @@ namespace Publishing
                 MessageBox.Show(ex.Message, ex.Source);
             }
         }
+
+
         #endregion
 
-        
+
 
         //-----------------------------------------------------------------------------------------------------
         #region Test functional.
@@ -230,5 +316,7 @@ namespace Publishing
         //    }
         //}       
         #endregion
+
+        
     }
 }
