@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Media;
 using WPFPdfViewer;
+using System.Windows.Threading;
 
 namespace Publishing
 {
@@ -42,17 +43,26 @@ namespace Publishing
         }
         #endregion
 
-        #region Window_Loaded
+        #region MainWindow Window_Loaded
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {            
             GetFullDate();
             GetRealTime();
-            DataContext = new ComboBoxViewModel();
-            VolumeOffButton.Visibility = Visibility.Collapsed;                               
+
+            SetVideoPlayer();
+
+            DataContext = new ComboBoxViewModel();                                           
         }
         #endregion
 
-        #region DragMove() Form
+        #region MainWindow ClearFocus();
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Keyboard.ClearFocus();
+        }
+        #endregion
+
+        #region MainWindow DragMove();
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -84,7 +94,7 @@ namespace Publishing
         }
         #endregion
 
-        #region Button_Sounds & BackgroundMusic       
+        #region BackgroundMusic & Button_Sounds        
         public void ButtonClickSound(string soundName)      // Buttons click sounds
         {
             try
@@ -123,6 +133,153 @@ namespace Publishing
             {
                 MessageBox.Show("Background music error  - " + ex.Message + ", " + ex.Source);
             }
+        }
+        #endregion
+
+        // Создать ползунок громкости, ползунок контента, выбор кол-ва секунд "вперед" "назад"
+        #region VideoPlayer Buttons and Settings
+        private void SetVideoPlayerTimer()
+        {
+            DispatcherTimer VidepPlayerTimer = new DispatcherTimer();
+            VidepPlayerTimer.Interval = TimeSpan.FromSeconds(0);
+            VidepPlayerTimer.Tick += VideoPlayerTimer_Tick;
+            VidepPlayerTimer.Start();
+        }
+
+        private void VideoPlayerTimer_Tick(object sender, EventArgs e)
+        {
+            if(VideoPlayer.Source != null)
+            {
+                if(VideoPlayer.NaturalDuration.HasTimeSpan)
+                    VideoPlayer_Time_Label.Content = 
+                        String.Format($"{VideoPlayer.Position.ToString(@"mm\:ss")} / {VideoPlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss")}");
+            }            
+        }
+        
+        private void SetVideoPlayer()       // Main Set Method
+        {            
+            VideoPlayer_Play_Button.Visibility = VideoPlayer_Stop_Button.Visibility = VideoPlayer_Forward_Button.Visibility = VideoPlayer_Rewind_Button.Visibility = 
+                VideoPlayerVolumeOffOnButton.Visibility = VideoPlayer_Time_Label.Visibility = VideoPlayer_LoadNewVideo_Button.Visibility = Visibility.Collapsed;
+            VideoPlayer_Play_Button.IsEnabled = VideoPlayer_Stop_Button.IsEnabled = VideoPlayer_Forward_Button.IsEnabled = VideoPlayer_Rewind_Button.IsEnabled =
+                VideoPlayerVolumeOffOnButton.IsEnabled = VideoPlayer_Time_Label.IsEnabled = VideoPlayer_LoadNewVideo_Button.IsEnabled = false;
+
+            SetVideoPlayerTimer();
+        }
+
+        private void VideoPlayer_Initiate_Button_Click(object sender, RoutedEventArgs e)        // Initial Button
+        {
+            VideoPlayer_Play_Button.Visibility = VideoPlayer_Stop_Button.Visibility = VideoPlayer_Forward_Button.Visibility = VideoPlayer_Rewind_Button.Visibility =
+                VideoPlayerVolumeOffOnButton.Visibility = VideoPlayer_Time_Label.Visibility = VideoPlayer_LoadNewVideo_Button.Visibility = Visibility.Visible;
+            VideoPlayer_Play_Button.IsEnabled = VideoPlayer_Stop_Button.IsEnabled = VideoPlayer_Forward_Button.IsEnabled = VideoPlayer_Rewind_Button.IsEnabled =
+                VideoPlayerVolumeOffOnButton.IsEnabled = VideoPlayer_Time_Label.IsEnabled = VideoPlayer_LoadNewVideo_Button.IsEnabled = true;
+
+            VideoPlayerBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F5F5F5"));
+
+            ApplicationMusicTheme.Pause();
+
+            VideoPlayer.Play();
+
+            VideoPlayer_Initiate_Button.Visibility = Visibility.Collapsed;
+
+            VideoPlayer_Play_Button.Content = FindResource("Pause");
+        }
+
+        private void VideoPlayer_LoadNewVideo_Button_Click(object sender, RoutedEventArgs e)
+        {
+            VideoPlayer_Stop_Button_Click(new object(), new RoutedEventArgs());
+            ApplicationMusicTheme.Pause();
+
+            string formats = "All Videos Files |*.dat; *.wmv; *.3g2; *.3gp; *.3gp2; *.3gpp; *.amv; *.asf; *.ts; *.tts; *.vob; *.vro; *.webm; " +
+                                                " *.avi; *.bin; *.cue; *.divx; *.dv; *.flv; *.gxf; *.iso; *.m1v; *.m2v; *.m2t; *.m2ts; *.m4v; " +
+                                                " *.mkv; *.mov; *.mp2; *.mp2v; *.mp4; *.mp4v; *.mpa; *.mpe; *.mpeg; *.mpeg1; *.mpeg2; *.mpeg4; " +
+                                                " *.mpg; *.mpv2; *.mts; *.nsv; *.nuv; *.ogg; *.ogm; *.ogv; *.ogx; *.ps; *.rec; *.rm; *.rmvb; *.tod; ";
+
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Title = "Open new video",
+                Filter = formats,
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    VideoPlayer.Source = new Uri(openFileDialog.FileName, UriKind.Absolute);
+                    VideoPlayer_Play_Button.Content = FindResource("Pause");
+                    VideoPlayer.Play();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error in loading new MediaElement : " + ex.Message + ", " + ex.Source);
+                }
+            }
+        }
+
+        private void VideoPlayer_Play_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(VideoPlayer.Source == null)
+            {
+                try
+                {
+                    VideoPlayer.Source = new Uri(@"E:\ТРПО\Publishing\Publishing\bin\Debug\A_dream_within_a_dream.mp4", UriKind.Relative);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error in MediaElement load Uri : " + ex.Message + ", " + ex.Source);
+                }               
+            }                
+
+            if (VideoPlayer_Play_Button.Content == FindResource("Play"))
+            {
+                ApplicationMusicTheme.Pause();
+                VideoPlayer.Play();
+                VideoPlayer_Play_Button.Content = FindResource("Pause");
+
+            }
+            else
+            {
+                VideoPlayer.Pause();
+                VideoPlayer_Play_Button.Content = FindResource("Play");
+            }
+
+        }
+        
+        private void VideoPlayer_Stop_Button_Click(object sender, RoutedEventArgs e)
+        {
+            ApplicationMusicTheme.Play();
+            VideoPlayer.Stop();
+            VideoPlayer.ClearValue(MediaElement.SourceProperty);
+
+            VideoPlayerBorder.BorderBrush = Brushes.White;
+
+            VideoPlayer_Play_Button.Content = FindResource("Play");
+
+            VideoPlayerVolumeOffOnButton.Content = FindResource("PlayerVolumeOn");
+            VideoPlayer.Volume = 1;
+        }
+
+        private void VideoPlayer_Forward_Button_Click(object sender, RoutedEventArgs e)
+        {
+            VideoPlayer.Position += TimeSpan.FromSeconds(10);
+        }
+
+        private void VideoPlayer_Rewind_Button_Click(object sender, RoutedEventArgs e)
+        {
+            VideoPlayer.Position -= TimeSpan.FromSeconds(10);
+        }
+
+        private void VideoPlayerVolumeOffOnButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (VideoPlayerVolumeOffOnButton.Content == FindResource("PlayerVolumeOn"))
+            {                
+                VideoPlayer.Volume = 0;
+                VideoPlayerVolumeOffOnButton.Content = FindResource("PlayerVolumeOff");
+            }
+            else
+            {
+                VideoPlayer.Volume = 1;
+                VideoPlayerVolumeOffOnButton.Content = FindResource("PlayerVolumeOn");
+            }
         }        
         #endregion
 
@@ -138,23 +295,23 @@ namespace Publishing
         }
         #endregion
 
-        #region VolumeOff_Button_Click & VolumeOn_Button_Click
-        private void VolumeOffButton_Click(object sender, RoutedEventArgs e)
+        #region Volume Off/On Buttons Click
+        private void ApplicationVolumeOffOnButton_Click(object sender, RoutedEventArgs e)
         {
-            ApplicationMusicTheme.Play();
-            VolumeOffButton.Visibility = Visibility.Collapsed;
-            VolumeOnButton.Visibility = Visibility.Visible;
-        }
-
-        private void VolumeOnButton_Click(object sender, RoutedEventArgs e)
-        {
-            ApplicationMusicTheme.Pause();
-            VolumeOnButton.Visibility = Visibility.Collapsed;
-            VolumeOffButton.Visibility = Visibility.Visible;
-        }
+            if (ApplicationVolumeOffOnButton.Content == FindResource("ApplicationVolumeOn"))
+            {
+                ApplicationMusicTheme.Pause();
+                ApplicationVolumeOffOnButton.Content = FindResource("ApplicationVolumeOff");
+            }
+            else
+            {
+                ApplicationMusicTheme.Play();
+                ApplicationVolumeOffOnButton.Content = FindResource("ApplicationVolumeOn");
+            }
+        }        
         #endregion
 
-        #region Hide all grids method.
+        #region Hide all grids ();
         /// <summary>
         /// All grids Visibility = Visibility.Hidden;
         /// </summary>
@@ -165,10 +322,11 @@ namespace Publishing
             Grid_DeletePublication.Visibility = Visibility.Collapsed;
             Grid_SearchInDB.Visibility = Visibility.Collapsed;
             Grid_PDFView.Visibility = Visibility.Collapsed;
+            Grid_Settings.Visibility = Visibility.Collapsed;
         }
         #endregion
 
-        #region Sliding menu items_Click Event.
+        #region Sliding menu labels_Click Event.
         private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             InvisibleGrids();
@@ -203,9 +361,16 @@ namespace Publishing
             Grid_PDFView.Visibility = Visibility.Visible;
             ButtonClickSound("btn_click_sound_1");
         }
+
+        private void Label_MouseLeftButtonDown_5(object sender, MouseButtonEventArgs e)
+        {
+            InvisibleGrids();
+            Grid_Settings.Visibility = Visibility.Visible;
+            ButtonClickSound("btn_click_sound_1");
+        }
         #endregion
 
-        #region "Add Publication" menu page, "Grid_AddPublication" grid, opening cover image button_Click Event.
+        #region Open cover image button_Click Event, "Add Publication" menu page, "Grid_AddPublication" grid.
         private void OpenCoverImageButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
@@ -225,7 +390,7 @@ namespace Publishing
         }
         #endregion
 
-        #region "Add Publication" menu page, "Grid_AddPublication" grid, publisher changing combobox.
+        #region Change publisher combobox, "Add Publication" menu page, "Grid_AddPublication" grid.
         /// <summary>
         /// At "Add Publication" menu page, "Grid_AddPublication" grid, publisher changing combobox logic.
         /// </summary>
@@ -249,7 +414,7 @@ namespace Publishing
         }
         #endregion
 
-        #region "View PDF File" menu page, "Grid_PDFView" grid, "Open" & "Clear" button_Click Event.
+        #region "Open" & "Clear" button_Click Event, "View PDF File" menu page, "Grid_PDFView" grid.
         /// <summary>
         /// At "View PDF File" menu page, "Grid_PDFView" grid, "Open" button event.
         /// Open pdf-file using OpenFileDialog. Filter - Pdf Files.
@@ -268,8 +433,7 @@ namespace Publishing
                 try
                 {
                     //WebBrowser.Navigate(openFileDialog.FileName);
-
-                    //pdfViewer.LoadFile(openFileDialog.FileName);                    
+                    pdfViewer.LoadFile(openFileDialog.FileName);
                 }
                 catch (Exception ex)
                 {
@@ -294,9 +458,6 @@ namespace Publishing
                 MessageBox.Show(ex.Message, ex.Source);
             }
         }
-
-
-
         #endregion
 
 
@@ -324,7 +485,6 @@ namespace Publishing
         //    }
         //}       
         #endregion
-
         
     }
 }
