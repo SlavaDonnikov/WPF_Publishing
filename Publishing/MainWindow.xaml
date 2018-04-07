@@ -41,6 +41,13 @@
                             <materialDesign:PackIcon Kind="FilePdfBox" Foreground="White" Width="30" Height="30" Margin="8.5, 0, 0, 0"/>
                         </DockPanel>
                     </Border>
+                    
+                    <Border Style="{StaticResource borderEdge}" >
+                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 5" Width="260">
+                            <Label Style="{DynamicResource MenuLabel}" Content="Media Player" MouseLeftButtonDown="Label_MouseLeftButtonDown_6" />
+                            <materialDesign:PackIcon Kind="Video" Foreground="White" Width="30" Height="30" Margin="8.5, 0, 0, 0"/>
+                        </DockPanel>
+                    </Border>
 
                     <Border Style="{StaticResource borderEdge}">
                         <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 5" Width="260">
@@ -109,7 +116,7 @@
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
         <!-- HomePageGrid-->
-        <Grid x:Name="Grid_HomePage" Grid.Row="0" Margin="42, 36, 0, 28" Visibility="Visible" Grid.ColumnSpan="2">
+        <Grid x:Name="Grid_HomePage" Grid.Row="0" Margin="42, 36, 0, 28" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="817*"/>
                 <ColumnDefinition Width="322*"/>
@@ -362,8 +369,122 @@
             </Grid>
         </Grid>
 
-        <!-- DeletePublicationGrid -->
-        <Grid x:Name="Grid_DeletePublication" Grid.Row="0" Margin="42, 36, 0, 28" Background="#1E90FF" Visibility="Collapsed"></Grid>
+        <!-- PDF View -->
+        <Grid x:Name="Grid_PDFView" Grid.Row="0" Margin="42,36,5,28" Background="#F5F5F5" Visibility="Hidden">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+                <WPFPdfViewer:PdfViewer x:Name="pdfViewer" Grid.Row="0" Margin="250, 30, 30, 30"/>
+
+                <!-- <WebBrowser x:Name="WebBrowser" Grid.Row="0"/>-->
+                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Background="White">                    
+                    <Button x:Name="WebBrowserContentOpenButton" Content="Open" Style="{StaticResource MaterialDesignRaisedButton}" 
+                            Margin="0,0,10,0" Foreground="#E4007C" FontFamily="Stencil" Height="32" Width="75"
+                            BorderThickness="2" BorderBrush="White" Background="{x:Null}" 
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Click="WebBrowserContentOpenButton_Click" />
+                    <Button x:Name="WebBrowserContentClearButton" Content="Clear" Style="{StaticResource MaterialDesignRaisedButton}"
+                            Margin="0" Foreground="#E4007C" FontFamily="Stencil" Height="32" Width="75"
+                            BorderThickness="2" BorderBrush="White" Background="{x:Null}" 
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                            HorizontalAlignment="Center" VerticalAlignment="Center"  
+                            Click="WebBrowserContentClearButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        
+        <!-- MediaPlayerGrid -->
+        <Grid x:Name="Grid_MediaPlayer" Grid.Row="0" Margin="42, 36, 0, 28" Background="#F5F5F5" Visibility="Collapsed">
+            <Grid Margin="30, 30, 400, 100">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>               
+
+                <Button x:Name="VideoPlayer_Initiate_Button" Style="{StaticResource MaterialDesignRaisedButton}" 
+                            BorderThickness="2" BorderBrush="White" Background="{x:Null}" Height="40" Width="70" 
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Click="VideoPlayer_Initiate_Button_Click">
+                    <materialDesign:PackIcon Kind="YoutubePlay" Height="40" Width="50" Foreground="#FFEA002A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button>
+
+                <StackPanel Panel.ZIndex="1" Orientation="Vertical" Grid.Row="0">
+                    <Border x:Name="VideoPlayerBorder" Margin="1" Height="465" BorderThickness="3" BorderBrush="White">
+                        <MediaElement x:Name="VideoPlayer" Height="463" Stretch="Fill"                                      
+                                      Source="E:\ТРПО\Publishing\Publishing\bin\Debug\A_dream_within_a_dream.mp4"
+                                      LoadedBehavior="Manual" 
+                                      UnloadedBehavior="Manual"
+                                      MediaOpened="VideoPlayer_MediaOpened"
+                                      MediaEnded="VideoPlayer_MediaEnded" 
+                                      MediaFailed="VideoPlayer_MediaFailed"/>                        
+                    </Border> 
+                </StackPanel>
+
+                <StackPanel x:Name="VideoPlayer_Slider_StackPanel" Panel.ZIndex="2" Grid.Row="1" Margin="3,-20,3,0" Style="{StaticResource SliderVisibilityOnOff}"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                    <Slider x:Name="VideoPlayer_Slider" Margin="3,0,3,0" Foreground="#FFEA002A" 
+                            HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                            HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"                           
+                            Style="{StaticResource MaterialDesignSlider}"                              
+                            Thumb.DragCompleted="VideoPlayer_Slider_DragCompleted"/>                    
+                </StackPanel>
+                <StackPanel Grid.Row="1" Margin="0,5,0,0" Orientation="Horizontal"> 
+                    <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Button x:Name="VideoPlayer_LoadNewVideo_Button" Margin="0,0,0,0" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                BorderThickness="2" BorderBrush="White" Background="{x:Null}" Height="35" Width="35" Padding="0"
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Click="VideoPlayer_LoadNewVideo_Button_Click" >
+                            <DynamicResource ResourceKey="Load"/>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="140,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button x:Name="VideoPlayer_Stop_Button" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                BorderThickness="2" BorderBrush="White" Background="{x:Null}" Height="35" Width="60" 
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Click="VideoPlayer_Stop_Button_Click">
+                            <materialDesign:PackIcon Kind="Stop" Height="35" Width="35" Foreground="#FFEA002A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Button>
+                        <Button x:Name="VideoPlayer_Rewind_Button" Margin="5,0,0,0" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                BorderThickness="2" BorderBrush="White" Background="{x:Null}" Height="35" Width="60" 
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Click="VideoPlayer_Rewind_Button_Click" >
+                            <materialDesign:PackIcon  Kind="Rewind" Height="35" Width="35" Foreground="#FFEA002A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Button>
+                        <Button x:Name="VideoPlayer_Play_Button" Margin="5,0,0,0" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                BorderThickness="2" BorderBrush="White" Background="{x:Null}" Height="35" Width="60" 
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Click="VideoPlayer_Play_Button_Click">
+                            <DynamicResource ResourceKey="Play"/>
+                        </Button>
+                        <!-- #6C6C6C -->
+                        <Button x:Name="VideoPlayer_Forward_Button" Margin="5,0,0,0" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                BorderThickness="2" BorderBrush="White" Background="{x:Null}" Height="35" Width="60" 
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Click="VideoPlayer_Forward_Button_Click" >
+                            <materialDesign:PackIcon  Kind="FastForward" Height="35" Width="35" Foreground="#FFEA002A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Button>
+
+                        <Button x:Name="VideoPlayerVolumeOffOnButton" Margin="10,0,0,0" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                    Height="35" Width="38" BorderThickness="2" BorderBrush="White" Padding="0" Background="{x:Null}"
+                                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                    HorizontalAlignment="Center" VerticalAlignment="Center" Click="VideoPlayerVolumeOffOnButton_Click" >
+                            <DynamicResource ResourceKey="PlayerVolumeOn"/>
+                        </Button>
+
+                        <StackPanel Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Label x:Name="VideoPlayer_Time_Label" Content="00:00 / 00:00" FontFamily="Stencil" FontSize="12" Foreground="#FFEA002A"
+                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                
+            </Grid>
+        </Grid>
 
         <!-- AddPublicationGrid -->
         <Grid x:Name="Grid_AddPublication" Grid.Row="0" Margin="42, 36, 0, 28" Background="#F5F5F5" Visibility="Collapsed">
@@ -551,8 +672,12 @@
 
         </Grid>
 
-        <!-- SearchInDB -->
-        <!-- Dont work Hint underline! -->
+        <!-- DeletePublicationGrid -->
+        <Grid x:Name="Grid_DeletePublication" Grid.Row="0" Margin="42, 36, 0, 28" Background="#1E90FF" Visibility="Collapsed">
+            
+        </Grid>
+        
+        <!-- SearchInDB --><!-- Dont work Hint underline! -->
         <Grid x:Name="Grid_SearchInDB" Grid.Row="0" Margin="42, 36, 0, 28" Background="#F5F5F5" Visibility="Collapsed">
 
             <!-- Search (with hint) -->
@@ -623,115 +748,10 @@
             </StackPanel>
 
         </Grid>
-
-        <!-- PDF View -->
-        <Grid x:Name="Grid_PDFView" Grid.Row="0" Margin="42,36,5,28" Background="#F5F5F5" Visibility="Collapsed">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="35"/>
-                </Grid.RowDefinitions>
-                <WPFPdfViewer:PdfViewer x:Name="pdfViewer" Grid.Row="0" Margin="250, 30, 30, 30"/>
-
-                <!-- <WebBrowser x:Name="WebBrowser" Grid.Row="0"/>-->
-                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Background="White">
-                    <Button x:Name="WebBrowserContentOpenButton" Content="Open" Margin="0,0,10,0" Foreground="#E4007C" FontFamily="Stencil"
-                            BorderThickness="1" BorderBrush="#6C6C6C" Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}" 
-                            Click="WebBrowserContentOpenButton_Click" />
-                    <Button x:Name="WebBrowserContentClearButton" Content="Clear" Margin="0" Foreground="#E4007C" FontFamily="Stencil"
-                            BorderThickness="1" BorderBrush="#6C6C6C" Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}" 
-                            Click="WebBrowserContentClearButton_Click"/>
-                </StackPanel>
-            </Grid>
-        </Grid>
-
-        <Grid x:Name="Grid_Settings" Grid.Row="0" Margin="42, 36, 0, 28" Background="#F5F5F5" Visibility="Visible">
-            <Grid Margin="30, 30, 400, 100">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="40"/>
-                </Grid.RowDefinitions>               
-
-                <Button x:Name="VideoPlayer_Initiate_Button" Style="{StaticResource MaterialDesignRaisedButton}" 
-                            BorderThickness="2" BorderBrush="White" Background="{x:Null}" Height="40" Width="70" 
-                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                            HorizontalAlignment="Center" VerticalAlignment="Center" Click="VideoPlayer_Initiate_Button_Click">
-                    <materialDesign:PackIcon Kind="YoutubePlay" Height="40" Width="50" Foreground="#FFEA002A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Button>
-
-                <StackPanel Panel.ZIndex="1" Orientation="Vertical" Grid.Row="0">
-                    <Border x:Name="VideoPlayerBorder" Margin="1" Height="465" BorderThickness="3" BorderBrush="White">
-                        <MediaElement x:Name="VideoPlayer" Height="463" Stretch="Fill"                                      
-                                      Source="E:\ТРПО\Publishing\Publishing\bin\Debug\A_dream_within_a_dream.mp4"
-                                      LoadedBehavior="Manual" 
-                                      UnloadedBehavior="Manual"
-                                      MediaOpened="VideoPlayer_MediaOpened"
-                                      MediaEnded="VideoPlayer_MediaEnded" 
-                                      MediaFailed="VideoPlayer_MediaFailed"/>
-                        <!--MediaOpened="VideoPlayer_MediaOpened"-->
-                    </Border> 
-                </StackPanel>
-
-                <StackPanel x:Name="VideoPlayer_Slider_StackPanel" Panel.ZIndex="2" Grid.Row="1" Margin="3,-20,3,0" Style="{StaticResource SliderVisibilityOnOff}"
-                            HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                    <Slider x:Name="VideoPlayer_Slider" Margin="3,0,3,0" Foreground="#FFEA002A" 
-                            HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-                            HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"                           
-                            Style="{StaticResource MaterialDesignSlider}" LostMouseCapture="VideoPlayer_Slider_LostMouseCapture" />
-                </StackPanel>
-                <StackPanel Grid.Row="1" Margin="0,5,0,0" Orientation="Horizontal"> 
-                    <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <Button x:Name="VideoPlayer_LoadNewVideo_Button" Margin="0,0,0,0" Style="{StaticResource MaterialDesignRaisedButton}" 
-                                BorderThickness="2" BorderBrush="White" Background="{x:Null}" Height="35" Width="35" Padding="0"
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                HorizontalAlignment="Center" VerticalAlignment="Center" Click="VideoPlayer_LoadNewVideo_Button_Click" >
-                            <DynamicResource ResourceKey="Load"/>
-                        </Button>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="140,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Button x:Name="VideoPlayer_Stop_Button" Style="{StaticResource MaterialDesignRaisedButton}" 
-                                BorderThickness="2" BorderBrush="White" Background="{x:Null}" Height="35" Width="60" 
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                HorizontalAlignment="Center" VerticalAlignment="Center" Click="VideoPlayer_Stop_Button_Click">
-                            <materialDesign:PackIcon Kind="Stop" Height="35" Width="33" Foreground="#FFEA002A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Button>
-                        <Button x:Name="VideoPlayer_Rewind_Button" Margin="5,0,0,0" Style="{StaticResource MaterialDesignRaisedButton}" 
-                                BorderThickness="2" BorderBrush="White" Background="{x:Null}" Height="35" Width="60" 
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                HorizontalAlignment="Center" VerticalAlignment="Center" Click="VideoPlayer_Rewind_Button_Click" >
-                            <materialDesign:PackIcon  Kind="Rewind" Height="35" Width="35" Foreground="#FFEA002A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Button>
-                        <Button x:Name="VideoPlayer_Play_Button" Margin="5,0,0,0" Style="{StaticResource MaterialDesignRaisedButton}" 
-                                BorderThickness="2" BorderBrush="White" Background="{x:Null}" Height="35" Width="60" 
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                HorizontalAlignment="Center" VerticalAlignment="Center" Click="VideoPlayer_Play_Button_Click">
-                            <DynamicResource ResourceKey="Play"/>
-                        </Button>
-                        <!-- #6C6C6C -->
-                        <Button x:Name="VideoPlayer_Forward_Button" Margin="5,0,0,0" Style="{StaticResource MaterialDesignRaisedButton}" 
-                                BorderThickness="2" BorderBrush="White" Background="{x:Null}" Height="35" Width="60" 
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                HorizontalAlignment="Center" VerticalAlignment="Center" Click="VideoPlayer_Forward_Button_Click" >
-                            <materialDesign:PackIcon  Kind="FastForward" Height="35" Width="35" Foreground="#FFEA002A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Button>
-
-                        <Button x:Name="VideoPlayerVolumeOffOnButton" Margin="10,0,0,0" Style="{StaticResource MaterialDesignRaisedButton}" 
-                                    Height="35" Width="38" BorderThickness="2" BorderBrush="White" Padding="0" Background="{x:Null}"
-                                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                    HorizontalAlignment="Center" VerticalAlignment="Center" Click="VideoPlayerVolumeOffOnButton_Click" >
-                            <DynamicResource ResourceKey="PlayerVolumeOn"/>
-                        </Button>
-
-                        <StackPanel Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Label x:Name="VideoPlayer_Time_Label" Content="00:00 / 00:00" FontFamily="Stencil" FontSize="12" Foreground="#FFEA002A"
-                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
-                                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-
-                        </StackPanel>
-                    </StackPanel>
-                </StackPanel>
-                
-            </Grid>
+        
+        <!-- SettingsGrid -->
+        <Grid x:Name="Grid_Settings" Grid.Row="0" Margin="42, 36, 0, 28" Background="#F5F5F5" Visibility="Collapsed">
+            
         </Grid>
 
     </Grid>

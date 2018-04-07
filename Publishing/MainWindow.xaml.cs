@@ -28,7 +28,8 @@ namespace Publishing
     public partial class MainWindow : Window
     {
         #region Global Variables
-        private MediaPlayer ApplicationMusicTheme; // add application music theme, which plays all time           
+        private MediaPlayer ApplicationMusicTheme; // add application music theme, which plays all time  
+        public delegate void DragSliderTimerTick();
         #endregion
 
         #region MainWindow()
@@ -199,25 +200,38 @@ namespace Publishing
         private void VideoPlayer_MediaEnded(object sender, RoutedEventArgs e) { VideoPlayer_Stop_Button_Click(new object(), new RoutedEventArgs()); }
 
         private void VideoPlayer_MediaFailed(object sender, ExceptionRoutedEventArgs e) { MessageBox.Show("Media filed! Smth was wrong and occured an error."); }
-
-        // Добавить: движение слайдера зависящее от хода воспроизведения видео. Возможность перемотать видео не перетягивая слайдер, а щелкнув в любубю его часть
+        
+        #region Slider Timer. Update slider position from movie and update movie position from slider.
+        // Добавить: Возможность перемотать видео не перетягивая слайдер, а щелкнув в любубю его часть
         // Slider https://stackoverflow.com/questions/10208959/binding-mediaelement-to-slider-position-in-wpf
         // https://github.com/ButchersBoy/MaterialDesignInXamlToolkit/blob/master/MaterialDesignThemes.Wpf/Themes/MaterialDesignTheme.Slider.xaml
         // http://www.cyberforum.ru/wpf-silverlight/thread421374.html
-        #region Slider Timer
         private void VideoPlayer_MediaOpened(object sender, RoutedEventArgs e)
-        {
-            // Here also add a volume and video time span bindings
-            
+        {            
+            VideoPlayer_Slider.Minimum = 0;
             VideoPlayer_Slider.Maximum = VideoPlayer.NaturalDuration.TimeSpan.TotalSeconds;
-                        
+
+            DispatcherTimer MoveSliderTimerTicks = new DispatcherTimer();
+            MoveSliderTimerTicks.Interval = TimeSpan.FromSeconds(1);
+            MoveSliderTimerTicks.Tick += Ticks_Tick;
+            MoveSliderTimerTicks.Start();
         }
-        private void VideoPlayer_Slider_LostMouseCapture(object sender, MouseEventArgs e)
+
+        void ChangeStatus()
         {
-            TimeSpan time = new TimeSpan(0, 0, Convert.ToInt32(Math.Round(VideoPlayer_Slider.Value))); //отлавливаем позицию на которую нужно перемотать трек
-            VideoPlayer.Position = time; //устанавливаем новую позицию для трека
+            VideoPlayer_Slider.Value = VideoPlayer.Position.TotalSeconds;
         }
-       
+
+        private void Ticks_Tick(object sender, EventArgs e)
+        {
+            Dispatcher.Invoke(new DragSliderTimerTick(ChangeStatus));
+        }
+
+        private void VideoPlayer_Slider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            TimeSpan ts = new TimeSpan(0, 0, 0,  (int)VideoPlayer_Slider.Value);
+            VideoPlayer.Position = ts;
+        }       
         #endregion
 
         #region Menu Buttons
@@ -299,7 +313,7 @@ namespace Publishing
             VideoPlayerVolumeOffOnButton.Content = FindResource("PlayerVolumeOn");
             VideoPlayer.Volume = 1;
 
-            VideoPlayer_Slider.Value = 0; // сброс позиции слайдера
+            VideoPlayer_Slider.Value = VideoPlayer_Slider.Minimum; // сброс позиции слайдера
         }
 
         private void VideoPlayer_Forward_Button_Click(object sender, RoutedEventArgs e)
@@ -367,10 +381,11 @@ namespace Publishing
         private void InvisibleGrids()
         {
             Grid_HomePage.Visibility = Visibility.Collapsed;
+            Grid_PDFView.Visibility = Visibility.Collapsed;
+            Grid_MediaPlayer.Visibility = Visibility.Collapsed;
             Grid_AddPublication.Visibility = Visibility.Collapsed;
             Grid_DeletePublication.Visibility = Visibility.Collapsed;
-            Grid_SearchInDB.Visibility = Visibility.Collapsed;
-            Grid_PDFView.Visibility = Visibility.Collapsed;
+            Grid_SearchInDB.Visibility = Visibility.Collapsed;            
             Grid_Settings.Visibility = Visibility.Collapsed;
         }
         #endregion
@@ -415,6 +430,13 @@ namespace Publishing
         {
             InvisibleGrids();
             Grid_Settings.Visibility = Visibility.Visible;
+            ButtonClickSound("btn_click_sound_1");
+        }
+
+        private void Label_MouseLeftButtonDown_6(object sender, MouseButtonEventArgs e)
+        {
+            InvisibleGrids();
+            Grid_MediaPlayer.Visibility = Visibility.Visible;
             ButtonClickSound("btn_click_sound_1");
         }
         #endregion
@@ -507,6 +529,8 @@ namespace Publishing
                 MessageBox.Show(ex.Message, ex.Source);
             }
         }
+
+
 
 
 

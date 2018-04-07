@@ -279,14 +279,16 @@
             <materialDesign:PackIcon x:Key="ApplicationVolumeOff" Kind="VolumeOff" Height="30" Width="30" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <materialDesign:PackIcon x:Key="ApplicationVolumeOn" Kind="VolumeHigh" Height="30" Width="30" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-            <!-- !!! -->
-            <!--CurrentTimeInvalidated="{Binding Source={x:Static Publishing:MainWindow.Storyboard_CurrentTimeInvalidated}}"-->
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            
+            <!-- MediaTimeline -->            
             <!--<Style x:Key="SliderTrigger" TargetType="MediaElement">
                 <Style.Triggers>
                     <EventTrigger RoutedEvent="MediaElement.Loaded">
                         <EventTrigger.Actions>
                             <BeginStoryboard x:Name="mediaStoryboard">
-                                <Storyboard SlipBehavior="Slip" CurrentTimeInvalidated="{Binding MainWindow.Storyboard_CurrentTimeInvalidated}">
+                                <Storyboard SlipBehavior="Slip" CurrentTimeInvalidated="Storyboard_CurrentTimeInvalidated">
                                     <MediaTimeline Storyboard.TargetName="VideoPlayer" />
                                 </Storyboard>
                             </BeginStoryboard>
@@ -294,8 +296,7 @@
                     </EventTrigger>
                 </Style.Triggers>
             </Style>-->
-            
-
+                       
             <!-- Example how to reference LinearGradienBrush in style-->
             <!--<Style x:Key="ThemeLabel" TargetType="Label">
                 <Setter Property="Width" Value="300"/>
@@ -321,7 +322,16 @@
         </ResourceDictionary>
     </Application.Resources>
 </Application>
-<!-- Grey #FFACB5B9 (start), #FFC826, Oliva #808000, Fuchsia #FF00FF, PaleVioletRed #DB7093, HotPink #FF69B4, DeepPink #FF1493, MediumVioletRed #C71585, DarkGoldenRod #B8860B, 
-    Goldenrod #DAA520, Gold #FFD700, Pure Gold #D3AD7E, Mexican Pink #E4007C -->
-
-<!--#FF1493  changed in Mexican Pink #E4007C -->
+    
+<!-- Grey #FFACB5B9, #FFC826 
+    Oliva #808000
+    Fuchsia #FF00FF 
+    PaleVioletRed #DB7093 
+    HotPink #FF69B4 
+    DeepPink #FF1493
+    MediumVioletRed #C71585
+    DarkGoldenRod #B8860B
+    Goldenrod #DAA520 
+    Gold #FFD700
+    Pure Gold #D3AD7E
+    Mexican Pink #E4007C -->    <!--#FF1493  changed in Mexican Pink #E4007C -->
