@@ -52,7 +52,7 @@ namespace Publishing
             GetFullDate();
             GetRealTime();
 
-            SetVideoPlayer();
+            VideoPlayerButtonsOnOff(0);
 
             DataContext = new ComboBoxViewModel();                                           
         }
@@ -145,47 +145,32 @@ namespace Publishing
             }
         }
         #endregion
-
-        // Создать ползунок громкости, ползунок контента, выбор кол-ва секунд "вперед" "назад"        
+               
         #region VideoPlayer
-
-        #region Video Time Timer
-        private void SetVideoPlayerTimeTimer()
-        {
-            DispatcherTimer VidepPlayerTimeTimer = new DispatcherTimer();
-            VidepPlayerTimeTimer.Interval = TimeSpan.FromSeconds(0);
-            VidepPlayerTimeTimer.Tick += VideoPlayerTimeTimer_Tick;
-            VidepPlayerTimeTimer.Start();
-        }
-
-        private void VideoPlayerTimeTimer_Tick(object sender, EventArgs e)
-        {
-            if(VideoPlayer.Source != null)
-            {
-                if(VideoPlayer.NaturalDuration.HasTimeSpan)
-                    VideoPlayer_Time_Label.Content = 
-                        String.Format($"{VideoPlayer.Position.ToString(@"mm\:ss")} / {VideoPlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss")}");
-            }            
-        }
-        #endregion
-
-        private void SetVideoPlayer()       // Main Set Method
+        
+        private void VideoPlayerButtonsOnOff(int x)       // Main Set Method
         {            
-            VideoPlayer_Play_Button.Visibility = VideoPlayer_Stop_Button.Visibility = VideoPlayer_Forward_Button.Visibility = VideoPlayer_Rewind_Button.Visibility = 
-                VideoPlayerVolumeOffOnButton.Visibility = VideoPlayer_Time_Label.Visibility = VideoPlayer_LoadNewVideo_Button.Visibility = VideoPlayer_Slider_StackPanel.Visibility = Visibility.Collapsed;
-            VideoPlayer_Play_Button.IsEnabled = VideoPlayer_Stop_Button.IsEnabled = VideoPlayer_Forward_Button.IsEnabled = VideoPlayer_Rewind_Button.IsEnabled =
-                VideoPlayerVolumeOffOnButton.IsEnabled = VideoPlayer_Time_Label.IsEnabled = VideoPlayer_LoadNewVideo_Button.IsEnabled = VideoPlayer_Slider_StackPanel.IsEnabled = false;
-
-            SetVideoPlayerTimeTimer();
+            switch(x)
+            {
+                case 0:
+                    {
+                        VideoPlayerMenu_StackPanel.Visibility = VideoPlayer_Slider_StackPanel.Visibility = Visibility.Collapsed;
+                        VideoPlayerMenu_StackPanel.IsEnabled = VideoPlayer_Slider_StackPanel.IsEnabled = false;                        
+                    }
+                    break;
+                case 1:
+                    {
+                        VideoPlayerMenu_StackPanel.Visibility = VideoPlayer_Slider_StackPanel.Visibility = Visibility.Visible;
+                        VideoPlayerMenu_StackPanel.IsEnabled = VideoPlayer_Slider_StackPanel.IsEnabled = true;                       
+                    }
+                    break;
+            }                       
         }
 
         private void VideoPlayer_Initiate_Button_Click(object sender, RoutedEventArgs e)        // Initial Button
-        {
-            VideoPlayer_Play_Button.Visibility = VideoPlayer_Stop_Button.Visibility = VideoPlayer_Forward_Button.Visibility = VideoPlayer_Rewind_Button.Visibility =
-                VideoPlayerVolumeOffOnButton.Visibility = VideoPlayer_Time_Label.Visibility = VideoPlayer_LoadNewVideo_Button.Visibility = VideoPlayer_Slider_StackPanel.Visibility = Visibility.Visible;
-            VideoPlayer_Play_Button.IsEnabled = VideoPlayer_Stop_Button.IsEnabled = VideoPlayer_Forward_Button.IsEnabled = VideoPlayer_Rewind_Button.IsEnabled =
-                VideoPlayerVolumeOffOnButton.IsEnabled = VideoPlayer_Time_Label.IsEnabled = VideoPlayer_LoadNewVideo_Button.IsEnabled = VideoPlayer_Slider_StackPanel.IsEnabled = true;
-            
+        {            
+            VideoPlayerButtonsOnOff(1);
+
             VideoPlayer_Initiate_Button.Visibility = Visibility.Collapsed;
 
             VideoPlayer.Play();
@@ -200,26 +185,50 @@ namespace Publishing
         private void VideoPlayer_MediaEnded(object sender, RoutedEventArgs e) { VideoPlayer_Stop_Button_Click(new object(), new RoutedEventArgs()); }
 
         private void VideoPlayer_MediaFailed(object sender, ExceptionRoutedEventArgs e) { MessageBox.Show("Media filed! Smth was wrong and occured an error."); }
-        
-        #region Slider Timer. Update slider position from movie and update movie position from slider.
-        // Добавить: Возможность перемотать видео не перетягивая слайдер, а щелкнув в любубю его часть
-        // Slider https://stackoverflow.com/questions/10208959/binding-mediaelement-to-slider-position-in-wpf
-        // https://github.com/ButchersBoy/MaterialDesignInXamlToolkit/blob/master/MaterialDesignThemes.Wpf/Themes/MaterialDesignTheme.Slider.xaml
-        // http://www.cyberforum.ru/wpf-silverlight/thread421374.html
-        private void VideoPlayer_MediaOpened(object sender, RoutedEventArgs e)
-        {            
-            VideoPlayer_Slider.Minimum = 0;
-            VideoPlayer_Slider.Maximum = VideoPlayer.NaturalDuration.TimeSpan.TotalSeconds;
 
+        #region Slider & Timers. Movie_Content_Slider. Movie_Volume_Slider. Movie_Time_Timer.
+        // Добавить: Возможность перемотать видео не перетягивая слайдер, а щелкнув в любубю его часть        
+        // Style https://github.com/ButchersBoy/MaterialDesignInXamlToolkit/blob/master/MaterialDesignThemes.Wpf/Themes/MaterialDesignTheme.Slider.xaml
+        // How to do http://www.cyberforum.ru/wpf-silverlight/thread421374.html, https://stackoverflow.com/questions/10208959/binding-mediaelement-to-slider-position-in-wpf
+        private void VideoPlayer_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            VideoPlayer_RewindValue_TextBox.Text = "5";
+
+            // Volume Slider Initialization
+            VideoPlayer.Volume = (double)VideoPlayer_VolumeSlider.Value;
+
+            // Content Slider Initialization
+            VideoPlayer_ContentSlider.Minimum = 0;
+            VideoPlayer_ContentSlider.Maximum = VideoPlayer.NaturalDuration.TimeSpan.TotalSeconds;
+
+            // Movie Time Timer
+            DispatcherTimer VidepPlayerTimeTimer = new DispatcherTimer();
+            VidepPlayerTimeTimer.Interval = TimeSpan.FromSeconds(0);
+            VidepPlayerTimeTimer.Tick += VideoPlayerTimeTimer_Tick;
+            VidepPlayerTimeTimer.Start();
+
+            // Movie Content Slider Timer
             DispatcherTimer MoveSliderTimerTicks = new DispatcherTimer();
             MoveSliderTimerTicks.Interval = TimeSpan.FromSeconds(1);
             MoveSliderTimerTicks.Tick += Ticks_Tick;
             MoveSliderTimerTicks.Start();
         }
 
+        // Movie Time Timer Tick Event
+        private void VideoPlayerTimeTimer_Tick(object sender, EventArgs e)
+        {
+            if (VideoPlayer.Source != null)
+            {
+                if (VideoPlayer.NaturalDuration.HasTimeSpan)
+                    VideoPlayer_Time_Label.Content =
+                        String.Format($"{VideoPlayer.Position.ToString(@"mm\:ss")} / {VideoPlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss")}");
+            }
+        }
+
+        // Movie Slider Timer Events & Methods
         void ChangeStatus()
         {
-            VideoPlayer_Slider.Value = VideoPlayer.Position.TotalSeconds;
+            VideoPlayer_ContentSlider.Value = VideoPlayer.Position.TotalSeconds;
         }
 
         private void Ticks_Tick(object sender, EventArgs e)
@@ -229,12 +238,21 @@ namespace Publishing
 
         private void VideoPlayer_Slider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
-            TimeSpan ts = new TimeSpan(0, 0, 0,  (int)VideoPlayer_Slider.Value);
+            TimeSpan ts = new TimeSpan(0, 0, 0,  (int)VideoPlayer_ContentSlider.Value);
             VideoPlayer.Position = ts;
-        }       
+        }
+
+        // Volume Slider. Change movie volume.
+        private void VideoPlayer_VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            VideoPlayer.Volume = (double)VideoPlayer_VolumeSlider.Value;
+
+            if (VideoPlayer_VolumeSlider.Value == 0) VideoPlayerVolumeOffOnButton.Content = FindResource("PlayerVolumeOff");
+                else VideoPlayerVolumeOffOnButton.Content = FindResource("PlayerVolumeOn");
+        }
         #endregion
 
-        #region Menu Buttons
+        #region Menu Buttons Clicks
         private void VideoPlayer_LoadNewVideo_Button_Click(object sender, RoutedEventArgs e)
         {                        
             string formats = "All Videos Files |*.dat; *.wmv; *.3g2; *.3gp; *.3gp2; *.3gpp; *.amv; *.asf; *.ts; *.tts; *.vob; *.vro; *.webm; " +
@@ -313,19 +331,19 @@ namespace Publishing
             VideoPlayerVolumeOffOnButton.Content = FindResource("PlayerVolumeOn");
             VideoPlayer.Volume = 1;
 
-            VideoPlayer_Slider.Value = VideoPlayer_Slider.Minimum; // сброс позиции слайдера
+            VideoPlayer_ContentSlider.Value = VideoPlayer_ContentSlider.Minimum; // сброс позиции слайдера
         }
 
         private void VideoPlayer_Forward_Button_Click(object sender, RoutedEventArgs e)
         {
-            VideoPlayer.Position += TimeSpan.FromSeconds(10);
-            VideoPlayer_Slider.Value = VideoPlayer.Position.TotalSeconds; // вроде работает
+            VideoPlayer.Position += TimeSpan.FromSeconds(Convert.ToInt32(VideoPlayer_RewindValue_TextBox.Text));
+            VideoPlayer_ContentSlider.Value = VideoPlayer.Position.TotalSeconds; // вроде работает
         }
 
         private void VideoPlayer_Rewind_Button_Click(object sender, RoutedEventArgs e)
         {
-            VideoPlayer.Position -= TimeSpan.FromSeconds(10);
-            VideoPlayer_Slider.Value = VideoPlayer.Position.TotalSeconds; // вроде работает
+            VideoPlayer.Position -= TimeSpan.FromSeconds(Convert.ToInt32(VideoPlayer_RewindValue_TextBox.Text));
+            VideoPlayer_ContentSlider.Value = VideoPlayer.Position.TotalSeconds; // вроде работает
         }
 
         private void VideoPlayerVolumeOffOnButton_Click(object sender, RoutedEventArgs e)
@@ -334,15 +352,50 @@ namespace Publishing
             {                
                 VideoPlayer.Volume = 0;
                 VideoPlayerVolumeOffOnButton.Content = FindResource("PlayerVolumeOff");
+
+                VideoPlayer_VolumeSlider.Value = 0;
             }
             else
             {
                 VideoPlayer.Volume = 1;
                 VideoPlayerVolumeOffOnButton.Content = FindResource("PlayerVolumeOn");
+
+                VideoPlayer_VolumeSlider.Value = 1;
             }
         }
-        #endregion
 
+        private void VideoPlayer_RewindUp_Button_Click(object sender, RoutedEventArgs e)
+        {
+            int value = Convert.ToInt32(VideoPlayer_RewindValue_TextBox.Text);            
+            if (value < 5)
+            {
+                value += 1;                
+            }            
+            if (value >= 5 & value < 60)
+            {               
+                value += 5;
+            }
+            VideoPlayer_RewindValue_TextBox.Text = value.ToString();
+        }
+
+        private void VideoPlayer_RewindDown_Button_Click(object sender, RoutedEventArgs e)
+        {
+            int value = Convert.ToInt32(VideoPlayer_RewindValue_TextBox.Text);
+            if(value != 0)
+            {
+                if (value == 1) return;
+                if(value <= 5 )
+                {
+                    value -= 1;
+                }
+                if(value > 5 & value <= 60)
+                {
+                    value -= 5;
+                }
+            }
+            VideoPlayer_RewindValue_TextBox.Text = value.ToString();
+        }
+        #endregion
 
         #endregion
 
@@ -529,6 +582,7 @@ namespace Publishing
                 MessageBox.Show(ex.Message, ex.Source);
             }
         }
+
 
 
 
