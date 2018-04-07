@@ -4,8 +4,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:Publishing"             
              StartupUri="MainWindow.xaml">
-    <Application.Resources>
-        
+    <Application.Resources>        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
@@ -91,8 +90,7 @@
                 </Style.Triggers>
             </Style>
 
-            <!-- Stile for Line -->
-            <!-- {x:Type Line} - для всех подобных эл-тов в сборке -->
+            <!-- Stile for Menu Line -->            
             <Style x:Key="changeLine" TargetType="Line">
                 <Setter Property="Margin" Value="5,0,65,0"/>
                 <Setter Property="StrokeThickness" Value="5"/>
@@ -202,6 +200,35 @@
                                         
                 </Style.Triggers>
             </Style>
+
+            <!-- Slider visibility change when mouse enter -->
+            <Style x:Key="SliderVisibilityOnOff" TargetType="StackPanel">
+                <Setter Property="Opacity" Value="0"/>
+
+                <Style.Triggers>
+                    
+                    <EventTrigger RoutedEvent="MouseEnter">                        
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Duration="0:0:0.01" Storyboard.TargetProperty="(UIElement.Opacity)" From="0" To="0.7"/>                                    
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>                        
+                    </EventTrigger>
+                    
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Duration="0:0:0.01" Storyboard.TargetProperty="(UIElement.Opacity)" From="0.7" To="0"/>                                    
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>    
+                    
+                </Style.Triggers>
+            </Style>
          
             <!-- Style for info text block -->
             <Style x:Key="InfoTxtBlock_Font" TargetType="TextBlock">
@@ -252,6 +279,22 @@
             <materialDesign:PackIcon x:Key="ApplicationVolumeOff" Kind="VolumeOff" Height="30" Width="30" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <materialDesign:PackIcon x:Key="ApplicationVolumeOn" Kind="VolumeHigh" Height="30" Width="30" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
+            <!-- !!! -->
+            <!--CurrentTimeInvalidated="{Binding Source={x:Static Publishing:MainWindow.Storyboard_CurrentTimeInvalidated}}"-->
+            <!--<Style x:Key="SliderTrigger" TargetType="MediaElement">
+                <Style.Triggers>
+                    <EventTrigger RoutedEvent="MediaElement.Loaded">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard x:Name="mediaStoryboard">
+                                <Storyboard SlipBehavior="Slip" CurrentTimeInvalidated="{Binding MainWindow.Storyboard_CurrentTimeInvalidated}">
+                                    <MediaTimeline Storyboard.TargetName="VideoPlayer" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Style.Triggers>
+            </Style>-->
+            
 
             <!-- Example how to reference LinearGradienBrush in style-->
             <!--<Style x:Key="ThemeLabel" TargetType="Label">
@@ -276,7 +319,6 @@
 
     
         </ResourceDictionary>
-
     </Application.Resources>
 </Application>
 <!-- Grey #FFACB5B9 (start), #FFC826, Oliva #808000, Fuchsia #FF00FF, PaleVioletRed #DB7093, HotPink #FF69B4, DeepPink #FF1493, MediumVioletRed #C71585, DarkGoldenRod #B8860B, 
