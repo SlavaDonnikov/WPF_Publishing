@@ -270,7 +270,7 @@
                 <Setter Property="FontSize" Value="13"/>               
             </Style>
             
-            <!-- Cahnge material design icons -->            
+            <!-- Change material design icons -->            
             <materialDesign:PackIcon x:Key="Play" Kind="Play" Height="35" Width="33" Foreground="#FFEA002A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <materialDesign:PackIcon x:Key="Load" Kind="DownLoad" Height="35" Width="33" Foreground="#FFEA002A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <materialDesign:PackIcon x:Key="Pause" Kind="Pause" Height="35" Width="33" Foreground="#FFEA002A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -278,6 +278,41 @@
             <materialDesign:PackIcon x:Key="PlayerVolumeOn" Kind="VolumeHigh" Height="35" Width="35" Foreground="#FFEA002A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <materialDesign:PackIcon x:Key="ApplicationVolumeOff" Kind="VolumeOff" Height="30" Width="30" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <materialDesign:PackIcon x:Key="ApplicationVolumeOn" Kind="VolumeHigh" Height="30" Width="30" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            
+            
+            <!-- ListView Column Contetn -->
+            <Style x:Key="ListViewColumnBorder" TargetType="Border">
+                <Setter Property="BorderBrush" Value="#FFEA002A" />
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="CornerRadius" Value="2"/>
+                <Setter Property="Padding" Value="2"/>
+            </Style>
+
+            <Style x:Key="ColHeaderText" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontFamily" Value="Stencil"/>
+                <Setter Property="Foreground" Value="#FFEA002A"/>
+                <Setter Property="Padding" Value="0" />                
+                <Setter Property="Height" Value="15"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="TextAlignment" Value="Center"/>
+            </Style>
+
+            <DataTemplate x:Key="NameColHeader">
+                <Border Style="{StaticResource ListViewColumnBorder}">
+                    <TextBlock Text="Name" Width="40" Style="{StaticResource ColHeaderText}" />
+                </Border>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DurationColHeader">
+                <Border Style="{StaticResource ListViewColumnBorder}">
+                    <TextBlock Text="Duration" Width="100" Style="{StaticResource ColHeaderText}" />
+                </Border>
+            </DataTemplate>
+            <!-- -->
+
 
 
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->

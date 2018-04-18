@@ -19,6 +19,9 @@ using System.Media;
 using WPFPdfViewer;
 using System.Windows.Threading;
 using System.Windows.Media.Animation;
+using System.IO;
+using System.Data.Entity;
+using Publishing.EntityData;
 
 namespace Publishing
 {
@@ -30,31 +33,141 @@ namespace Publishing
         #region Global Variables
         private MediaPlayer ApplicationMusicTheme; // add application music theme, which plays all time  
         public delegate void DragSliderTimerTick();
+        public string LoadedItemName { get; set; }   
         #endregion
 
         #region MainWindow()
         public MainWindow()
-        {            
+        {
             InitializeComponent();
 
             InvisibleGrids();
-                     
+
             ApplicationBackgroundMusic();
 
             Grid_HomePage.Visibility = Visibility.Visible;
-            
+
+            LoadBD();                        
+        }
+        
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            // Облегчить как нибудь закрытие приложения!
+            // Разобраться с пдф ошибкой
+            // Сменить фоновую музыку
+            // Додумать список воспроизведения для плеера
+            //db.Dispose();
+        }
+        #endregion
+
+        #region DB
+        private void LoadBD()
+        {
+            using (PublishingContext db = new PublishingContext())
+            {
+                //var publications = db.Publications.ToList();  // lazy
+                //var publications = db.Publications.Include(p => p.Publisher).ToList();
+                // Add_Page_DataGrid.ItemsSource = db.Publications.Local.ToBindingList();
+                Add_Page_DataGrid.ItemsSource = null;
+                try
+                {
+                    Add_Page_DataGrid.ItemsSource = db.Publications.Include(p => p.Publisher).ToList();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("DB loading error : " + ex.Message + ", " + ex.Source);
+                }
+
+                this.Closing += MainWindow_Closing;
+            }
+        }
+
+        public bool IsDataFieldsAreNotEmpty()
+        {
+            if (!string.IsNullOrEmpty(Add_Publication_Name_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_Name_TextBox.Text) &
+                !string.IsNullOrEmpty(Add_Publication_ISSN_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_ISSN_TextBox.Text) &
+                 Add_Publication_Genre_ComboBox.SelectedItem != null & Add_Publication_Genre_ComboBox.SelectedIndex != -1 & // ??
+                !string.IsNullOrEmpty(Add_Publication_Format_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_Format_TextBox.Text) &
+                !string.IsNullOrEmpty(Add_Publication_Language_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_Language_TextBox.Text) &
+                !string.IsNullOrEmpty(Add_Publication_NumberOfCopies_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_NumberOfCopies_TextBox.Text) &
+                !string.IsNullOrEmpty(Add_Publication_NumberOfPages_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_NumberOfPages_TextBox.Text) &
+                !string.IsNullOrEmpty(Add_Publication_PublicationDate_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_PublicationDate_TextBox.Text) &
+                !string.IsNullOrEmpty(Add_Publication_DownloadLink_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_DownloadLink_TextBox.Text) &
+                 NewPublication_OpenImage.Source != null &
+                 PublisherTypesComboBox.SelectedItem != null & PublisherTypesComboBox.SelectedIndex != -1 &
+                !string.IsNullOrEmpty(Add_Publisher_Name_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publisher_Name_TextBox.Text) &
+                !string.IsNullOrEmpty(Add_Publisher_Address_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publisher_Address_TextBox.Text) &
+                !string.IsNullOrEmpty(Add_Publisher_Email_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publisher_Email_TextBox.Text)
+                ) return true;
+            else return false;
+        }
+        
+        // var d = new DataObject(DataFormats.Bitmap, NewPublication_OpenImage.Source, true).GetData("System.Drawing.Bitmap") as System.Drawing.Bitmap;
+
+        public byte[] ConvertImageToBinary(Image image)
+        {
+            byte[] data;
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create((BitmapSource)image.Source));
+            using (MemoryStream ms = new MemoryStream())
+            {
+                encoder.Save(ms);
+                data = ms.ToArray();
+            }
+            return data;
+        }
+
+        // Проверку на существование в БД издателей. Почему одинаковые издатели заносятся в БД??
+        // Сделать выгрузку данных в поля (и картинку)
+        // Кнопку очистки и снятия фокуса.
+        private void Add_Publication_Save_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(IsDataFieldsAreNotEmpty())
+            {
+                using (PublishingContext db = new PublishingContext())
+                {
+                    Publisher publisher = new Publisher
+                    {
+                        PublisherName = Add_Publisher_Name_TextBox.Text,
+                        Addres = Add_Publisher_Address_TextBox.Text,
+                        Email = Add_Publisher_Email_TextBox.Text
+                    };
+                    db.Publishers.Add(publisher);
+                    db.SaveChanges();
+
+                    Publication publication = new Publication
+                    {
+                        PublicationName = Add_Publication_Name_TextBox.Text,
+                        ISSN = Add_Publication_ISSN_TextBox.Text,
+                        Genre = Add_Publication_Genre_ComboBox.SelectedValue.ToString(),
+                        Language = Add_Publication_Language_TextBox.Text,
+                        NumberOfCopies = Convert.ToInt32(Add_Publication_NumberOfCopies_TextBox.Text),
+                        NumberOfPages = Convert.ToInt32(Add_Publication_NumberOfPages_TextBox.Text),
+                        Format = Add_Publication_Format_TextBox.Text,
+                        DownloadLink = Add_Publication_DownloadLink_TextBox.Text,
+                        Cover = ConvertImageToBinary(NewPublication_OpenImage),
+                        PublicationDate = Add_Publication_PublicationDate_TextBox.Text,
+                        Publisher = publisher
+                    };
+                    db.Publications.Add(publication);
+                    db.SaveChanges();
+
+                    LoadBD();
+                    MessageBox.Show("You have been successfully saved new DB Item.", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
         }
         #endregion
 
         #region MainWindow Window_Loaded
         private void Window_Loaded(object sender, RoutedEventArgs e)
-        {            
+        {
             GetFullDate();
             GetRealTime();
 
             VideoPlayerButtonsOnOff(0);
 
-            DataContext = new ComboBoxViewModel();                                           
+            DataContext = new ComboBoxViewModel();
         }
         #endregion
 
@@ -99,7 +212,7 @@ namespace Publishing
             {
                 MessageBox.Show("Error : " + ex.Message + ", " + ex.Source);
             }
-           
+
             // In ru-RU culture : ApplicationRealTime.Content = DateTime.Now.ToLongTimeString() + " " + DateTime.Now.AddHours(12).ToString("tt", CultureInfo.InvariantCulture)
         }
         #endregion
@@ -126,7 +239,7 @@ namespace Publishing
                 MessageBox.Show("Error in sound generating method - " + ex.Message + ", " + ex.Source);
             }
         }
-                
+
         public void ApplicationBackgroundMusic()        // Background music theme
         {
             try
@@ -137,7 +250,7 @@ namespace Publishing
                 ApplicationMusicTheme.Open(new Uri("space_ambient_music.mp3", UriKind.Relative));
                 ApplicationMusicTheme.Volume = 0.4;
                 ApplicationMusicTheme.Position = TimeSpan.Zero;
-                ApplicationMusicTheme.Play();                
+                ApplicationMusicTheme.Play();
             }
             catch (Exception ex)
             {
@@ -145,30 +258,31 @@ namespace Publishing
             }
         }
         #endregion
-               
+
         #region VideoPlayer
-        
+        //<--
+
         private void VideoPlayerButtonsOnOff(int x)       // Main Set Method
-        {            
-            switch(x)
+        {
+            switch (x)
             {
                 case 0:
                     {
                         VideoPlayerMenu_StackPanel.Visibility = VideoPlayer_Slider_StackPanel.Visibility = Visibility.Collapsed;
-                        VideoPlayerMenu_StackPanel.IsEnabled = VideoPlayer_Slider_StackPanel.IsEnabled = false;                        
+                        VideoPlayerMenu_StackPanel.IsEnabled = VideoPlayer_Slider_StackPanel.IsEnabled = false;
                     }
                     break;
                 case 1:
                     {
                         VideoPlayerMenu_StackPanel.Visibility = VideoPlayer_Slider_StackPanel.Visibility = Visibility.Visible;
-                        VideoPlayerMenu_StackPanel.IsEnabled = VideoPlayer_Slider_StackPanel.IsEnabled = true;                       
+                        VideoPlayerMenu_StackPanel.IsEnabled = VideoPlayer_Slider_StackPanel.IsEnabled = true;
                     }
                     break;
-            }                       
+            }
         }
 
         private void VideoPlayer_Initiate_Button_Click(object sender, RoutedEventArgs e)        // Initial Button
-        {            
+        {
             VideoPlayerButtonsOnOff(1);
 
             VideoPlayer_Initiate_Button.Visibility = Visibility.Collapsed;
@@ -179,7 +293,7 @@ namespace Publishing
             ApplicationMusicTheme.Pause();
             ApplicationVolumeOffOnButton.Content = FindResource("ApplicationVolumeOff");
 
-            VideoPlayerBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F5F5F5"));
+            VideoPlayerBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F5F5F5"));            
         }
 
         private void VideoPlayer_MediaEnded(object sender, RoutedEventArgs e) { VideoPlayer_Stop_Button_Click(new object(), new RoutedEventArgs()); }
@@ -238,7 +352,7 @@ namespace Publishing
 
         private void VideoPlayer_Slider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
-            TimeSpan ts = new TimeSpan(0, 0, 0,  (int)VideoPlayer_ContentSlider.Value);
+            TimeSpan ts = new TimeSpan(0, 0, 0, (int)VideoPlayer_ContentSlider.Value);
             VideoPlayer.Position = ts;
         }
 
@@ -248,13 +362,13 @@ namespace Publishing
             VideoPlayer.Volume = (double)VideoPlayer_VolumeSlider.Value;
 
             if (VideoPlayer_VolumeSlider.Value == 0) VideoPlayerVolumeOffOnButton.Content = FindResource("PlayerVolumeOff");
-                else VideoPlayerVolumeOffOnButton.Content = FindResource("PlayerVolumeOn");
+            else VideoPlayerVolumeOffOnButton.Content = FindResource("PlayerVolumeOn");
         }
         #endregion
 
         #region Menu Buttons Clicks
         private void VideoPlayer_LoadNewVideo_Button_Click(object sender, RoutedEventArgs e)
-        {                        
+        {
             string formats = "All Videos Files |*.dat; *.wmv; *.3g2; *.3gp; *.3gp2; *.3gpp; *.amv; *.asf; *.ts; *.tts; *.vob; *.vro; *.webm; " +
                                                 " *.avi; *.bin; *.cue; *.divx; *.dv; *.flv; *.gxf; *.iso; *.m1v; *.m2v; *.m2t; *.m2ts; *.m4v; " +
                                                 " *.mkv; *.mov; *.mp2; *.mp2v; *.mp4; *.mp4v; *.mpa; *.mpe; *.mpeg; *.mpeg1; *.mpeg2; *.mpeg4; " +
@@ -267,7 +381,7 @@ namespace Publishing
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             };
             if (openFileDialog.ShowDialog() == true)
-            {
+            {  
                 VideoPlayer_Stop_Button_Click(new object(), new RoutedEventArgs());
                 ApplicationMusicTheme.Pause();
                 ApplicationVolumeOffOnButton.Content = FindResource("ApplicationVolumeOff");
@@ -276,17 +390,23 @@ namespace Publishing
                 {
                     VideoPlayer.Source = new Uri(openFileDialog.FileName, UriKind.Absolute);
                     VideoPlayer_Play_Button.Content = FindResource("Pause");
-                    VideoPlayer.Play();                    
+                    VideoPlayer.Play();
+
+                    //------------------------------------------------------------  For ListView
+                    FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
+                    LoadedItemName = fileInfo.Name;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error in loading new MediaElement : " + ex.Message + ", " + ex.Source);
-                }
+                }                
             }
+            //------------------------- For ListView
+            AddNewVideoInListView();
         }
-        
+
         private void VideoPlayer_Play_Button_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             VideoPlayerBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F5F5F5"));
 
             if (VideoPlayer.Source == null)
@@ -298,8 +418,8 @@ namespace Publishing
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error in MediaElement load Uri : " + ex.Message + ", " + ex.Source);
-                }               
-            }                
+                }
+            }
 
             if (VideoPlayer_Play_Button.Content == FindResource("Play"))
             {
@@ -315,7 +435,7 @@ namespace Publishing
                 VideoPlayer_Play_Button.Content = FindResource("Play");
             }
         }
-        
+
         private void VideoPlayer_Stop_Button_Click(object sender, RoutedEventArgs e)
         {
             ApplicationMusicTheme.Play();
@@ -329,8 +449,8 @@ namespace Publishing
             VideoPlayer_Play_Button.Content = FindResource("Play");
 
             VideoPlayerVolumeOffOnButton.Content = FindResource("PlayerVolumeOn");
-            VideoPlayer.Volume = 1;
-
+            VideoPlayer_VolumeSlider.Value = 0.5;
+            
             VideoPlayer_ContentSlider.Value = VideoPlayer_ContentSlider.Minimum; // сброс позиции слайдера
         }
 
@@ -349,30 +469,26 @@ namespace Publishing
         private void VideoPlayerVolumeOffOnButton_Click(object sender, RoutedEventArgs e)
         {
             if (VideoPlayerVolumeOffOnButton.Content == FindResource("PlayerVolumeOn"))
-            {                
-                VideoPlayer.Volume = 0;
-                VideoPlayerVolumeOffOnButton.Content = FindResource("PlayerVolumeOff");
-
+            {
                 VideoPlayer_VolumeSlider.Value = 0;
+                VideoPlayerVolumeOffOnButton.Content = FindResource("PlayerVolumeOff");                
             }
             else
             {
-                VideoPlayer.Volume = 1;
-                VideoPlayerVolumeOffOnButton.Content = FindResource("PlayerVolumeOn");
-
                 VideoPlayer_VolumeSlider.Value = 1;
+                VideoPlayerVolumeOffOnButton.Content = FindResource("PlayerVolumeOn");
             }
         }
 
         private void VideoPlayer_RewindUp_Button_Click(object sender, RoutedEventArgs e)
         {
-            int value = Convert.ToInt32(VideoPlayer_RewindValue_TextBox.Text);            
+            int value = Convert.ToInt32(VideoPlayer_RewindValue_TextBox.Text);
             if (value < 5)
             {
-                value += 1;                
-            }            
+                value += 1;
+            }
             if (value >= 5 & value < 60)
-            {               
+            {
                 value += 5;
             }
             VideoPlayer_RewindValue_TextBox.Text = value.ToString();
@@ -381,14 +497,14 @@ namespace Publishing
         private void VideoPlayer_RewindDown_Button_Click(object sender, RoutedEventArgs e)
         {
             int value = Convert.ToInt32(VideoPlayer_RewindValue_TextBox.Text);
-            if(value != 0)
+            if (value != 0)
             {
                 if (value == 1) return;
-                if(value <= 5 )
+                if (value <= 5)
                 {
                     value -= 1;
                 }
-                if(value > 5 & value <= 60)
+                if (value > 5 & value <= 60)
                 {
                     value -= 5;
                 }
@@ -397,6 +513,28 @@ namespace Publishing
         }
         #endregion
 
+        //WTF???
+        #region Video ListView 
+        public void AddNewVideoInListView()
+        {
+            string duration = "";
+
+            if (VideoPlayer.Source != null)
+            {
+                if (VideoPlayer.NaturalDuration.HasTimeSpan)
+                    duration = String.Format($"{VideoPlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss")}");                
+            }
+            //Videos V = new Videos();
+            //V.NewVideoName = LoadedItemName;
+            //V.NewVideoDuration = duration;
+            //VideoList.Items.Add(V);
+            //MessageBox.Show(V.NewVideoDuration);
+
+            VideoList.Items.Add(new Videos(LoadedItemName, duration));
+        }  
+        #endregion
+
+        //-->
         #endregion
 
         #region "Power" button (close application)_Click Event.
@@ -590,6 +728,8 @@ namespace Publishing
 
 
 
+
+
         #endregion
 
 
@@ -616,8 +756,6 @@ namespace Publishing
         //            break;
         //    }
         //}       
-        #endregion
-
-        
+        #endregion        
     }
 }

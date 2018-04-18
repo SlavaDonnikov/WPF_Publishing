@@ -16,10 +16,10 @@ namespace Publishing        // Just for test!
         {
             SearchTypesCollection = new List<string>()
             {
-                "Name",                
+                "NewVideoName",                
                 "INNS",
                 "Genre",
-                "Publisher Name",
+                "Publisher NewVideoName",
                 "Publication Language",
                 "Publication Date",
             };

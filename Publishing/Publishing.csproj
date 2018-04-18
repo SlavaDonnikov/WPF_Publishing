@@ -101,6 +101,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BinaryImageConverter.cs" />
+    <Compile Include="EntityData\DBContextInitializer.cs" />
+    <Compile Include="Migrations\201804172103150_InitialCreate.cs" />
+    <Compile Include="Migrations\201804172103150_InitialCreate.Designer.cs">
+      <DependentUpon>201804172103150_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Videos.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -132,6 +140,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201804172103150_InitialCreate.resx">
+      <DependentUpon>201804172103150_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -188,11 +199,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\miranda.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\space_ambient_music.mp3">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
