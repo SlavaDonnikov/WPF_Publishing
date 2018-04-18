@@ -576,6 +576,7 @@
                         <Label Content="Publication Information" Width="405" FontSize="28" Padding="1" HorizontalContentAlignment="Left" Foreground="Black" Style="{StaticResource InfoLabel}" />
                     </StackPanel>
 
+                    <!-- About publication labels and textBoxes -->
                     <StackPanel  Orientation="Horizontal">
                         <StackPanel Width="405" HorizontalAlignment="Left">
                             <StackPanel Height="50" Orientation="Horizontal">
@@ -588,7 +589,7 @@
                                 <Label Content="ISSN" Style="{StaticResource InfoLabel}"/>
                                 <TextBox x:Name="Add_Publication_ISSN_TextBox" Width="260" Height="40" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13"
                                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
-                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C" PreviewTextInput="Add_Publication_ISSN_TextBox_PreviewTextInput"/>
                             </StackPanel>
                             <StackPanel Height="50" Orientation="Horizontal">
                                 <Label Content="Genre" Style="{StaticResource InfoLabel}"/>
@@ -609,9 +610,11 @@
                                     <Label Content="Publication" Style="{StaticResource InfoLabel}"/>
                                     <Label Content="language" Style="{StaticResource InfoLabel}"/>
                                 </StackPanel>
-                                <TextBox x:Name="Add_Publication_Language_TextBox" Width="260" Height="40" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13"
-                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
-                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
+                                <ComboBox x:Name="Add_Publication_Language_ComboBox" Width="260" Margin="10,0,10,0" BorderThickness="0 0 0 1" BorderBrush="#6C6C6C"
+                                          FontSize="13" FontFamily="Stencil" Foreground="Black" 
+                                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                          HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                          ItemsSource="{Binding LanguageTypesCollection}" />
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Margin="25,0" HorizontalAlignment="Right" Width="405">
@@ -622,7 +625,7 @@
                                 </StackPanel>
                                 <TextBox x:Name="Add_Publication_NumberOfCopies_TextBox" Width="260" Height="40" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13"
                                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
-                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C" PreviewTextInput="Add_Publication_NumberOfCopies_TextBox_PreviewTextInput"/>
                             </StackPanel>
                             <StackPanel Height="50" Orientation="Horizontal">
                                 <StackPanel VerticalAlignment="Center">
@@ -631,7 +634,7 @@
                                 </StackPanel>
                                 <TextBox x:Name="Add_Publication_NumberOfPages_TextBox" Width="260" Height="40" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13"
                                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
-                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C" PreviewTextInput="Add_Publication_NumberOfPages_TextBox_PreviewTextInput"/>
                             </StackPanel>
                             <StackPanel Height="50" Orientation="Horizontal">
                                 <StackPanel VerticalAlignment="Center">
@@ -640,7 +643,7 @@
                                 </StackPanel>
                                 <TextBox x:Name="Add_Publication_PublicationDate_TextBox" Width="260" Height="40" Margin="10,0,10,0" FontFamily="Stencil" FontSize="13"
                                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  
-                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C"/>
+                                         Style="{StaticResource MaterialDesignTextBox}" BorderBrush="#6C6C6C" PreviewTextInput="Add_Publication_PublicationDate_TextBox_PreviewTextInput"/>
                             </StackPanel>
                             <StackPanel Height="50" Orientation="Horizontal">
                                 <StackPanel VerticalAlignment="Center">
@@ -678,6 +681,7 @@
                                           FontSize="12" FontFamily="Stencil" Foreground="Black" 
                                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                           ItemsSource="{Binding PublisherTypesCollection}" SelectionChanged="PublisherTypesComboBox_SelectionChanged" />
+                                <!--ItemsSource="{Binding PublisherTypesCollection}"-->
                             </StackPanel>
                             <StackPanel Margin="0,-10" Width="1084" Orientation="Horizontal" HorizontalAlignment="Left">
                                 <StackPanel Height="90" Orientation="Horizontal">
@@ -747,13 +751,16 @@
                         </DataGrid>
                     </StackPanel>
 
+                    <!-- Clear & Save Buttons-->
                     <!--   MaterialDesignRaisedButton, MaterialDesignRaisedLightButton, MaterialDesignRaisedDarkButton, 
                     MaterialDesignRaisedAccentButton, MaterialDesignFlatButton, MaterialDesignFlatAccentButton, MaterialDesignToolButton,
                     MaterialDesignToolForegroundButton, MaterialDesignFloatingActionMiniButton, MaterialDesignFloatingActionButton,
                     MaterialDesignFloatingActionMiniLightButton, MaterialDesignFloatingActionMiniDarkButton, MaterialDesignFloatingActionMiniAccentButton
                     MaterialDesignFloatingActionLightButton, MaterialDesignFloatingActionDarkButton, MaterialDesignFloatingActionAccentButton-->
-                    <StackPanel Margin="0,-440,0,0" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <Button x:Name="Add_Publication_Save_Button" Content="Save" Width="55" Padding="0" Foreground="#E4007C" FontFamily="Stencil" BorderThickness="2" BorderBrush="#6C6C6C" 
+                    <StackPanel Orientation="Vertical" Margin="0,-480,0,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button x:Name="Add_Publication_Clear_Button" Content="Clear" Width="55" Padding="0" Foreground="#E4007C" FontFamily="Stencil" BorderThickness="2" BorderBrush="#6C6C6C" 
+                                Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}" Click="Add_Publication_Clear_Button_Click" />
+                        <Button x:Name="Add_Publication_Save_Button" Content="Save" Margin="0,5,0,0" Width="55" Padding="0" Foreground="#E4007C" FontFamily="Stencil" BorderThickness="2" BorderBrush="#6C6C6C" 
                                 Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}" Click="Add_Publication_Save_Button_Click" />
                     </StackPanel>
 

@@ -1,30 +1,48 @@
-﻿using System;
+﻿using Publishing.EntityData;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Publishing        // Just for test!
+namespace Publishing        
 {
     public class ComboBoxViewModel
     {
-        public List<string> SearchTypesCollection { get; set; }
-        public List<string> GenreTypesCollection { get; set; }
-        public List<string> PublisherTypesCollection { get; set; }
+        public ObservableCollection<string> SearchTypesCollection { get; set; }
+        public ObservableCollection<string> GenreTypesCollection { get; set; }
+        public ObservableCollection<string> LanguageTypesCollection { get; set; }
+        public ObservableCollection<string> PublisherTypesCollection { get; set; }
+        
+        public void PublisherTypesComboboxRefresh()
+        {
+            using (PublishingContext db = new PublishingContext())
+            {
+                var publishers = db.Publishers.ToList();
+                foreach (Publisher p in publishers)
+                {
+                    if(!PublisherTypesCollection.Contains(p.PublisherName))
+                    {
+                        PublisherTypesCollection.Add(p.PublisherName.ToString());
+                    }                    
+                }                    
+            }
+        }
 
         public ComboBoxViewModel()
         {
-            SearchTypesCollection = new List<string>()
+            SearchTypesCollection = new ObservableCollection<string>()
             {
-                "NewVideoName",                
+                "Publication Name",                
                 "INNS",
                 "Genre",
-                "Publisher NewVideoName",
+                "Publisher Name",
                 "Publication Language",
                 "Publication Date",
             };
 
-            GenreTypesCollection = new List<string>()
+            GenreTypesCollection = new ObservableCollection<string>()
             {
                 "Science",
                 "Sci-Fi",
@@ -33,11 +51,19 @@ namespace Publishing        // Just for test!
                 "Dissertation"
             };
 
-            PublisherTypesCollection = new List<string>()
-            {
-                "Create New Publisher",
-                "Choose Existing Publisher"
+            LanguageTypesCollection = new ObservableCollection<string>()
+            {                
+                "Russian",
+                "English",
+                "French",
+                "German",
+                "Chinese",
+                "Japanese",
+                "Korean"
             };
-        }
+
+            PublisherTypesCollection = new ObservableCollection<string>() { "Create New Publisher" };
+            PublisherTypesComboboxRefresh();
+        }        
     }
 }

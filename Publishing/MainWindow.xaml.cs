@@ -47,7 +47,7 @@ namespace Publishing
 
             Grid_HomePage.Visibility = Visibility.Visible;
 
-            LoadBD();                        
+            LoadBD();           
         }
         
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -61,6 +61,10 @@ namespace Publishing
         #endregion
 
         #region DB
+        /// <summary>
+        /// Load data from BD to DataGrid. 
+        /// Also can be used as a DataGrid Refresh().
+        /// </summary>
         private void LoadBD()
         {
             using (PublishingContext db = new PublishingContext())
@@ -79,31 +83,58 @@ namespace Publishing
                 }
 
                 this.Closing += MainWindow_Closing;
-            }
+            }           
         }
 
+        /// <summary>
+        /// Check is all fields filled before save data in DB.
+        /// </summary>
+        /// <returns></returns>
         public bool IsDataFieldsAreNotEmpty()
         {
-            if (!string.IsNullOrEmpty(Add_Publication_Name_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_Name_TextBox.Text) &
-                !string.IsNullOrEmpty(Add_Publication_ISSN_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_ISSN_TextBox.Text) &
-                 Add_Publication_Genre_ComboBox.SelectedItem != null & Add_Publication_Genre_ComboBox.SelectedIndex != -1 & // ??
-                !string.IsNullOrEmpty(Add_Publication_Format_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_Format_TextBox.Text) &
-                !string.IsNullOrEmpty(Add_Publication_Language_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_Language_TextBox.Text) &
-                !string.IsNullOrEmpty(Add_Publication_NumberOfCopies_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_NumberOfCopies_TextBox.Text) &
-                !string.IsNullOrEmpty(Add_Publication_NumberOfPages_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_NumberOfPages_TextBox.Text) &
-                !string.IsNullOrEmpty(Add_Publication_PublicationDate_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_PublicationDate_TextBox.Text) &
-                !string.IsNullOrEmpty(Add_Publication_DownloadLink_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_DownloadLink_TextBox.Text) &
-                 NewPublication_OpenImage.Source != null &
-                 PublisherTypesComboBox.SelectedItem != null & PublisherTypesComboBox.SelectedIndex != -1 &
-                !string.IsNullOrEmpty(Add_Publisher_Name_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publisher_Name_TextBox.Text) &
-                !string.IsNullOrEmpty(Add_Publisher_Address_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publisher_Address_TextBox.Text) &
-                !string.IsNullOrEmpty(Add_Publisher_Email_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publisher_Email_TextBox.Text)
-                ) return true;
-            else return false;
-        }
-        
-        // var d = new DataObject(DataFormats.Bitmap, NewPublication_OpenImage.Source, true).GetData("System.Drawing.Bitmap") as System.Drawing.Bitmap;
+            bool txt = false, chk = false, img = false;
+            foreach (TextBox child in FindVisualChildren<TextBox>(Grid_AddPublication))
+            {
+                if (!string.IsNullOrEmpty(child.Text) & !string.IsNullOrWhiteSpace(child.Text)) txt = true;                
+            }
+            foreach (ComboBox child in FindVisualChildren<ComboBox>(Grid_AddPublication))
+            {
+                if (child.SelectedItem != null & child.SelectedIndex != -1) chk = true;                 
+            }
+            foreach (Image child in FindVisualChildren<Image>(Grid_AddPublication))
+            {
+                if(child.Source != null) img = true;
+            }
 
+            if (txt & chk & img) return true;
+            else return false;
+
+            //if (!string.IsNullOrEmpty(Add_Publication_Name_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_Name_TextBox.Text) &
+            //    !string.IsNullOrEmpty(Add_Publication_ISSN_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_ISSN_TextBox.Text) &
+            //     Add_Publication_Genre_ComboBox.SelectedItem != null & Add_Publication_Genre_ComboBox.SelectedIndex != -1 & // ??
+            //    !string.IsNullOrEmpty(Add_Publication_Format_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_Format_TextBox.Text) &
+            //    Add_Publication_Language_ComboBox.SelectedItem != null & Add_Publication_Language_ComboBox.SelectedIndex != -1 &
+            //    !string.IsNullOrEmpty(Add_Publication_NumberOfCopies_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_NumberOfCopies_TextBox.Text) &
+            //    !string.IsNullOrEmpty(Add_Publication_NumberOfPages_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_NumberOfPages_TextBox.Text) &
+            //    !string.IsNullOrEmpty(Add_Publication_PublicationDate_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_PublicationDate_TextBox.Text) &
+            //    !string.IsNullOrEmpty(Add_Publication_DownloadLink_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_DownloadLink_TextBox.Text) &
+            //     NewPublication_OpenImage.Source != null &
+            //     PublisherTypesComboBox.SelectedItem != null & PublisherTypesComboBox.SelectedIndex != -1 &
+            //    !string.IsNullOrEmpty(Add_Publisher_Name_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publisher_Name_TextBox.Text) &
+            //    !string.IsNullOrEmpty(Add_Publisher_Address_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publisher_Address_TextBox.Text) &
+            //    !string.IsNullOrEmpty(Add_Publisher_Email_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publisher_Email_TextBox.Text)
+            //    )
+            //{                
+            //    return true;                
+            //}
+            //else return false;
+        }       
+
+        /// <summary>
+        /// Convert Image into byte[] for saving in DB.
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
         public byte[] ConvertImageToBinary(Image image)
         {
             byte[] data;
@@ -117,21 +148,76 @@ namespace Publishing
             return data;
         }
 
+        /// <summary>
+        /// Refresh PublisherTypesComboBox after new item was added to DB.
+        /// </summary>
+        public void OverridePublisherTypesComboboxRefresh()
+        {
+            ComboBoxViewModel cbmv = new ComboBoxViewModel();
+            cbmv.PublisherTypesComboboxRefresh();
+            PublisherTypesComboBox.ItemsSource = cbmv.PublisherTypesCollection;
+        }
+
+        #region PreviewTextInput Event TextBoxes
+        /// <summary>
+        /// Data Validation for textboxes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Add_Publication_ISSN_TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (e.Text != "-" && IsNumber(e.Text) == false) e.Handled = true;
+        }
+        private void Add_Publication_NumberOfCopies_TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (IsNumber(e.Text) == false) e.Handled = true;
+        }
+        private void Add_Publication_NumberOfPages_TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (IsNumber(e.Text) == false) e.Handled = true;
+        }
+        private void Add_Publication_PublicationDate_TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (e.Text != "." && e.Text != "/" && IsNumber(e.Text) == false) e.Handled = true;
+        }
+
+        /// <summary>
+        /// Check is string represents a number
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        private bool IsNumber(string text)
+        {
+            return int.TryParse(text, out int output);
+        }
+        #endregion
+
+        #region Save & Clear Buttons
         // Проверку на существование в БД издателей. Почему одинаковые издатели заносятся в БД??
         // Сделать выгрузку данных в поля (и картинку)
         // Кнопку очистки и снятия фокуса.
         private void Add_Publication_Save_Button_Click(object sender, RoutedEventArgs e)
         {
-            if(IsDataFieldsAreNotEmpty())
+            if(!IsDataFieldsAreNotEmpty())
             {
+                MessageBox.Show("All fields must be filled!", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {     
                 using (PublishingContext db = new PublishingContext())
                 {
-                    Publisher publisher = new Publisher
+                    Publisher publisher;
+                    if (PublisherTypesComboBox.SelectedItem.ToString() == "Create New Publisher")
                     {
-                        PublisherName = Add_Publisher_Name_TextBox.Text,
-                        Addres = Add_Publisher_Address_TextBox.Text,
-                        Email = Add_Publisher_Email_TextBox.Text
-                    };
+                        publisher = new Publisher
+                        {
+                            PublisherName = Add_Publisher_Name_TextBox.Text,
+                            Addres = Add_Publisher_Address_TextBox.Text,
+                            Email = Add_Publisher_Email_TextBox.Text
+                        };                        
+                    }
+                    else publisher = db.Publishers.FirstOrDefault(p => p.PublisherName == PublisherTypesComboBox.SelectedItem.ToString());
+
                     db.Publishers.Add(publisher);
                     db.SaveChanges();
 
@@ -140,7 +226,7 @@ namespace Publishing
                         PublicationName = Add_Publication_Name_TextBox.Text,
                         ISSN = Add_Publication_ISSN_TextBox.Text,
                         Genre = Add_Publication_Genre_ComboBox.SelectedValue.ToString(),
-                        Language = Add_Publication_Language_TextBox.Text,
+                        Language = Add_Publication_Language_ComboBox.SelectedValue.ToString(),
                         NumberOfCopies = Convert.ToInt32(Add_Publication_NumberOfCopies_TextBox.Text),
                         NumberOfPages = Convert.ToInt32(Add_Publication_NumberOfPages_TextBox.Text),
                         Format = Add_Publication_Format_TextBox.Text,
@@ -153,10 +239,59 @@ namespace Publishing
                     db.SaveChanges();
 
                     LoadBD();
+                    OverridePublisherTypesComboboxRefresh();
+                    Add_Publication_Clear_Button_Click(new object(), new RoutedEventArgs());
                     MessageBox.Show("You have been successfully saved new DB Item.", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }
+
+        private void Add_Publication_Clear_Button_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (TextBox child in FindVisualChildren<TextBox>(Grid_AddPublication))
+            {
+                child.Text = string.Empty;
+            }
+            foreach (ComboBox child in FindVisualChildren<ComboBox>(Grid_AddPublication))
+            {
+                child.SelectedIndex = -1;
+            }
+            foreach (Image child in FindVisualChildren<Image>(Grid_AddPublication))
+            {
+                child.Source = null;
+            }
+        }
+        #endregion
+
+        #region Find Control
+        /// <summary>
+        /// Helper function for searching all controls of the specified type.
+        /// </summary>
+        /// <typeparam name="T">Type of control.</typeparam>
+        /// <param name="depObj">Where to look for controls.</param>
+        /// <returns>Enumerable list of controls.</returns>
+        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                    {
+                        yield return childOfChild;
+                    }
+                }
+            }
+        }
+        #endregion
+
+
         #endregion
 
         #region MainWindow Window_Loaded
@@ -167,7 +302,7 @@ namespace Publishing
 
             VideoPlayerButtonsOnOff(0);
 
-            DataContext = new ComboBoxViewModel();
+            DataContext = new ComboBoxViewModel();            
         }
         #endregion
 
@@ -661,7 +796,11 @@ namespace Publishing
         private void PublisherTypesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var PublisherTypesComboBox = sender as ComboBox;
-            if (PublisherTypesComboBox.SelectedItem.ToString() == "Create New Publisher")
+            if(PublisherTypesComboBox.SelectedIndex == -1)
+            {   
+                PublisherTypesComboBox.SelectedIndex = -1;  // need for clear combobox
+            }
+            else if (PublisherTypesComboBox.SelectedItem.ToString() == "Create New Publisher")
             {
                 Add_Publisher_Name_TextBox.Clear();
                 Add_Publisher_Address_TextBox.Clear();
@@ -669,10 +808,14 @@ namespace Publishing
             }
             else
             {
-                Add_Publisher_Name_TextBox.Text = "McGraw - Hill Education";
-                Add_Publisher_Address_TextBox.Text = "Unated States of America, DC Washington, 123 6th St.Melbourne, FL 32904";
-                Add_Publisher_Email_TextBox.Text = "slavadonnikov@gmail.com";
-            }
+                using (PublishingContext db = new PublishingContext())
+                {                    
+                    Publisher publisher = db.Publishers.FirstOrDefault(p => p.PublisherName == PublisherTypesComboBox.SelectedItem.ToString());
+                    Add_Publisher_Name_TextBox.Text = publisher.PublisherName.ToString();
+                    Add_Publisher_Address_TextBox.Text = publisher.Addres.ToString();
+                    Add_Publisher_Email_TextBox.Text = publisher.Email.ToString(); ;
+                }
+            }            
         }
         #endregion
 
@@ -730,32 +873,12 @@ namespace Publishing
 
 
 
+
+
+
+
         #endregion
 
-
-
-        //-----------------------------------------------------------------------------------------------------
-        #region Test functional.
-        //private void Grid_MouseMouseLeftButtonDownDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    byte click_num = 0;
-
-        //    if (e.ClickCount == 1)
-        //    {
-        //        click_num++;
-        //    }
-        //    if (click_num > 2) click_num = 2;
-
-        //    switch (click_num)
-        //    {
-        //        case 1:
-        //            pic_stp_1.Visibility = Visibility.Visible;
-        //            break;
-        //        case 2:
-        //            pic_stp_1.Visibility = Visibility.Hidden;
-        //            break;
-        //    }
-        //}       
-        #endregion        
+        
     }
 }
