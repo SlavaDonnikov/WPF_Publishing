@@ -41,7 +41,7 @@
                             <materialDesign:PackIcon Kind="FilePdfBox" Foreground="White" Width="30" Height="30" Margin="8.5, 0, 0, 0"/>
                         </DockPanel>
                     </Border>
-                    
+
                     <Border Style="{StaticResource borderEdge}" >
                         <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 5" Width="260">
                             <Label Style="{DynamicResource MenuLabel}" Content="Media Player" MouseLeftButtonDown="Label_MouseLeftButtonDown_6" />
@@ -100,7 +100,12 @@
             <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Height="27"  VerticalAlignment="Bottom" HorizontalAlignment="Right">
                 <Label x:Name="ApplicationFullDate" Content="Saturday, March 31, 2018" Margin="0,0,10,0" FontFamily="Stencil" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Label x:Name="ApplicationRealTime" Content="00:00:00 AM" Margin="0,0,8,0" FontFamily="Stencil" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="27" Width="27" BorderBrush="{x:Null}" Background="{x:Null}" ToolTip="">
+                <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Height="27" Width="27" BorderBrush="{x:Null}" Background="{x:Null}">
+                    <Button.ToolTip>
+                        <ToolTip Content="About Application" Placement="Relative" Background="{x:Null}" Foreground="#283038"
+                                 HasDropShadow="False" HorizontalOffset="-85" VerticalOffset="-25"
+                                 FontFamily="Stencil" FontSize="10"/>
+                    </Button.ToolTip>
                     <materialDesign:PackIcon Kind="Information" Height="27" Width="27" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 </Button>
             </StackPanel>
@@ -379,7 +384,7 @@
                 <WPFPdfViewer:PdfViewer x:Name="pdfViewer" Grid.Row="0" Margin="250, 30, 30, 30"/>
 
                 <!-- <WebBrowser x:Name="WebBrowser" Grid.Row="0"/>-->
-                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Background="White">                    
+                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Background="White">
                     <Button x:Name="WebBrowserContentOpenButton" Content="Open" Style="{StaticResource MaterialDesignRaisedButton}" 
                             Margin="0,0,10,0" Foreground="#E4007C" FontFamily="Stencil" Height="32" Width="75"
                             BorderThickness="2" BorderBrush="White" Background="{x:Null}" 
@@ -395,7 +400,7 @@
                 </StackPanel>
             </Grid>
         </Grid>
-        
+
         <!-- MediaPlayerGrid -->
         <!--
         <GridViewColumn Width="180" Header="Status">
@@ -411,7 +416,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="40"/>
-                </Grid.RowDefinitions>               
+                </Grid.RowDefinitions>
 
                 <Button x:Name="VideoPlayer_Initiate_Button" Style="{StaticResource MaterialDesignRaisedButton}" 
                             BorderThickness="2" BorderBrush="White" Background="{x:Null}" Height="40" Width="70" 
@@ -428,8 +433,8 @@
                                       UnloadedBehavior="Manual"
                                       MediaOpened="VideoPlayer_MediaOpened"
                                       MediaEnded="VideoPlayer_MediaEnded" 
-                                      MediaFailed="VideoPlayer_MediaFailed"/>                        
-                    </Border> 
+                                      MediaFailed="VideoPlayer_MediaFailed"/>
+                    </Border>
                 </StackPanel>
 
                 <StackPanel x:Name="VideoPlayer_Slider_StackPanel" Panel.ZIndex="2" Grid.Row="1" Margin="3,-20,3,0" Style="{StaticResource SliderVisibilityOnOff}"
@@ -438,9 +443,9 @@
                             HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                             HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"                           
                             Style="{StaticResource MaterialDesignSlider}"                              
-                            Thumb.DragCompleted="VideoPlayer_Slider_DragCompleted"/>                    
+                            Thumb.DragCompleted="VideoPlayer_Slider_DragCompleted"/>
                 </StackPanel>
-                <StackPanel x:Name="VideoPlayerMenu_StackPanel" Grid.Row="1" Margin="0,5,0,0" Orientation="Horizontal"> 
+                <StackPanel x:Name="VideoPlayerMenu_StackPanel" Grid.Row="1" Margin="0,5,0,0" Orientation="Horizontal">
                     <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Button x:Name="VideoPlayer_LoadNewVideo_Button" Margin="0,0,0,0" Style="{StaticResource MaterialDesignRaisedButton}" 
                                 BorderThickness="2" BorderBrush="White" Background="{x:Null}" Height="35" Width="35" Padding="0"
@@ -468,7 +473,7 @@
                                 HorizontalAlignment="Center" VerticalAlignment="Center" Click="VideoPlayer_Play_Button_Click">
                             <DynamicResource ResourceKey="Play"/>
                         </Button>
-                        
+
                         <Button x:Name="VideoPlayer_Forward_Button" Margin="5,0,0,0" Style="{StaticResource MaterialDesignRaisedButton}" 
                                 BorderThickness="2" BorderBrush="White" Background="{x:Null}" Height="35" Width="60" 
                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
@@ -516,7 +521,7 @@
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
-                
+
             </Grid>
             <Grid Margin="860, 6, 5,50" >
                 <Border BorderThickness="3" BorderBrush="White">
@@ -550,7 +555,7 @@
                                         <Setter Property="FontSize" Value="14" />
                                         <Setter Property="FontFamily" Value="Stencil"/>
                                         <Setter Property="Foreground" Value="#FFEA002A"/>
-                                        <Setter Property="Padding" Value="0,5,0,0" />                                        
+                                        <Setter Property="Padding" Value="0,5,0,0" />
                                         <Setter Property="BorderThickness" Value="0,0,2,2"/>
                                         <Setter Property="BorderBrush" Value="White"/>
                                     </Style>
@@ -709,10 +714,58 @@
                         </StackPanel>
                     </StackPanel>
 
-                    <!-- DataGrid -->
-                    <StackPanel Margin="-48,-15,-5,0" Height="187">
-                        <DataGrid x:Name="Add_Page_DataGrid" Background="{x:Null}" Foreground="Black" Height="186" MaxHeight="186"
-                                  Style="{StaticResource MaterialDesignDataGrid}"  ItemsSource="{Binding}"
+                    <!-- Clear & Save Buttons Margin="0,-485,0,0 -->
+                    <!--   MaterialDesignRaisedButton, MaterialDesignRaisedLightButton, MaterialDesignRaisedDarkButton, 
+                    MaterialDesignRaisedAccentButton, MaterialDesignFlatButton, MaterialDesignFlatAccentButton, MaterialDesignToolButton,
+                    MaterialDesignToolForegroundButton, MaterialDesignFloatingActionMiniButton, MaterialDesignFloatingActionButton,
+                    MaterialDesignFloatingActionMiniLightButton, MaterialDesignFloatingActionMiniDarkButton, MaterialDesignFloatingActionMiniAccentButton
+                    MaterialDesignFloatingActionLightButton, MaterialDesignFloatingActionDarkButton, MaterialDesignFloatingActionAccentButton-->
+                    <StackPanel Orientation="Horizontal" Margin="0,139,0,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <!-- MaterialDesignFlatPrimaryToggleButton, MaterialDesignFlatToggleButton, MaterialDesignSwitchToggleButton, 
+                        MaterialDesignSwitchAccentToggleButton, MaterialDesignSwitchDarkToggleButton, MaterialDesignActionToggleButton,
+                        MaterialDesignActionAccentToggleButton -->
+                        <ToggleButton x:Name="TglBtn" Margin="0,0,455,0" Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"                    
+                          Foreground="#E4007C" Background="#6C6C6C" IsChecked="False" Height="35" Width="35">
+                            <ToggleButton.ToolTip>
+                                <ToolTip Content="Click to open DataGrid View" Placement="Relative" Background="{x:Null}" Foreground="#283038"
+                                 HasDropShadow="False" HorizontalOffset="-60" VerticalOffset="-25"
+                                 FontFamily="Stencil" FontSize="10"/>
+                            </ToggleButton.ToolTip>                            
+                            <materialDesign:PackIcon Kind="Menu" Height="21" Width="21" />
+                        </ToggleButton>
+                        <Button x:Name="Add_Publication_Clear_Button" Content="Clear" Margin="10,0,0,0" Width="55" Padding="0" Foreground="#E4007C" FontFamily="Stencil" BorderThickness="2" BorderBrush="#6C6C6C" 
+                                Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}" Click="Add_Publication_Clear_Button_Click" />
+                        <Button x:Name="Add_Publication_Save_Button" Content="Save" Margin="7,0,0,0" Width="55" Padding="0" Foreground="#E4007C" FontFamily="Stencil" BorderThickness="2" BorderBrush="#6C6C6C" 
+                                Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}" Click="Add_Publication_Save_Button_Click" />
+                    </StackPanel>
+
+                </StackPanel>
+            </Grid>
+
+            <!-- DataGrid Grid  |   Margin="5,0,3,40" was -->
+            <!-- Сделать датагрид невидимым и освободить пространство для элементов добавления?
+                 Добавить датагриду горизонтальную прокрутку и увеличить количество колонок?   -->
+            <Grid x:Name="DataGrid" Background="#F5F5F5" Margin="0,0,3,38" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsChecked,ElementName=TglBtn}" Value="True">
+                                <!--<Setter Property="Visibility" Value="Collapsed"/>-->
+                                <Setter Property="Height" Value="598"/>                                
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsChecked,ElementName=TglBtn}" Value="False">
+                                <!--<Setter Property="Visibility" Value="Visible"/>-->
+                                <Setter Property="Height" Value="160"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+
+                <!-- DataGrid Margin="-48,-15,-5,0" Height="186" MaxHeight="186"| StackPanel Height="187" was -->
+                <StackPanel Margin="0,0,0,0" Height="597">
+                    <DataGrid x:Name="Add_Page_DataGrid" Background="{x:Null}" Foreground="Black" Height="597" MaxHeight="597" Margin="0"
+                                  Style="{StaticResource MaterialDesignDataGrid}" ItemsSource="{Binding}"
                                   IsReadOnly="True"
                                   CanUserAddRows="False"                                 
                                   CanUserDeleteRows="False" 
@@ -722,59 +775,44 @@
                                   CanUserReorderColumns="False" 
                                   AutoGenerateColumns="False"
                                   VerticalScrollBarVisibility="Visible" 
-                                  HorizontalContentAlignment="Center" 
-                                  VerticalContentAlignment="Center">
-                            <DataGrid.Resources>
-                                <Style TargetType="{x:Type DataGridColumnHeader}">
-                                    <Setter Property="FontFamily" Value="Stencil"/>
-                                    <Setter Property="BorderThickness" Value="1 1 0 1"/>
-                                    <Setter Property="Height" Value="40"/>
-                                    <Setter Property="Foreground" Value="#E4007C"/>
-                                    <Setter Property="BorderBrush" Value="#6C6C6C"/>
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                                </Style>
-                            </DataGrid.Resources>
-                            <DataGrid.Columns>
-                                <materialDesign:MaterialDataGridTextColumn Header="Name" Width="1.5*" Binding="{Binding PublicationName}"/>
-                                <!--HeaderStyle="{StaticResource MaterialDesignDataGridColumnHeader}"-->
-                                <materialDesign:MaterialDataGridTextColumn Header="ISSN" Width="0.7*" Binding="{Binding ISSN}" />
-                                <materialDesign:MaterialDataGridTextColumn Header="Publisher" Width="1.5*" Binding="{Binding Publisher.PublisherName}"/>
-                                <materialDesign:MaterialDataGridTextColumn Header="Genre" Width="0.8*" Binding="{Binding Genre}"/>
-                                <materialDesign:MaterialDataGridTextColumn Header="Format" Width="0.8*" Binding="{Binding Format}"/>
-                                <materialDesign:MaterialDataGridTextColumn Header="Language" Width="0.6*" Binding="{Binding Language}"/>
-                                <materialDesign:MaterialDataGridTextColumn Header="Copies" Width="0.45*" Binding="{Binding NumberOfCopies}"/>
-                                <materialDesign:MaterialDataGridTextColumn Header="Pages" Width="0.45*" Binding="{Binding NumberOfPages}"/>
-                                <DataGridHyperlinkColumn Header="Download Link" Width="1.2*" Binding="{Binding DownloadLink}"/>
-                                <materialDesign:MaterialDataGridTextColumn Header="Publ. Date" Width="0.7*" Binding="{Binding PublicationDate}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </StackPanel>
-
-                    <!-- Clear & Save Buttons-->
-                    <!--   MaterialDesignRaisedButton, MaterialDesignRaisedLightButton, MaterialDesignRaisedDarkButton, 
-                    MaterialDesignRaisedAccentButton, MaterialDesignFlatButton, MaterialDesignFlatAccentButton, MaterialDesignToolButton,
-                    MaterialDesignToolForegroundButton, MaterialDesignFloatingActionMiniButton, MaterialDesignFloatingActionButton,
-                    MaterialDesignFloatingActionMiniLightButton, MaterialDesignFloatingActionMiniDarkButton, MaterialDesignFloatingActionMiniAccentButton
-                    MaterialDesignFloatingActionLightButton, MaterialDesignFloatingActionDarkButton, MaterialDesignFloatingActionAccentButton-->
-                    <StackPanel Orientation="Vertical" Margin="0,-480,0,0" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <Button x:Name="Add_Publication_Clear_Button" Content="Clear" Width="55" Padding="0" Foreground="#E4007C" FontFamily="Stencil" BorderThickness="2" BorderBrush="#6C6C6C" 
-                                Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}" Click="Add_Publication_Clear_Button_Click" />
-                        <Button x:Name="Add_Publication_Save_Button" Content="Save" Margin="0,5,0,0" Width="55" Padding="0" Foreground="#E4007C" FontFamily="Stencil" BorderThickness="2" BorderBrush="#6C6C6C" 
-                                Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}" Click="Add_Publication_Save_Button_Click" />
-                    </StackPanel>
-
+                                  HorizontalContentAlignment="Stretch" 
+                                  VerticalContentAlignment="Top"> 
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontFamily" Value="Stencil"/>
+                                <Setter Property="BorderThickness" Value="1 1 0 1"/>
+                                <Setter Property="Height" Value="40"/>
+                                <Setter Property="Foreground" Value="#E4007C"/>
+                                <Setter Property="BorderBrush" Value="#6C6C6C"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <materialDesign:MaterialDataGridTextColumn Header="Name" Width="1.5*" Binding="{Binding PublicationName}"/>
+                            <!--HeaderStyle="{StaticResource MaterialDesignDataGridColumnHeader}"-->
+                            <materialDesign:MaterialDataGridTextColumn Header="ISSN" Width="0.7*" Binding="{Binding ISSN}" />
+                            <materialDesign:MaterialDataGridTextColumn Header="Publisher" Width="1.5*" Binding="{Binding Publisher.PublisherName}"/>
+                            <materialDesign:MaterialDataGridTextColumn Header="Genre" Width="0.8*" Binding="{Binding Genre}"/>
+                            <materialDesign:MaterialDataGridTextColumn Header="Format" Width="0.8*" Binding="{Binding Format}"/>
+                            <materialDesign:MaterialDataGridTextColumn Header="Language" Width="0.6*" Binding="{Binding Language}"/>
+                            <materialDesign:MaterialDataGridTextColumn Header="Copies" Width="0.45*" Binding="{Binding NumberOfCopies}"/>
+                            <materialDesign:MaterialDataGridTextColumn Header="Pages" Width="0.45*" Binding="{Binding NumberOfPages}"/>
+                            <DataGridHyperlinkColumn Header="Download Link" Width="1.2*" Binding="{Binding DownloadLink}"/>
+                            <materialDesign:MaterialDataGridTextColumn Header="Publ. Date" Width="0.7*" Binding="{Binding PublicationDate}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </StackPanel>
             </Grid>
-
         </Grid>
 
         <!-- DeletePublicationGrid -->
         <Grid x:Name="Grid_DeletePublication" Grid.Row="0" Margin="42, 36, 0, 28" Background="#F5F5F5" Visibility="Collapsed">
-            
+
         </Grid>
-        
-        <!-- SearchInDB --><!-- Dont work Hint underline! -->
+
+        <!-- SearchInDB -->
+        <!-- Dont work Hint underline! -->
         <Grid x:Name="Grid_SearchInDB" Grid.Row="0" Margin="42, 36, 0, 28" Background="#F5F5F5" Visibility="Collapsed">
 
             <!-- Search (with hint) -->
@@ -845,10 +883,10 @@
             </StackPanel>
 
         </Grid>
-        
+
         <!-- SettingsGrid -->
         <Grid x:Name="Grid_Settings" Grid.Row="0" Margin="42, 36, 0, 28" Background="#F5F5F5" Visibility="Collapsed">
-            
+
         </Grid>
 
     </Grid>
