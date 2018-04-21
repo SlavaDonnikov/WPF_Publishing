@@ -11,20 +11,16 @@ namespace Publishing.EntityData
     {
         static PublishingContext()
         {
-            //Database.SetInitializer<PublishingHouseDB>(new CreateDatabaseIfNotExists<PublishingHouseDB>());
-            //Database.SetInitializer<SchoolDBContext>(new DropCreateDatabaseIfModelChanges<SchoolDBContext>());
-            //Database.SetInitializer<SchoolDBContext>(new DropCreateDatabaseAlways<SchoolDBContext>());
-            //Database.SetInitializer<SchoolDBContext>(new SchoolDBInitializer()); 
+            //Database.SetInitializer<PublishingContext>(new CreateDatabaseIfNotExists<PublishingContext>());
+            //Database.SetInitializer<PublishingContext>(new DropCreateDatabaseIfModelChanges<PublishingContext>());
+            //Database.SetInitializer<PublishingContext>(new DropCreateDatabaseAlways<PublishingContext>());
+            //Database.SetInitializer<PublishingContext>(new DBContextInitializer()); 
 
             Database.SetInitializer<PublishingContext>(new DBContextInitializer());
-            //Database.SetInitializer<PublishingContext>(new DropCreateDatabaseAlways<PublishingContext>());
         }
 
-        public PublishingContext() : base("PublishingHouseDB") // specify the database name
-        {
-
-        }
-
+        public PublishingContext() : base("PublishingHouseDB") { } // specify the database name
+        
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Publication> Publications { get; set; }
 

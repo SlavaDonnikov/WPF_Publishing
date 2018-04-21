@@ -68,7 +68,9 @@ namespace Publishing.EntityData
 
         [Column(TypeName = "DateTime2", Order = 12)]
         [Required]
-        public DateTime AddingInDBDate { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime AddedOrModifiedDate { get; set; }
+        //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]     // defaultValueSql: "GETDATE()"
 
         [Timestamp]
         [Column(Order = 13)]

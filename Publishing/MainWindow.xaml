@@ -770,7 +770,7 @@
         </Grid>
 
         <!-- DeletePublicationGrid -->
-        <Grid x:Name="Grid_DeletePublication" Grid.Row="0" Margin="42, 36, 0, 28" Background="#1E90FF" Visibility="Collapsed">
+        <Grid x:Name="Grid_DeletePublication" Grid.Row="0" Margin="42, 36, 0, 28" Background="#F5F5F5" Visibility="Collapsed">
             
         </Grid>
         

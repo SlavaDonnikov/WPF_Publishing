@@ -49,7 +49,18 @@ namespace Publishing
 
             LoadBD();           
         }
-        
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            GetFullDate();
+            GetRealTime();
+
+            VideoPlayerButtonsOnOff(0);
+            BlockUnblock_AddPublisherInfoFields(0);
+
+            DataContext = new ComboBoxViewModel();
+        }
+
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // Облегчить как нибудь закрытие приложения!
@@ -84,6 +95,16 @@ namespace Publishing
 
                 this.Closing += MainWindow_Closing;
             }           
+        }
+
+        /// <summary>
+        /// Refresh PublisherTypesComboBox after new item was added to DB.
+        /// </summary>
+        public void OverridePublisherTypesComboboxRefresh()
+        {
+            ComboBoxViewModel cbmv = new ComboBoxViewModel();
+            cbmv.PublisherTypesComboboxRefresh();
+            PublisherTypesComboBox.ItemsSource = cbmv.PublisherTypesCollection;
         }
 
         /// <summary>
@@ -131,6 +152,32 @@ namespace Publishing
         }       
 
         /// <summary>
+        /// Bolck & Unblock textboxes with information about publisher.
+        /// </summary>
+        /// <param name="x"></param>
+        public void BlockUnblock_AddPublisherInfoFields(int x)
+        {
+            switch(x)
+            {
+                case 0:
+                    {
+                        Add_Publisher_Name_TextBox.IsEnabled =
+                        Add_Publisher_Address_TextBox.IsEnabled =
+                        Add_Publisher_Email_TextBox.IsEnabled = false;
+                    }
+                    break;
+                case 1:
+                    {
+                        Add_Publisher_Name_TextBox.IsEnabled = 
+                        Add_Publisher_Address_TextBox.IsEnabled = 
+                        Add_Publisher_Email_TextBox.IsEnabled = true;
+                    }
+                    break;
+            }
+        }
+
+        #region Image Converting
+        /// <summary>
         /// Convert Image into byte[] for saving in DB.
         /// </summary>
         /// <param name="image"></param>
@@ -149,15 +196,32 @@ namespace Publishing
         }
 
         /// <summary>
-        /// Refresh PublisherTypesComboBox after new item was added to DB.
+        /// Convert byte[] into Image when retreaving from DB.
         /// </summary>
-        public void OverridePublisherTypesComboboxRefresh()
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static BitmapImage ConvertByteArrayToBitmapImage(Byte[] bytes)
         {
-            ComboBoxViewModel cbmv = new ComboBoxViewModel();
-            cbmv.PublisherTypesComboboxRefresh();
-            PublisherTypesComboBox.ItemsSource = cbmv.PublisherTypesCollection;
-        }
+            //var stream = new MemoryStream(bytes);
+            //stream.Seek(0, SeekOrigin.Begin);
+            //var image = new BitmapImage();
+            //image.BeginInit();
+            //image.StreamSource = stream;
+            //image.EndInit();
+            //return image;
 
+            var image = new BitmapImage();
+            using (MemoryStream ms = new MemoryStream(bytes))
+            {
+                ms.Seek(0, SeekOrigin.Begin);
+                image.BeginInit();
+                image.StreamSource = ms;
+                image.EndInit();
+            }
+            return image;
+        }
+        #endregion
+        
         #region PreviewTextInput Event TextBoxes
         /// <summary>
         /// Data Validation for textboxes
@@ -192,7 +256,7 @@ namespace Publishing
         }
         #endregion
 
-        #region Save & Clear Buttons
+        #region Save & Clear Buttons    _   AddPublicationGrid
         // Проверку на существование в БД издателей. Почему одинаковые издатели заносятся в БД??
         // Сделать выгрузку данных в поля (и картинку)
         // Кнопку очистки и снятия фокуса.
@@ -214,12 +278,18 @@ namespace Publishing
                             PublisherName = Add_Publisher_Name_TextBox.Text,
                             Addres = Add_Publisher_Address_TextBox.Text,
                             Email = Add_Publisher_Email_TextBox.Text
-                        };                        
+                        };
+                        db.Publishers.Add(publisher);
+                        db.SaveChanges();
                     }
-                    else publisher = db.Publishers.FirstOrDefault(p => p.PublisherName == PublisherTypesComboBox.SelectedItem.ToString());
+                    else
+                    {
+                        publisher = db.Publishers.FirstOrDefault(p => p.PublisherName == PublisherTypesComboBox.SelectedItem.ToString());
+                        db.Entry(publisher).State = EntityState.Modified;
+                    }
 
-                    db.Publishers.Add(publisher);
-                    db.SaveChanges();
+                    //db.Publishers.Add(publisher);
+                    //db.SaveChanges();
 
                     Publication publication = new Publication
                     {
@@ -236,6 +306,7 @@ namespace Publishing
                         Publisher = publisher
                     };
                     db.Publications.Add(publication);
+                    publisher.Publications.Add(publication);
                     db.SaveChanges();
 
                     LoadBD();
@@ -293,18 +364,7 @@ namespace Publishing
 
 
         #endregion
-
-        #region MainWindow Window_Loaded
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            GetFullDate();
-            GetRealTime();
-
-            VideoPlayerButtonsOnOff(0);
-
-            DataContext = new ComboBoxViewModel();            
-        }
-        #endregion
+               
 
         #region MainWindow ClearFocus();
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -802,6 +862,8 @@ namespace Publishing
             }
             else if (PublisherTypesComboBox.SelectedItem.ToString() == "Create New Publisher")
             {
+                BlockUnblock_AddPublisherInfoFields(1);
+
                 Add_Publisher_Name_TextBox.Clear();
                 Add_Publisher_Address_TextBox.Clear();
                 Add_Publisher_Email_TextBox.Clear();
@@ -813,7 +875,9 @@ namespace Publishing
                     Publisher publisher = db.Publishers.FirstOrDefault(p => p.PublisherName == PublisherTypesComboBox.SelectedItem.ToString());
                     Add_Publisher_Name_TextBox.Text = publisher.PublisherName.ToString();
                     Add_Publisher_Address_TextBox.Text = publisher.Addres.ToString();
-                    Add_Publisher_Email_TextBox.Text = publisher.Email.ToString(); ;
+                    Add_Publisher_Email_TextBox.Text = publisher.Email.ToString();
+
+                    BlockUnblock_AddPublisherInfoFields(0);                    
                 }
             }            
         }

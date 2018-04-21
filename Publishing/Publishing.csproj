@@ -103,9 +103,13 @@
     </ApplicationDefinition>
     <Compile Include="BinaryImageConverter.cs" />
     <Compile Include="EntityData\DBContextInitializer.cs" />
-    <Compile Include="Migrations\201804172103150_InitialCreate.cs" />
-    <Compile Include="Migrations\201804172103150_InitialCreate.Designer.cs">
-      <DependentUpon>201804172103150_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201804201643357_InitialCreate.cs" />
+    <Compile Include="Migrations\201804201643357_InitialCreate.Designer.cs">
+      <DependentUpon>201804201643357_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804201648315_[DatabaseGenerated%28DatabaseGeneratedOption.Computed%29].cs" />
+    <Compile Include="Migrations\201804201648315_[DatabaseGenerated%28DatabaseGeneratedOption.Computed%29].Designer.cs">
+      <DependentUpon>201804201648315_[DatabaseGenerated%28DatabaseGeneratedOption.Computed%29].cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Videos.cs" />
@@ -140,8 +144,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201804172103150_InitialCreate.resx">
-      <DependentUpon>201804172103150_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804201643357_InitialCreate.resx">
+      <DependentUpon>201804201643357_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804201648315_[DatabaseGenerated%28DatabaseGeneratedOption.Computed%29].resx">
+      <DependentUpon>201804201648315_[DatabaseGenerated%28DatabaseGeneratedOption.Computed%29].cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

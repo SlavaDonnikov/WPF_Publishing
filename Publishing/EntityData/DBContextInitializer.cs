@@ -56,7 +56,7 @@ namespace Publishing.EntityData
                 DownloadLink = "www.dropbox.com\\uoyjpior",
                 Cover = new byte[1],
                 PublicationDate = "16.04.2018",
-                Publisher = publisher1
+                Publisher = publisher1                
             };
 
             Publication publication3 = new Publication
