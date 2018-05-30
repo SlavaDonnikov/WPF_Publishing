@@ -55,7 +55,7 @@ namespace Publishing.EntityData
 
         [ForeignKey("Publisher")]
         [Column(Order = 9)]
-        public int? PublisherRefId { get; set; }
+        public int PublisherRefId { get; set; }
         public virtual Publisher Publisher { get; set; }    // навигационное свойство в составе внешнего ключа
 
         [Column(TypeName = "VARBINARY(MAX)", Order = 10)]   // Cover_Image

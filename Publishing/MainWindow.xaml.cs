@@ -22,6 +22,8 @@ using System.Windows.Media.Animation;
 using System.IO;
 using System.Data.Entity;
 using Publishing.EntityData;
+using System.Data;
+using System.Windows.Automation.Peers;
 
 namespace Publishing
 {
@@ -47,7 +49,7 @@ namespace Publishing
 
             Grid_HomePage.Visibility = Visibility.Visible;
 
-            LoadBD();           
+            LoadDB();           
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -76,17 +78,18 @@ namespace Publishing
         /// Load data from BD to DataGrid. 
         /// Also can be used as a DataGrid Refresh().
         /// </summary>
-        private void LoadBD()
+        private void LoadDB()
         {
             using (PublishingContext db = new PublishingContext())
             {
                 //var publications = db.Publications.ToList();  // lazy
                 //var publications = db.Publications.Include(p => p.Publisher).ToList();
                 // Add_Page_DataGrid.ItemsSource = db.Publications.Local.ToBindingList();
-                Add_Page_DataGrid.ItemsSource = null;
+                Add_Page_DataGrid.ItemsSource = Delete_Page_DataGrid.ItemsSource = null;                
                 try
                 {
-                    Add_Page_DataGrid.ItemsSource = db.Publications.Include(p => p.Publisher).ToList();
+                    Add_Page_DataGrid.ItemsSource = Delete_Page_DataGrid.ItemsSource = db.Publications.Include(p => p.Publisher).ToList();
+                    
                 }
                 catch (Exception ex)
                 {
@@ -200,28 +203,37 @@ namespace Publishing
         /// </summary>
         /// <param name="bytes"></param>
         /// <returns></returns>
-        public static BitmapImage ConvertByteArrayToBitmapImage(Byte[] bytes)
+        public static BitmapImage BitmapImageFromBytes(byte[] bytes)
         {
-            //var stream = new MemoryStream(bytes);
-            //stream.Seek(0, SeekOrigin.Begin);
-            //var image = new BitmapImage();
-            //image.BeginInit();
-            //image.StreamSource = stream;
-            //image.EndInit();
-            //return image;
-
-            var image = new BitmapImage();
-            using (MemoryStream ms = new MemoryStream(bytes))
+            BitmapImage image = null;
+            MemoryStream stream = null;
+            try
             {
-                ms.Seek(0, SeekOrigin.Begin);
+                stream = new MemoryStream(bytes);
+                stream.Seek(0, SeekOrigin.Begin);
+                System.Drawing.Image img = System.Drawing.Image.FromStream(stream);
+                image = new BitmapImage();
                 image.BeginInit();
+                MemoryStream ms = new MemoryStream();
+                img.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+                ms.Seek(0, SeekOrigin.Begin);
                 image.StreamSource = ms;
+                image.StreamSource.Seek(0, SeekOrigin.Begin);
                 image.EndInit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error in converting byte[] to image method - " + ex.Message + ", " + ex.Source);
+            }
+            finally
+            {
+                stream.Close();
+                stream.Dispose();
             }
             return image;
         }
         #endregion
-        
+
         #region PreviewTextInput Event TextBoxes
         /// <summary>
         /// Data Validation for textboxes
@@ -288,9 +300,6 @@ namespace Publishing
                         db.Entry(publisher).State = EntityState.Modified;
                     }
 
-                    //db.Publishers.Add(publisher);
-                    //db.SaveChanges();
-
                     Publication publication = new Publication
                     {
                         PublicationName = Add_Publication_Name_TextBox.Text,
@@ -309,7 +318,7 @@ namespace Publishing
                     publisher.Publications.Add(publication);
                     db.SaveChanges();
 
-                    LoadBD();
+                    LoadDB();
                     OverridePublisherTypesComboboxRefresh();
                     Add_Publication_Clear_Button_Click(new object(), new RoutedEventArgs());
                     MessageBox.Show("You have been successfully saved new DB Item.", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -331,6 +340,113 @@ namespace Publishing
             {
                 child.Source = null;
             }
+        }
+
+        private void Delete_Publication_Delete_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (Delete_Page_DataGrid.SelectedItem != null)
+            {
+                //Publisher publisher;
+                Publication publication;
+                using (PublishingContext db = new PublishingContext())
+                {
+                    int id = (Delete_Page_DataGrid.SelectedItem as Publication).PublicationId;
+                    //publication = (Publication)Delete_Page_DataGrid.SelectedItem;
+                    publication = db.Publications.Find(id);
+                    db.Publications.Remove(publication);
+                    db.SaveChanges();
+
+                    // System.NotSupportedException: 'Unable to create a constant value of type 'Publishing.EntityData.Publication'. Only primitive types or enumeration types are supported in this context.'
+                    //publisher = db.Publishers.FirstOrDefault(p => p.Publications == publication);    //publication.Publisher
+                    //db.Entry(publisher).State = EntityState.Modified;
+                    //publisher.Publications.Remove(publication);
+
+                    LoadDB();
+                }
+            }
+            else MessageBox.Show("No selected items!", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        // !!!!
+        public Publication Publication { get; set; }
+        private void Delete_Publication_Modify_Button_Click(object sender, RoutedEventArgs e)
+        {
+           //Publication publication;
+           if (Delete_Page_DataGrid.SelectedItem != null)
+           {
+                if (TglBtnDel.IsChecked == false)
+                {
+                    TglBtnDel.IsChecked = true;
+                    TglBtnDel.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                }
+                else
+                {
+                    TglBtnDel.IsChecked = false;
+                    TglBtnDel.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                }
+
+                
+                                             
+                if (Delete_Publication_Modify_Button.Content.ToString() == "Modify")                                            
+                {
+                    Delete_Publication_Modify_Button.Content = "Save";
+                                        
+                    using (PublishingContext db = new PublishingContext())
+                    {
+                        int id = (Delete_Page_DataGrid.SelectedItem as Publication).PublicationId;
+                        Publication = db.Publications.Find(id);
+                                                
+                        Delete_Publication_Name_TextBox.Text = Publication.PublicationName;
+                        Delete_Publication_ISSN_TextBox.Text = Publication.ISSN;
+                        Delete_Publication_Genre_ComboBox.SelectedValue = Publication.Genre;
+                        Delete_Publication_Language_ComboBox.SelectedValue = Publication.Language;
+                        Delete_Publication_NumberOfCopies_TextBox.Text = Publication.NumberOfCopies.ToString();
+                        Delete_Publication_NumberOfPages_TextBox.Text = Publication.NumberOfPages.ToString();
+                        Delete_Publication_Format_TextBox.Text = Publication.Format;
+                        Delete_Publication_DownloadLink_TextBox.Text = Publication.DownloadLink;
+                        Delete_PublisherTypesComboBox.SelectedValue = Publication.Publisher.PublisherName;
+                        DeletePublication_Image.Source = BitmapImageFromBytes(Publication.Cover);
+                        Delete_Publication_PublicationDate_TextBox.Text = Publication.PublicationDate;                        
+                    }
+                }                
+                else if (Delete_Publication_Modify_Button.Content.ToString() == "Save")                
+                {
+                    Delete_Publication_Modify_Button.Content = "Modify";
+
+                    Publisher publisher;   
+
+                    using (PublishingContext db = new PublishingContext())
+                    {
+                        publisher = db.Publishers.FirstOrDefault(p => p.PublisherName == Delete_PublisherTypesComboBox.SelectedItem.ToString());
+                        db.Entry(publisher).State = EntityState.Modified;
+
+                        int id = (Delete_Page_DataGrid.SelectedItem as Publication).PublicationId;
+                        Publication = db.Publications.Find(id);
+                        db.Entry(Publication).State = EntityState.Modified;
+
+                        // 30.05.18
+                        Publication.PublicationName = Delete_Publication_Name_TextBox.Text;
+                        Publication.ISSN = Delete_Publication_ISSN_TextBox.Text;
+                        Publication.Genre = Delete_Publication_Genre_ComboBox.SelectedValue.ToString();
+                        Publication.Language = Delete_Publication_Language_ComboBox.SelectedValue.ToString();
+                        Publication.NumberOfCopies = Convert.ToInt32(Delete_Publication_NumberOfCopies_TextBox.Text);
+                        Publication.NumberOfPages = Convert.ToInt32(Delete_Publication_NumberOfPages_TextBox.Text);
+                        Publication.Format = Delete_Publication_Format_TextBox.Text;
+                        Publication.DownloadLink = Delete_Publication_DownloadLink_TextBox.Text;
+                        Publication.Publisher = publisher;
+                        Publication.Cover = ConvertImageToBinary(DeletePublication_Image);
+                        Publication.PublicationDate = Delete_Publication_PublicationDate_TextBox.Text;
+                                                
+                        db.SaveChanges();
+                        
+                        LoadDB();
+                    }
+
+                    Publication = new Publication();
+                    publisher = new Publisher();
+                }
+           }
+           else MessageBox.Show("No selected items!", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         #endregion
 
@@ -838,7 +954,16 @@ namespace Publishing
             try
             {
                 if (openFileDialog.ShowDialog() == true)
-                    NewPublication_OpenImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+                {
+                    if(((Button)sender).Name == "OpenCoverImageButton")
+                    {
+                        NewPublication_OpenImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+                    }
+                    else if(((Button)sender).Name == "Modify_OpenCoverImageButton")
+                    {
+                        DeletePublication_Image.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+                    }
+                }                    
             }
             catch (Exception ex)
             {
@@ -927,6 +1052,10 @@ namespace Publishing
                 MessageBox.Show(ex.Message, ex.Source);
             }
         }
+
+
+
+
 
 
 

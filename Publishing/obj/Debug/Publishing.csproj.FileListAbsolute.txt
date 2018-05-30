@@ -78,6 +78,7 @@ G:\ТРПО\Publishing\Publishing\obj\Debug\Publishing.csproj.CoreCompileInputs.
 G:\ТРПО\Publishing\Publishing\obj\Debug\Publishing.exe
 G:\ТРПО\Publishing\Publishing\obj\Debug\Publishing.pdb
 G:\ТРПО\Publishing\Publishing\obj\Debug\Publishing.csprojResolveAssemblyReference.cache
-E:\ТРПО\Publishing\Publishing\obj\Debug\Publishing.csprojResolveAssemblyReference.cache
 E:\ТРПО\Publishing\Publishing\obj\Debug\Publishing.Migrations.InitialCreate.resources
 E:\ТРПО\Publishing\Publishing\obj\Debug\Publishing.Migrations.DatabaseGeneratedDatabaseGeneratedOptionComputed.resources
+E:\ТРПО\Publishing\Publishing\obj\Debug\Publishing.csprojResolveAssemblyReference.cache
+E:\ТРПО\Publishing\Publishing\obj\Debug\Publishing.Migrations.NotNullPublisherinPublication.resources

@@ -111,6 +111,10 @@
     <Compile Include="Migrations\201804201648315_[DatabaseGenerated%28DatabaseGeneratedOption.Computed%29].Designer.cs">
       <DependentUpon>201804201648315_[DatabaseGenerated%28DatabaseGeneratedOption.Computed%29].cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804231505136_NotNullPublisher in Publication.cs" />
+    <Compile Include="Migrations\201804231505136_NotNullPublisher in Publication.Designer.cs">
+      <DependentUpon>201804231505136_NotNullPublisher in Publication.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Videos.cs" />
     <Page Include="MainWindow.xaml">
@@ -149,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804201648315_[DatabaseGenerated%28DatabaseGeneratedOption.Computed%29].resx">
       <DependentUpon>201804201648315_[DatabaseGenerated%28DatabaseGeneratedOption.Computed%29].cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804231505136_NotNullPublisher in Publication.resx">
+      <DependentUpon>201804231505136_NotNullPublisher in Publication.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
