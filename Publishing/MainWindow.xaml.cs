@@ -35,7 +35,7 @@ namespace Publishing
         #region Global Variables
         private MediaPlayer ApplicationMusicTheme; // add application music theme, which plays all time  
         public delegate void DragSliderTimerTick();
-        public string LoadedItemName { get; set; }   
+        //public string LoadedItemName { get; set; }   
         #endregion
 
         #region MainWindow()
@@ -74,6 +74,7 @@ namespace Publishing
         #endregion
 
         #region DB
+
         /// <summary>
         /// Load data from BD to DataGrid. 
         /// Also can be used as a DataGrid Refresh().
@@ -185,7 +186,7 @@ namespace Publishing
         /// </summary>
         /// <param name="image"></param>
         /// <returns></returns>
-        public byte[] ConvertImageToBinary(Image image)
+        public static byte[] ConvertImageToBinary(Image image)
         {
             byte[] data;
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
@@ -204,7 +205,7 @@ namespace Publishing
         /// <param name="bytes"></param>
         /// <returns></returns>
         public static BitmapImage BitmapImageFromBytes(byte[] bytes)
-        {
+        {            
             BitmapImage image = null;
             MemoryStream stream = null;
             try
@@ -223,13 +224,13 @@ namespace Publishing
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error in converting byte[] to image method - " + ex.Message + ", " + ex.Source);
+                MessageBox.Show("'BitmapImageFromBytes(byte[] bytes)' method error: " + ex.Message + " or byte[] == null, " + ex.Source);
             }
             finally
             {
                 stream.Close();
                 stream.Dispose();
-            }
+            }            
             return image;
         }
         #endregion
@@ -268,10 +269,9 @@ namespace Publishing
         }
         #endregion
 
-        #region Save & Clear Buttons    _   AddPublicationGrid
-        // Проверку на существование в БД издателей. Почему одинаковые издатели заносятся в БД??
-        // Сделать выгрузку данных в поля (и картинку)
-        // Кнопку очистки и снятия фокуса.
+        #region Save & Clear Buttons _ AddPublicationGrid | Save, Clear, Delete, Modify Buttons _ DeletePublicationGrid
+        // Проверку на существование в БД издателей. Почему одинаковые издатели заносятся в БД??        
+       
         private void Add_Publication_Save_Button_Click(object sender, RoutedEventArgs e)
         {
             if(!IsDataFieldsAreNotEmpty())
@@ -342,6 +342,34 @@ namespace Publishing
             }
         }
 
+        private void Delete_Publication_Clear_Button_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (TextBox child in FindVisualChildren<TextBox>(Grid_Modify_Publication))
+            {
+                child.Text = string.Empty;
+            }
+            foreach (ComboBox child in FindVisualChildren<ComboBox>(Grid_Modify_Publication))
+            {
+                child.SelectedIndex = -1;
+            }
+            foreach (Image child in FindVisualChildren<Image>(Grid_Modify_Publication))
+            {
+                child.Source = null;
+            }
+        }
+
+        private void Delete_Publication_Cancel_Button_Click(object sender, RoutedEventArgs e)
+        {
+            TglBtnDel.IsChecked = false;
+            TglBtnDel.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            Delete_Publication_Modify_Button.Content = "Modify";
+            Delete_Publication_Delete_Button.IsEnabled = true;
+
+            Delete_Publication_Cancel_Button.Visibility = Visibility.Collapsed;
+            Delete_Publication_Cancel_Button.IsEnabled = false;
+        }
+
+        // удалять ли запись об удаленной publication в соответствующем ей publisher?
         private void Delete_Publication_Delete_Button_Click(object sender, RoutedEventArgs e)
         {
             if (Delete_Page_DataGrid.SelectedItem != null)
@@ -366,12 +394,10 @@ namespace Publishing
             }
             else MessageBox.Show("No selected items!", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-
-        // !!!!
+                
         public Publication Publication { get; set; }
         private void Delete_Publication_Modify_Button_Click(object sender, RoutedEventArgs e)
-        {
-           //Publication publication;
+        {           
            if (Delete_Page_DataGrid.SelectedItem != null)
            {
                 if (TglBtnDel.IsChecked == false)
@@ -384,13 +410,15 @@ namespace Publishing
                     TglBtnDel.IsChecked = false;
                     TglBtnDel.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 }
-
-                
-                                             
+                                                             
                 if (Delete_Publication_Modify_Button.Content.ToString() == "Modify")                                            
                 {
                     Delete_Publication_Modify_Button.Content = "Save";
-                                        
+                    Delete_Publication_Delete_Button.IsEnabled = false;
+
+                    Delete_Publication_Cancel_Button.Visibility = Visibility.Visible;
+                    Delete_Publication_Cancel_Button.IsEnabled = true;
+
                     using (PublishingContext db = new PublishingContext())
                     {
                         int id = (Delete_Page_DataGrid.SelectedItem as Publication).PublicationId;
@@ -412,6 +440,10 @@ namespace Publishing
                 else if (Delete_Publication_Modify_Button.Content.ToString() == "Save")                
                 {
                     Delete_Publication_Modify_Button.Content = "Modify";
+                    Delete_Publication_Delete_Button.IsEnabled = true;
+
+                    Delete_Publication_Cancel_Button.Visibility = Visibility.Collapsed;
+                    Delete_Publication_Cancel_Button.IsEnabled = false;
 
                     Publisher publisher;   
 
@@ -423,8 +455,7 @@ namespace Publishing
                         int id = (Delete_Page_DataGrid.SelectedItem as Publication).PublicationId;
                         Publication = db.Publications.Find(id);
                         db.Entry(Publication).State = EntityState.Modified;
-
-                        // 30.05.18
+                                                
                         Publication.PublicationName = Delete_Publication_Name_TextBox.Text;
                         Publication.ISSN = Delete_Publication_ISSN_TextBox.Text;
                         Publication.Genre = Delete_Publication_Genre_ComboBox.SelectedValue.ToString();
@@ -478,9 +509,22 @@ namespace Publishing
         }
         #endregion
 
+        #region Home page grid, Retrieve images from DB records
+
+        // Очистка информации о публикации на главной странице. Пока не используется(данные заданы абсолютно)
+        private void HomePage_Clear_Publication_Description()
+        {
+            foreach (TextBlock child in FindVisualChildren<TextBlock>(Grid_Journal_Information))
+            {
+                child.Text = string.Empty;
+            }            
+        }
 
         #endregion
-               
+
+
+        // --->
+        #endregion
 
         #region MainWindow ClearFocus();
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -571,8 +615,7 @@ namespace Publishing
         #endregion
 
         #region VideoPlayer
-        //<--
-
+        
         private void VideoPlayerButtonsOnOff(int x)       // Main Set Method
         {
             switch (x)
@@ -704,8 +747,8 @@ namespace Publishing
                     VideoPlayer.Play();
 
                     //------------------------------------------------------------  For ListView
-                    FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
-                    LoadedItemName = fileInfo.Name;
+                    //FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
+                    //LoadedItemName = fileInfo.Name;
                 }
                 catch (Exception ex)
                 {
@@ -713,7 +756,7 @@ namespace Publishing
                 }                
             }
             //------------------------- For ListView
-            AddNewVideoInListView();
+            //AddNewVideoInListView();
         }
 
         private void VideoPlayer_Play_Button_Click(object sender, RoutedEventArgs e)
@@ -824,31 +867,31 @@ namespace Publishing
         }
         #endregion
 
-        //WTF???
+        // Is i need this? 
         #region Video ListView 
-        public void AddNewVideoInListView()
-        {
-            string duration = "";
+        //public void AddNewVideoInListView()
+        //{
+        //    string duration = "";
 
-            if (VideoPlayer.Source != null)
-            {
-                if (VideoPlayer.NaturalDuration.HasTimeSpan)
-                    duration = String.Format($"{VideoPlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss")}");                
-            }
-            //Videos V = new Videos();
-            //V.NewVideoName = LoadedItemName;
-            //V.NewVideoDuration = duration;
-            //VideoList.Items.Add(V);
-            //MessageBox.Show(V.NewVideoDuration);
+        //    if (VideoPlayer.Source != null)
+        //    {
+        //        if (VideoPlayer.NaturalDuration.HasTimeSpan)
+        //            duration = String.Format($"{VideoPlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss")}");                
+        //    }
+        //    //Videos V = new Videos();
+        //    //V.NewVideoName = LoadedItemName;
+        //    //V.NewVideoDuration = duration;
+        //    //VideoList.Items.Add(V);
+        //    //MessageBox.Show(V.NewVideoDuration);
 
-            VideoList.Items.Add(new Videos(LoadedItemName, duration));
-        }  
+        //    VideoList.Items.Add(new Videos(LoadedItemName, duration));
+        //}  
         #endregion
 
-        //-->
+        
         #endregion
 
-        #region "Power" button (close application)_Click Event.
+        #region "Power" button (close application) click event.
         /// <summary>
         /// Upper grid with "Close" & "Maximaze" buttons, "Close" button click logic
         /// </summary>
@@ -860,7 +903,7 @@ namespace Publishing
         }
         #endregion
 
-        #region Volume Off/On Buttons Click
+        #region Application Volume Off/On Buttons Click
         private void ApplicationVolumeOffOnButton_Click(object sender, RoutedEventArgs e)
         {
             if (ApplicationVolumeOffOnButton.Content == FindResource("ApplicationVolumeOn"))
@@ -892,7 +935,7 @@ namespace Publishing
         }
         #endregion
 
-        #region Sliding menu labels_Click Event.
+        #region Sliding programm main menu labels, click events.
         private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             InvisibleGrids();
@@ -943,7 +986,7 @@ namespace Publishing
         }
         #endregion
 
-        #region Open cover image button_Click Event, "Add Publication" menu page, "Grid_AddPublication" grid.
+        #region Open cover image button click events: 'Add Publication' menu page 'Grid_AddPublication' grid _ & _ 'Modify_publication'menu page 'Grid_Modify_Publication' grid .
         private void OpenCoverImageButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
@@ -1052,6 +1095,8 @@ namespace Publishing
                 MessageBox.Show(ex.Message, ex.Source);
             }
         }
+
+
 
 
 

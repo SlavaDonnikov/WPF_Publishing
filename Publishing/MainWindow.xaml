@@ -121,7 +121,7 @@
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
         <!-- HomePageGrid-->
-        <Grid x:Name="Grid_HomePage" Grid.Row="0" Margin="42, 36, 0, 28" Visibility="Collapsed">
+        <Grid x:Name="Grid_HomePage" Grid.Row="0" Margin="42, 36, 0, 28" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="817*"/>
                 <ColumnDefinition Width="322*"/>
@@ -165,7 +165,7 @@
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
                             </Grid.Effect>
-                            <Image Source="Resources/ns1.jpg" Stretch="Fill"/>
+                            <Image x:Name="home_image_1" Source="Resources/ns1.jpg" Stretch="Fill"/>
                             <StackPanel Panel.ZIndex="2"   Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
                                 <StackPanel Orientation="Horizontal" Margin="0, 127, 0, 0" Height="30" VerticalAlignment="Center" >
                                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="47,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
@@ -185,7 +185,7 @@
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
                             </Grid.Effect>
-                            <Image Source="Resources/ns2.jpg" Stretch="Fill"/>
+                            <Image x:Name="home_image_2" Source="Resources/ns2.jpg" Stretch="Fill"/>
                             <StackPanel Panel.ZIndex="2" Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
                                 <StackPanel Orientation="Horizontal" Margin="0, 127, 0, 0" Height="30" HorizontalAlignment="Stretch">
                                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="47,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
@@ -205,7 +205,7 @@
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
                             </Grid.Effect>
-                            <Image Source="Resources/ns3.jpg" Stretch="Fill"/>
+                            <Image x:Name="home_image_3" Source="Resources/ns3.jpg" Stretch="Fill"/>
                             <StackPanel Panel.ZIndex="2" Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
                                 <StackPanel Orientation="Horizontal" Margin="0, 127, 0, 0" Height="30" HorizontalAlignment="Stretch">
                                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="47,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
@@ -225,7 +225,7 @@
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
                             </Grid.Effect>
-                            <Image Source="Resources/ns4.jpg" Stretch="Fill"/>
+                            <Image x:Name="home_image_4" Source="Resources/ns4.jpg" Stretch="Fill"/>
                             <StackPanel Panel.ZIndex="2" Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
                                 <StackPanel Orientation="Horizontal" Margin="0, 127, 0, 0" Height="30" HorizontalAlignment="Stretch">
                                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="47,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
@@ -245,7 +245,7 @@
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
                             </Grid.Effect>
-                            <Image Source="Resources/ns5.jpg" Stretch="Fill"/>
+                            <Image x:Name="home_image_5" Source="Resources/ns5.jpg" Stretch="Fill"/>
                             <StackPanel Panel.ZIndex="2" Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
                                 <StackPanel Orientation="Horizontal" Margin="0, 127, 0, 0" Height="30" HorizontalAlignment="Stretch">
                                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="47,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
@@ -265,7 +265,7 @@
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" Color="#FF6E7A85"/>
                             </Grid.Effect>
-                            <Image Source="Resources/ns6.jpg" Stretch="Fill"/>
+                            <Image x:Name="home_image_6" Source="Resources/ns6.jpg" Stretch="Fill"/>
                             <StackPanel Panel.ZIndex="2" Background="#FF6E7A85" Style="{StaticResource Pic_Panel_Visibility}">
                                 <StackPanel Orientation="Horizontal" Margin="0, 127, 0, 0" Height="30" HorizontalAlignment="Stretch">
                                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Margin="47,0,7,0" Height="30" Width="30" BorderBrush="{x:Null}" Background="{x:Null}">
@@ -286,7 +286,7 @@
             </Grid>
 
             <!-- Info about select Publication & Publisher-->
-            <Grid Grid.Column="1">
+            <Grid x:Name="Grid_Journal_Information" Grid.Column="1">
 
                 <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <StackPanel Margin="0,8" Height="23" Orientation="Horizontal" HorizontalAlignment="Center">
@@ -298,19 +298,19 @@
                     <!-- Publication name -->
                     <StackPanel Margin="0" Height="50" Orientation="Horizontal">
                         <Label Content="Name" Style="{StaticResource InfoLabel}"/>
-                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="naked science"/></TextBlock>
+                        <TextBlock x:Name="Home_Grid_Description_Name_TextBlock" Style="{StaticResource InfoTxtBlock_Font}"><Run Text="naked science"/></TextBlock>
                     </StackPanel>
 
                     <!-- Genre -->
                     <StackPanel Height="50" Orientation="Horizontal">
                         <Label Content="Genre" Style="{StaticResource InfoLabel}"/>
-                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="science"/></TextBlock>
+                        <TextBlock x:Name="Home_Grid_Description_Genre_TextBlock" Style="{StaticResource InfoTxtBlock_Font}"><Run Text="science"/></TextBlock>
                     </StackPanel>
 
                     <!-- Publisher -->
                     <StackPanel Height="50" Orientation="Horizontal">
                         <Label Content="Publisher" Style="{StaticResource InfoLabel}"/>
-                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="LTD Mirror"/></TextBlock>
+                        <TextBlock x:Name="Home_Grid_Description_Publisher_TextBlock" Style="{StaticResource InfoTxtBlock_Font}"><Run Text="LTD Mirror"/></TextBlock>
                     </StackPanel>
 
                     <!-- Тираж Number of copies -->
@@ -319,7 +319,7 @@
                             <Label  Content="Number of" Style="{StaticResource InfoLabel}"/>
                             <Label Content="copies" Style="{StaticResource InfoLabel}"/>
                         </StackPanel>
-                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="4000"/></TextBlock>
+                        <TextBlock x:Name="Home_Grid_Description_NumberOfCopies_TextBlock" Style="{StaticResource InfoTxtBlock_Font}"><Run Text="4000"/></TextBlock>
                     </StackPanel>
 
                     <!-- Number of pages -->
@@ -328,13 +328,13 @@
                             <Label Content="Number of" Style="{StaticResource InfoLabel}"/>
                             <Label Content="pages" Style="{StaticResource InfoLabel}"/>
                         </StackPanel>
-                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="150"/></TextBlock>
+                        <TextBlock x:Name="Home_Grid_Description_NumberOfPages_TextBlock" Style="{StaticResource InfoTxtBlock_Font}"><Run Text="150"/></TextBlock>
                     </StackPanel>
 
                     <!-- Format -->
                     <StackPanel Height="50" Orientation="Horizontal">
                         <Label Content="Format" Style="{StaticResource InfoLabel}"/>
-                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="B5 150 x 40"/></TextBlock>
+                        <TextBlock x:Name="Home_Grid_Description_Format_TextBlock" Style="{StaticResource InfoTxtBlock_Font}"><Run Text="B5 150 x 40"/></TextBlock>
                     </StackPanel>
 
                     <!-- Publication language -->
@@ -343,13 +343,13 @@
                             <Label Content="Publication" Style="{StaticResource InfoLabel}"/>
                             <Label Content="language" Style="{StaticResource InfoLabel}"/>
                         </StackPanel>
-                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="Russian" /></TextBlock>
+                        <TextBlock x:Name="Home_Grid_Description_Language_TextBlock" Style="{StaticResource InfoTxtBlock_Font}"><Run Text="Russian" /></TextBlock>
                     </StackPanel>
 
                     <!-- ISSN -->
                     <StackPanel Height="50" Orientation="Horizontal">
                         <Label Content="ISSN" Style="{StaticResource InfoLabel}"/>
-                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="0135--5417"/></TextBlock>
+                        <TextBlock x:Name="Home_Grid_Description_ISSN_TextBlock" Style="{StaticResource InfoTxtBlock_Font}"><Run Text="0135--5417"/></TextBlock>
                     </StackPanel>
 
                     <!-- Publication date -->
@@ -358,14 +358,14 @@
                             <Label Content="Publication" Style="{StaticResource InfoLabel}"/>
                             <Label Content="date" Style="{StaticResource InfoLabel}"/>
                         </StackPanel>
-                        <TextBlock Style="{StaticResource InfoTxtBlock_Font}"><Run Text="02.03.18"/></TextBlock>
+                        <TextBlock x:Name="Home_Grid_Description_PublicationDate_TextBlock" Style="{StaticResource InfoTxtBlock_Font}"><Run Text="02.03.18"/></TextBlock>
                     </StackPanel>
 
                     <!-- Information about Publishing House -->
                     <StackPanel Margin="0,2" Orientation="Vertical" >
                         <Line Margin="0, 6" Stroke="Black" Height="1" StrokeThickness="3" X1="0" Y1="0" X2="320"/>
                         <Label Content="About publishing house" Margin="0" Padding="1" Width="270" FontSize="21" Style="{StaticResource InfoLabel}"/>
-                        <TextBlock Margin="0, 5, 0, 5" Width="300" Height="32" TextWrapping="Wrap" Style="{StaticResource InfoTxtBlock_Font}">
+                        <TextBlock x:Name="Home_Grid_Description_AboutPublisher_TextBlock" Margin="0, 5, 0, 5" Width="300" Height="32" TextWrapping="Wrap" Style="{StaticResource InfoTxtBlock_Font}">
                             <Run Text="Unated States of America, DC Washington, 123 6th St.Melbourne, FL 32904" FontSize="13" />
                         </TextBlock>
                     </StackPanel>
@@ -401,18 +401,9 @@
             </Grid>
         </Grid>
 
-        <!-- MediaPlayerGrid -->
-        <!--
-        <GridViewColumn Width="180" Header="Status">
-            <GridViewColumn.CellTemplate>
-                <DataTemplate>
-                    <TextBlock x:Name="Txt" Text="{Binding Status}" Foreground="Yellow" />
-                </DataTemplate>
-            </GridViewColumn.CellTemplate>
-        </GridViewColumn>
-        -->
+        <!-- MediaPlayerGrid -->        
         <Grid x:Name="Grid_MediaPlayer" Grid.Row="0" Margin="42, 36, 0, 28" Background="#F5F5F5" Visibility="Collapsed">
-            <Grid Margin="5, 5, 300, 10">
+            <Grid Margin="200, 5, 100, 10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="40"/>
@@ -523,7 +514,8 @@
                 </StackPanel>
 
             </Grid>
-            <Grid Margin="860, 6, 5,50" >
+            
+            <!--<Grid Margin="860, 6, 5,50" >
                 <Border BorderThickness="3" BorderBrush="White">
                     <ListView x:Name="VideoList">
                         <ListView.ItemContainerStyle>
@@ -562,12 +554,12 @@
                                 </GridView.ColumnHeaderContainerStyle>
                                 <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding NewVideoName}" />
                                 <GridViewColumn Header="Duration" Width="100" DisplayMemberBinding="{Binding NewVideoDuration}" />
-                                <!--HeaderTemplate="{StaticResource DurationColHeader}"-->
+                                --><!--HeaderTemplate="{StaticResource DurationColHeader}"--><!--
                             </GridView>
                         </ListView.View>
                     </ListView>
                 </Border>
-            </Grid>
+            </Grid>-->
         </Grid>
 
         <!-- AddPublicationGrid -->
@@ -806,8 +798,8 @@
             </Grid>
         </Grid>
 
-        <!-- DeletePublicationGrid -->
-        <Grid x:Name="Grid_DeletePublication" Grid.Row="0" Margin="42, 36, 0, 28" Background="#F5F5F5" Visibility="Visible">
+        <!-- Delete_or_Modify_Publication_Grid -->
+        <Grid x:Name="Grid_DeletePublication" Grid.Row="0" Margin="42, 36, 0, 28" Background="#F5F5F5" Visibility="Collapsed">
             <!-- DataGrid -->
             <StackPanel Height="595" VerticalAlignment="Top">
                 <DataGrid x:Name="Delete_Page_DataGrid" Padding="0" Margin="00" Background="{x:Null}" Foreground="Black" Height="595" MaxHeight="595"
@@ -854,7 +846,7 @@
             <StackPanel VerticalAlignment="Bottom">
                 <StackPanel Orientation="Horizontal" Margin="0,90,0,0" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <ToggleButton x:Name="TglBtnDel" Margin="0,0,405,0" Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"                    
-                          Foreground="#E4007C" Background="#6C6C6C" IsChecked="False" Height="35" Width="35">
+                          Foreground="#E4007C" Background="#6C6C6C" IsChecked="False" Height="35" Width="35" Visibility="Collapsed">
                         <ToggleButton.ToolTip>
                             <ToolTip Content="Click to open modifying menu" Placement="Relative" Background="{x:Null}" Foreground="#283038"
                                  HasDropShadow="False" HorizontalOffset="-60" VerticalOffset="-25"
@@ -862,7 +854,9 @@
                         </ToggleButton.ToolTip>
                         <materialDesign:PackIcon Kind="Menu" Height="21" Width="21" />
                     </ToggleButton>
-                    <Button x:Name="Delete_Publication_Modify_Button" Content="Modify" Margin="10,0,0,0" Width="65" Padding="0" Foreground="#E4007C" FontFamily="Stencil" BorderThickness="2" BorderBrush="#6C6C6C" 
+                    <Button x:Name="Delete_Publication_Cancel_Button" Content="Cancel" Margin="0,0,0,0" Width="65" Padding="0" Foreground="#E4007C" FontFamily="Stencil" BorderThickness="2" BorderBrush="#6C6C6C" 
+                                Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}" Visibility="Collapsed" IsEnabled="False" Click="Delete_Publication_Cancel_Button_Click"  />
+                    <Button x:Name="Delete_Publication_Modify_Button" Content="Modify" Margin="7,0,0,0" Width="65" Padding="0" Foreground="#E4007C" FontFamily="Stencil" BorderThickness="2" BorderBrush="#6C6C6C" 
                                 Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}" Click="Delete_Publication_Modify_Button_Click" />
                     <Button x:Name="Delete_Publication_Delete_Button" Content="Delete" Margin="7,0,20,0" Width="65" Padding="0" Foreground="#E4007C" FontFamily="Stencil" BorderThickness="2" BorderBrush="#6C6C6C" 
                                 Background="{x:Null}" Style="{StaticResource MaterialDesignRaisedButton}" Click="Delete_Publication_Delete_Button_Click" />
@@ -870,16 +864,16 @@
             </StackPanel>
 
             <!-- Modify Grid-->
-            <Grid Background="#F5F5F5" Margin="0,0,0,38">
+            <Grid x:Name="Grid_Modify_Publication" Background="#F5F5F5" Margin="0,0,0,38">
                 <Grid.Style>
-                    <Style TargetType="Grid">                       
+                    <Style TargetType="Grid">
                         <Setter Property="HorizontalAlignment" Value="Stretch"/>
                         <Setter Property="VerticalAlignment" Value="Bottom"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsChecked,ElementName=TglBtnDel}" Value="True">   
+                            <DataTrigger Binding="{Binding IsChecked,ElementName=TglBtnDel}" Value="True">
                                 <Setter Property="Height" Value="598"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding IsChecked,ElementName=TglBtnDel}" Value="False"> 
+                            <DataTrigger Binding="{Binding IsChecked,ElementName=TglBtnDel}" Value="False">
                                 <Setter Property="Height" Value="0"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -887,8 +881,8 @@
                 </Grid.Style>
 
                 <!-- Publication modifying fields -->
-                <StackPanel  Orientation="Horizontal" Margin="0,00,0,0">
-                    
+                <StackPanel  Orientation="Horizontal" Margin="0,0,0,0">
+
                     <!-- Fields -->
                     <StackPanel Margin="20,10,10,0" Width="405" HorizontalAlignment="Left">
                         <StackPanel Height="50" Orientation="Horizontal">
@@ -986,8 +980,22 @@
                         <Border Margin="2" Height="512" BorderThickness="1" BorderBrush="#6C6C6C">
                             <Image x:Name="DeletePublication_Image" Stretch="Fill" Margin="0" />
                         </Border>
-                    </StackPanel> 
-                    
+                    </StackPanel>
+
+                    <!-- Clear Fields when modifying record -->
+                    <StackPanel Height="35" Width="35" Margin="-364, 558,0,0" >
+                        <Button x:Name="Delete_Publication_Clear_Button" Height="35" Width="35" 
+                                    Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                    Style="{StaticResource MaterialDesignRaisedButton}" Padding="0" Click="Delete_Publication_Clear_Button_Click">
+                            <materialDesign:PackIcon Kind="CloseOutline" Foreground="#6C6C6C" Height="30" Width="30" />
+                            <Button.ToolTip>                                
+                                <ToolTip Content="Clear fields." Placement="Relative" Background="{x:Null}"
+                                 HasDropShadow="True" HorizontalOffset="40" VerticalOffset="3" Foreground="#6C6C6C"
+                                 FontFamily="Stencil" FontSize="9"/>                               
+                            </Button.ToolTip>
+                        </Button>
+                    </StackPanel>
+
                 </StackPanel>
             </Grid>
         </Grid>
