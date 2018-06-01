@@ -73,13 +73,15 @@ namespace Publishing
         }
         #endregion
 
-        #region DB
+        #region DB        
+        public BitmapImage[] Home_page_images { get; set; } //= new BitmapImage[6];
 
-        /// <summary>
-        /// Load data from BD to DataGrid. 
-        /// Also can be used as a DataGrid Refresh().
-        /// </summary>
-        private void LoadDB()
+
+		/// <summary>
+		/// Load data from BD to DataGrid. 
+		/// Also can be used as a DataGrid Refresh().
+		/// </summary>
+		private void LoadDB()
         {
             using (PublishingContext db = new PublishingContext())
             {
@@ -90,9 +92,26 @@ namespace Publishing
                 try
                 {
                     Add_Page_DataGrid.ItemsSource = Delete_Page_DataGrid.ItemsSource = db.Publications.Include(p => p.Publisher).ToList();
-                    
-                }
-                catch (Exception ex)
+
+                    // вывод первых 6ти обложек из БД на главную страницу.
+                    List<Publication> publications = db.Publications.Include(p => p.Publisher).ToList();
+					Home_page_images = new BitmapImage[6];
+					
+					for (int i = 0; i < 6; i++)
+                    {
+                        if(publications.Count > i)
+                        {
+                            Home_page_images[i] = BitmapImageFromBytes(publications[i].Cover);
+                        } 
+                        else
+                        {
+                            Home_page_images[i] = BitmapImageFromBytes(ConvertImageToBinary(GetImageFromResources("no.png")));
+                        }
+                    }					
+
+					UpdateHomePageImageSource();
+				}
+				catch (Exception ex)
                 {
                     MessageBox.Show("DB loading error : " + ex.Message + ", " + ex.Source);
                 }
@@ -101,10 +120,19 @@ namespace Publishing
             }           
         }
 
-        /// <summary>
-        /// Refresh PublisherTypesComboBox after new item was added to DB.
-        /// </summary>
-        public void OverridePublisherTypesComboboxRefresh()
+		public void UpdateHomePageImageSource()
+		{   // получили все Image Controll, расположенные на гриде Images_Grid_HomePage (6 штук)		
+			Image[] images = FindVisualChildren<Image>(Images_Grid_HomePage).ToArray();
+			for (int i = 0; i < 6; i++)
+			{   // помещаем в них изображения записей из БД			
+				images.ElementAt(i).Source = Home_page_images[i];
+			}
+		}
+
+		/// <summary>
+		/// Refresh PublisherTypesComboBox after new item was added to DB.
+		/// </summary>
+		public void OverridePublisherTypesComboboxRefresh()
         {
             ComboBoxViewModel cbmv = new ComboBoxViewModel();
             cbmv.PublisherTypesComboboxRefresh();
@@ -116,43 +144,27 @@ namespace Publishing
         /// </summary>
         /// <returns></returns>
         public bool IsDataFieldsAreNotEmpty()
-        {
-            bool txt = false, chk = false, img = false;
-            foreach (TextBox child in FindVisualChildren<TextBox>(Grid_AddPublication))
-            {
-                if (!string.IsNullOrEmpty(child.Text) & !string.IsNullOrWhiteSpace(child.Text)) txt = true;                
-            }
-            foreach (ComboBox child in FindVisualChildren<ComboBox>(Grid_AddPublication))
-            {
-                if (child.SelectedItem != null & child.SelectedIndex != -1) chk = true;                 
-            }
-            foreach (Image child in FindVisualChildren<Image>(Grid_AddPublication))
-            {
-                if(child.Source != null) img = true;
-            }
-
-            if (txt & chk & img) return true;
-            else return false;
-
-            //if (!string.IsNullOrEmpty(Add_Publication_Name_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_Name_TextBox.Text) &
-            //    !string.IsNullOrEmpty(Add_Publication_ISSN_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_ISSN_TextBox.Text) &
-            //     Add_Publication_Genre_ComboBox.SelectedItem != null & Add_Publication_Genre_ComboBox.SelectedIndex != -1 & // ??
-            //    !string.IsNullOrEmpty(Add_Publication_Format_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_Format_TextBox.Text) &
-            //    Add_Publication_Language_ComboBox.SelectedItem != null & Add_Publication_Language_ComboBox.SelectedIndex != -1 &
-            //    !string.IsNullOrEmpty(Add_Publication_NumberOfCopies_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_NumberOfCopies_TextBox.Text) &
-            //    !string.IsNullOrEmpty(Add_Publication_NumberOfPages_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_NumberOfPages_TextBox.Text) &
-            //    !string.IsNullOrEmpty(Add_Publication_PublicationDate_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_PublicationDate_TextBox.Text) &
-            //    !string.IsNullOrEmpty(Add_Publication_DownloadLink_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publication_DownloadLink_TextBox.Text) &
-            //     NewPublication_OpenImage.Source != null &
-            //     PublisherTypesComboBox.SelectedItem != null & PublisherTypesComboBox.SelectedIndex != -1 &
-            //    !string.IsNullOrEmpty(Add_Publisher_Name_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publisher_Name_TextBox.Text) &
-            //    !string.IsNullOrEmpty(Add_Publisher_Address_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publisher_Address_TextBox.Text) &
-            //    !string.IsNullOrEmpty(Add_Publisher_Email_TextBox.Text) & !string.IsNullOrWhiteSpace(Add_Publisher_Email_TextBox.Text)
-            //    )
-            //{                
-            //    return true;                
-            //}
-            //else return false;
+        {			
+			List<bool> txt = new List<bool>(10);
+			List<bool> chk = new List<bool>(3);
+			List<bool> img = new List<bool>(1);
+			//txt.ForEach(i => i = false);
+			
+			foreach (TextBox child in FindVisualChildren<TextBox>(Grid_AddPublication))
+			{
+				if (!string.IsNullOrEmpty(child.Text) & !string.IsNullOrWhiteSpace(child.Text)) txt.Add(true);
+			}
+			foreach (ComboBox child in FindVisualChildren<ComboBox>(Grid_AddPublication))
+			{
+				if (child.SelectedItem != null & child.SelectedIndex != -1) chk.Add(true);
+			}
+			foreach (Image child in FindVisualChildren<Image>(Grid_AddPublication))
+			{
+				if (child.Source != null) img.Add(true);
+			}
+			
+			if ( (txt.Any(a => a == true) & txt.Count == 10) & (chk.Any(a => a == true) & chk.Count == 3) & (img.Any(a => a == true) & img.Count == 1)) return true;
+            else return false;            
         }       
 
         /// <summary>
@@ -231,6 +243,21 @@ namespace Publishing
                 stream.Close();
                 stream.Dispose();
             }            
+            return image;
+        }
+
+        /// <summary>
+        /// Convert image from resources into System.Windows.Controls.Image
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static System.Windows.Controls.Image GetImageFromResources(string name)
+        {
+            System.Windows.Controls.Image image = new System.Windows.Controls.Image();
+            Uri uri = new Uri("pack://application:,,,/Resources/" + name, UriKind.RelativeOrAbsolute);
+            ImageSource imgSource = new BitmapImage(uri);
+            image.Source = imgSource;
+
             return image;
         }
         #endregion

@@ -12,17 +12,6 @@ namespace Publishing.EntityData
 {    
     class DBContextInitializer : DropCreateDatabaseAlways<PublishingContext>
     {   
-        private System.Windows.Controls.Image getImageFromResources(string name)
-        {
-            // Uri uri = new Uri("pack://application:,,,/Resources/no.png", UriKind.RelativeOrAbsolute);
-            System.Windows.Controls.Image image = new System.Windows.Controls.Image();
-            Uri uri = new Uri("pack://application:,,,/Resources/" + name, UriKind.RelativeOrAbsolute);
-            ImageSource imgSource = new BitmapImage(uri);
-            image.Source = imgSource;
-
-            return image;
-        }
-
         protected override void Seed(PublishingContext db)
         {
             Publisher publisher1 = new Publisher
@@ -58,13 +47,7 @@ namespace Publishing.EntityData
             db.Publishers.Add(publisher3);
             db.Publishers.Add(publisher4);
             db.SaveChanges();
-
-            // Use 'empty' image
-            //System.Windows.Controls.Image image = new System.Windows.Controls.Image(); 
-            //Uri uri = new Uri("pack://application:,,,/Resources/no.png", UriKind.RelativeOrAbsolute);
-            //ImageSource imgSource = new BitmapImage(uri);
-            //image.Source = imgSource;            
-
+                  
             Publication publication1 = new Publication
             {
                 PublicationName = "В поисках \"Братьев по разуму\"",
@@ -75,7 +58,7 @@ namespace Publishing.EntityData
                 NumberOfPages = 189,
                 Format = "B5 26 x 18 cm",
                 DownloadLink = "www.dropbox.com\\unknown",
-                Cover = MainWindow.ConvertImageToBinary(getImageFromResources("ns1.jpg")),
+                Cover = MainWindow.ConvertImageToBinary(MainWindow.GetImageFromResources("ns1.jpg")),
                 PublicationDate = "16.04.2018",
                 Publisher = publisher3
             };
@@ -90,7 +73,7 @@ namespace Publishing.EntityData
                 NumberOfPages = 172,
                 Format = "B5 26 x 18 cm",
                 DownloadLink = "www.dropbox.com\\unknown",
-                Cover = MainWindow.ConvertImageToBinary(getImageFromResources("ns2.jpg")),
+                Cover = MainWindow.ConvertImageToBinary(MainWindow.GetImageFromResources("ns2.jpg")),
                 PublicationDate = "16.04.2018",
                 Publisher = publisher3                
             };
@@ -105,14 +88,14 @@ namespace Publishing.EntityData
                 NumberOfPages = 58,
                 Format = "B5 26 x 18 cm",
                 DownloadLink = "www.dropbox.com\\unknown",
-                Cover = MainWindow.ConvertImageToBinary(getImageFromResources("ns3.jpg")),
+                Cover = MainWindow.ConvertImageToBinary(MainWindow.GetImageFromResources("ns3.jpg")),
                 PublicationDate = "16.04.2018",
                 Publisher = publisher3
             };
 
             Publication publication4 = new Publication
             {
-                PublicationName = "Миссия а Алфе Центавра",
+                PublicationName = "Миссия к Алфе Центавра",
                 ISSN = "0143-1798",
                 Genre = "Sci-Fi",
                 Language = "English",
@@ -120,7 +103,7 @@ namespace Publishing.EntityData
                 NumberOfPages = 72,
                 Format = "B5 26 x 18 cm",
                 DownloadLink = "www.dropbox.com\\unknown",
-                Cover = MainWindow.ConvertImageToBinary(getImageFromResources("ns4.jpg")),
+                Cover = MainWindow.ConvertImageToBinary(MainWindow.GetImageFromResources("ns4.jpg")),
                 PublicationDate = "16.04.2018",
                 Publisher = publisher4
             };
@@ -135,7 +118,7 @@ namespace Publishing.EntityData
                 NumberOfPages = 60,
                 Format = "B5 26 x 18 cm",
                 DownloadLink = "www.dropbox.com\\unknown",
-                Cover = MainWindow.ConvertImageToBinary(getImageFromResources("ns5.jpg")),
+                Cover = MainWindow.ConvertImageToBinary(MainWindow.GetImageFromResources("ns5.jpg")),
                 PublicationDate = "16.04.2018",
                 Publisher = publisher4
             };
@@ -150,7 +133,7 @@ namespace Publishing.EntityData
                 NumberOfPages = 48,
                 Format = "B5 26 x 18 cm",
                 DownloadLink = "www.dropbox.com\\unknown",
-                Cover = MainWindow.ConvertImageToBinary(getImageFromResources("ns6.jpg")),
+                Cover = MainWindow.ConvertImageToBinary(MainWindow.GetImageFromResources("ns6.jpg")),
                 PublicationDate = "16.04.2018",
                 Publisher = publisher4
             };
