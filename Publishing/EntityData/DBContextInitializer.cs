@@ -50,13 +50,13 @@ namespace Publishing.EntityData
                   
             Publication publication1 = new Publication
             {
-                PublicationName = "В поисках \"Братьев по разуму\"",
+                PublicationName = "In search of \"Brothers in mind \"",
                 ISSN = "1794-0857",
                 Genre = "Science",
                 Language = "Russian",
                 NumberOfCopies = 100,
                 NumberOfPages = 189,
-                Format = "B5 26 x 18 cm",
+                Format = "A4 210 × 297",
                 DownloadLink = "www.dropbox.com\\unknown",
                 Cover = MainWindow.ConvertImageToBinary(MainWindow.GetImageFromResources("ns1.jpg")),
                 PublicationDate = "16.04.2018",
@@ -65,76 +65,76 @@ namespace Publishing.EntityData
 
             Publication publication2 = new Publication
             {
-                PublicationName = "Жизнь после войны",
+                PublicationName = "Life after the war",
                 ISSN = "9987-1534",
                 Genre = "Science",
                 Language = "Russian",
                 NumberOfCopies = 50,
                 NumberOfPages = 172,
-                Format = "B5 26 x 18 cm",
+                Format = "B5 176 × 250",
                 DownloadLink = "www.dropbox.com\\unknown",
                 Cover = MainWindow.ConvertImageToBinary(MainWindow.GetImageFromResources("ns2.jpg")),
-                PublicationDate = "16.04.2018",
+                PublicationDate = "19.05.2018",
                 Publisher = publisher3                
             };
 
             Publication publication3 = new Publication
             {
-                PublicationName = "Миры под красным солнцем",
+                PublicationName = "Worlds under the red sun",
                 ISSN = "1167-1913",
                 Genre = "Sci-Fi",
                 Language = "Russian",
                 NumberOfCopies = 200,
                 NumberOfPages = 58,
-                Format = "B5 26 x 18 cm",
+                Format = "B6 125 × 176",
                 DownloadLink = "www.dropbox.com\\unknown",
                 Cover = MainWindow.ConvertImageToBinary(MainWindow.GetImageFromResources("ns3.jpg")),
-                PublicationDate = "16.04.2018",
+                PublicationDate = "23.05.2018",
                 Publisher = publisher3
             };
 
             Publication publication4 = new Publication
             {
-                PublicationName = "Миссия к Алфе Центавра",
+                PublicationName = "Mission to Alpha Centauri",
                 ISSN = "0143-1798",
                 Genre = "Sci-Fi",
                 Language = "English",
                 NumberOfCopies = 300,
                 NumberOfPages = 72,
-                Format = "B5 26 x 18 cm",
+                Format = "A5 148 × 210",
                 DownloadLink = "www.dropbox.com\\unknown",
                 Cover = MainWindow.ConvertImageToBinary(MainWindow.GetImageFromResources("ns4.jpg")),
-                PublicationDate = "16.04.2018",
+                PublicationDate = "17.04.2018",
                 Publisher = publisher4
             };
 
             Publication publication5 = new Publication
             {
-                PublicationName = "Смерть цивилизации: Возможные сценарии",
-                ISSN = "0143-1798",
+                PublicationName = "Death of civilization: Possible scenarios",
+                ISSN = "9550-1110",
                 Genre = "Sci-Fi",
                 Language = "English",
                 NumberOfCopies = 170,
                 NumberOfPages = 60,
-                Format = "B5 26 x 18 cm",
+                Format = "C6 114 × 162",
                 DownloadLink = "www.dropbox.com\\unknown",
                 Cover = MainWindow.ConvertImageToBinary(MainWindow.GetImageFromResources("ns5.jpg")),
-                PublicationDate = "16.04.2018",
+                PublicationDate = "28.03.2018",
                 Publisher = publisher4
             };
 
             Publication publication6 = new Publication
             {
-                PublicationName = "Рейтинг колонизации: лучшии земли",
-                ISSN = "0143-1798",
+                PublicationName = "The colonization rate: the best lands",
+                ISSN = "7319-2018",
                 Genre = "Sci-Fi",
                 Language = "English",
                 NumberOfCopies = 140,
                 NumberOfPages = 48,
-                Format = "B5 26 x 18 cm",
+                Format = "B5 176 × 250",
                 DownloadLink = "www.dropbox.com\\unknown",
                 Cover = MainWindow.ConvertImageToBinary(MainWindow.GetImageFromResources("ns6.jpg")),
-                PublicationDate = "16.04.2018",
+                PublicationDate = "30.05.2018",
                 Publisher = publisher4
             };
 

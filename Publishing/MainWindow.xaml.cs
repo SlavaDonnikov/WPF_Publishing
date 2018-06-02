@@ -24,6 +24,8 @@ using System.Data.Entity;
 using Publishing.EntityData;
 using System.Data;
 using System.Windows.Automation.Peers;
+using System.Reflection;
+using System.ComponentModel;
 
 namespace Publishing
 {
@@ -73,21 +75,23 @@ namespace Publishing
         }
         #endregion
 
-        #region DB        
-        public BitmapImage[] Home_page_images { get; set; } //= new BitmapImage[6];
-
+        #region DB, load and update methods        
+        public BitmapImage[] Home_page_images { get; set; } 
+		public int[] Uids { get; set; }
 
 		/// <summary>
-		/// Load data from BD to DataGrid. 
-		/// Also can be used as a DataGrid Refresh().
+		/// Load data from BD to DataGrids (x2), Home Page Images and 
+		/// other parts of applications which depends at DB records information. 
+		/// Also can be used as a Refresh().
 		/// </summary>
 		private void LoadDB()
         {
             using (PublishingContext db = new PublishingContext())
             {
-                //var publications = db.Publications.ToList();  // lazy
-                //var publications = db.Publications.Include(p => p.Publisher).ToList();
+                // var publications = db.Publications.ToList();  // lazy
+                // var publications = db.Publications.Include(p => p.Publisher).ToList();
                 // Add_Page_DataGrid.ItemsSource = db.Publications.Local.ToBindingList();
+
                 Add_Page_DataGrid.ItemsSource = Delete_Page_DataGrid.ItemsSource = null;                
                 try
                 {
@@ -96,20 +100,24 @@ namespace Publishing
                     // вывод первых 6ти обложек из БД на главную страницу.
                     List<Publication> publications = db.Publications.Include(p => p.Publisher).ToList();
 					Home_page_images = new BitmapImage[6];
-					
+					Uids = new int[6];
+
+
 					for (int i = 0; i < 6; i++)
                     {
                         if(publications.Count > i)
                         {
                             Home_page_images[i] = BitmapImageFromBytes(publications[i].Cover);
-                        } 
+							Uids[i] = publications[i].PublicationId;
+						} 
                         else
                         {
                             Home_page_images[i] = BitmapImageFromBytes(ConvertImageToBinary(GetImageFromResources("no.png")));
-                        }
-                    }					
+							Uids[i] = -999;
+						}
+                    }
 
-					UpdateHomePageImageSource();
+					Update_HomePageImage_Source();
 				}
 				catch (Exception ex)
                 {
@@ -120,19 +128,123 @@ namespace Publishing
             }           
         }
 
-		public void UpdateHomePageImageSource()
-		{   // получили все Image Controll, расположенные на гриде Images_Grid_HomePage (6 штук)		
+		/// <summary>
+		/// Fill in Home Page Grid Image Controlls with DB record pictures when application loads.
+		/// Linking images with the IDs of the corresponding records
+		/// </summary>
+		private void Update_HomePageImage_Source()
+		{			
+			// получили все Image Controll, расположенные на гриде Images_Grid_HomePage (6 штук)		
 			Image[] images = FindVisualChildren<Image>(Images_Grid_HomePage).ToArray();
 			for (int i = 0; i < 6; i++)
-			{   // помещаем в них изображения записей из БД			
-				images.ElementAt(i).Source = Home_page_images[i];
+			{   		
+				images.ElementAt(i).Source = Home_page_images[i];   // помещаем в них изображения записей из БД	
+				images.ElementAt(i).Uid = Uids[i].ToString();       // помечаем Uid как Id записи БД, имеющей данное изображение	
 			}
 		}
 
 		/// <summary>
+		/// Displaying information about the database record click on its cover at Home Page
+		/// </summary>
+		/// <param name="image_uid"></param>
+		private void Show_Record_Information_WhenClickAtItsCover(int image_uid)
+        {
+			if(image_uid == -999)
+			{
+				Home_Grid_Description_Name_TextBlock.Text = "";
+				Home_Grid_Description_Genre_TextBlock.Text = "";
+				Home_Grid_Description_Publisher_TextBlock.Text = "";
+				Home_Grid_Description_NumberOfCopies_TextBlock.Text = "";
+				Home_Grid_Description_NumberOfPages_TextBlock.Text = "";
+				Home_Grid_Description_Format_TextBlock.Text = "";
+				Home_Grid_Description_Language_TextBlock.Text = "";
+				Home_Grid_Description_ISSN_TextBlock.Text = "";
+				Home_Grid_Description_PublicationDate_TextBlock.Text = "";
+				Home_Grid_Description_AboutPublisher_TextBlock.Text = "";
+			}
+			else
+			{
+				using (PublishingContext db = new PublishingContext())
+				{
+					List<Publication> publications = db.Publications.Include(p => p.Publisher).ToList();
+					try
+					{
+						//Publication[] publication = publications.Where(p => p.Cover == home_page_image).Take(1).ToArray();
+						Publication publication = publications.Where(p => p.PublicationId == image_uid).Take(1).ToArray()[0];
+						if (publication != null)
+						{
+							Home_Grid_Description_Name_TextBlock.Text = publication.PublicationName;
+							Home_Grid_Description_Genre_TextBlock.Text = publication.Genre.ToString();
+							Home_Grid_Description_Publisher_TextBlock.Text = publication.Publisher.PublisherName;
+							Home_Grid_Description_NumberOfCopies_TextBlock.Text = publication.NumberOfCopies.ToString();
+							Home_Grid_Description_NumberOfPages_TextBlock.Text = publication.NumberOfPages.ToString();
+							Home_Grid_Description_Format_TextBlock.Text = publication.Format;
+							Home_Grid_Description_Language_TextBlock.Text = publication.Language.ToString();
+							Home_Grid_Description_ISSN_TextBlock.Text = publication.ISSN;
+							Home_Grid_Description_PublicationDate_TextBlock.Text = publication.PublicationDate;
+							Home_Grid_Description_AboutPublisher_TextBlock.Text = publication.Publisher.Addres + "\n" + publication.Publisher.Email;
+						}
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show("Loading information from DB when click at image at home page error : " + ex.Message + ", " + ex.Source);
+					}
+				}
+			}            
+        }
+
+		#region Home Page Picture Grids _ MouseLeftButtonClick
+		private void Grid_home_image_1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{			
+			//IEnumerable<Image> collection = grid_home_image_1.Children.OfType<Image>();
+			//Image[] imagesControlls = collection.ToArray();
+			//Image img = imagesControlls[0];
+			Image img = grid_home_image_1.Children.OfType<Image>().ToArray()[0];
+			int img_Uid = Convert.ToInt32(img.Uid);
+									
+			Show_Record_Information_WhenClickAtItsCover(img_Uid);
+		}
+		private void Grid_home_image_2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			Image img = grid_home_image_2.Children.OfType<Image>().ToArray()[0];
+			int img_Uid = Convert.ToInt32(img.Uid);
+			
+			Show_Record_Information_WhenClickAtItsCover(img_Uid);
+		}
+		private void Grid_home_image_3_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			Image img = grid_home_image_3.Children.OfType<Image>().ToArray()[0];
+			int img_Uid = Convert.ToInt32(img.Uid);
+
+			Show_Record_Information_WhenClickAtItsCover(img_Uid);
+		}
+		private void Grid_home_image_4_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			Image img = grid_home_image_4.Children.OfType<Image>().ToArray()[0];
+			int img_Uid = Convert.ToInt32(img.Uid);
+
+			Show_Record_Information_WhenClickAtItsCover(img_Uid);
+		}
+		private void Grid_home_image_5_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			Image img = grid_home_image_5.Children.OfType<Image>().ToArray()[0];
+			int img_Uid = Convert.ToInt32(img.Uid);
+
+			Show_Record_Information_WhenClickAtItsCover(img_Uid);
+		}
+		private void Grid_home_image_6_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			Image img = grid_home_image_6.Children.OfType<Image>().ToArray()[0];
+			int img_Uid = Convert.ToInt32(img.Uid);
+
+			Show_Record_Information_WhenClickAtItsCover(img_Uid);
+		}
+		#endregion
+
+		/// <summary>
 		/// Refresh PublisherTypesComboBox after new item was added to DB.
 		/// </summary>
-		public void OverridePublisherTypesComboboxRefresh()
+		private void OverridePublisherTypesComboboxRefresh()
         {
             ComboBoxViewModel cbmv = new ComboBoxViewModel();
             cbmv.PublisherTypesComboboxRefresh();
@@ -143,7 +255,7 @@ namespace Publishing
         /// Check is all fields filled before save data in DB.
         /// </summary>
         /// <returns></returns>
-        public bool IsDataFieldsAreNotEmpty()
+        private bool IsDataFieldsAreNotEmpty()
         {			
 			List<bool> txt = new List<bool>(10);
 			List<bool> chk = new List<bool>(3);
@@ -171,7 +283,7 @@ namespace Publishing
         /// Bolck & Unblock textboxes with information about publisher.
         /// </summary>
         /// <param name="x"></param>
-        public void BlockUnblock_AddPublisherInfoFields(int x)
+        private void BlockUnblock_AddPublisherInfoFields(int x)
         {
             switch(x)
             {
@@ -553,14 +665,19 @@ namespace Publishing
         // --->
         #endregion
 
-        #region MainWindow ClearFocus();
+        #region MainWindow ClearFocus()
+		/// <summary>
+		/// Clear focus when press at empty space
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>		
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Keyboard.ClearFocus();
         }
         #endregion
 
-        #region MainWindow DragMove();
+        #region MainWindow DragMove()
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -641,7 +758,7 @@ namespace Publishing
         }
         #endregion
 
-        #region VideoPlayer
+        #region VideoPlayer 
         
         private void VideoPlayerButtonsOnOff(int x)       // Main Set Method
         {
@@ -918,7 +1035,7 @@ namespace Publishing
         
         #endregion
 
-        #region "Power" button (close application) click event.
+        #region "Power" button (close application) click event
         /// <summary>
         /// Upper grid with "Close" & "Maximaze" buttons, "Close" button click logic
         /// </summary>
@@ -946,7 +1063,7 @@ namespace Publishing
         }        
         #endregion
 
-        #region Hide all grids ();
+        #region Hide all grids()
         /// <summary>
         /// All grids Visibility = Visibility.Hidden;
         /// </summary>
@@ -962,7 +1079,7 @@ namespace Publishing
         }
         #endregion
 
-        #region Sliding programm main menu labels, click events.
+        #region Sliding programm main menu labels, click events
         private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             InvisibleGrids();
@@ -1042,7 +1159,7 @@ namespace Publishing
         }
         #endregion
 
-        #region Change publisher combobox, "Add Publication" menu page, "Grid_AddPublication" grid.
+        #region Change publisher combobox, "Add Publication" menu page, "Grid_AddPublication" grid
         /// <summary>
         /// At "Add Publication" menu page, "Grid_AddPublication" grid, publisher changing combobox logic.
         /// </summary>
@@ -1078,7 +1195,7 @@ namespace Publishing
         }
         #endregion
 
-        #region "Open" & "Clear" button_Click Event, "View PDF File" menu page, "Grid_PDFView" grid.
+        #region "Open" & "Clear" button_Click Event, "View PDF File" menu page, "Grid_PDFView" grid
         /// <summary>
         /// At "View PDF File" menu page, "Grid_PDFView" grid, "Open" button event.
         /// Open pdf-file using OpenFileDialog. Filter - Pdf Files.
@@ -1124,26 +1241,8 @@ namespace Publishing
         }
 
 
+		#endregion
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        #endregion
-
-        
-    }
+		
+	}
 }
